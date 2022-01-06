@@ -82,7 +82,6 @@ async def detect_nsfw(_, message):
         return
     await message.reply_text(
         f"""
-**NSFW Image Detected & Deleted Successfully!
 ————————————————————————**
 **User:** {message.from_user.mention} [`{message.from_user.id}`]
 **Safe:** `{results.neutral} %`
@@ -91,7 +90,6 @@ async def detect_nsfw(_, message):
 **Hentai:** `{results.hentai} %`
 **Drawings:** `{results.drawings} %`
 **————————————————————————**
-__Use `/antinsfw off` to disable this.__
 """
     )
 

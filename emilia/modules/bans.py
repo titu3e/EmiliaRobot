@@ -76,7 +76,7 @@ def ban(update: Update, context: CallbackContext) -> str:
     user_id, reason = extract_user_and_text(message, args)
 
     if not user_id:
-        message.reply_text("⚠️ User not found.")
+        message.reply_text("User not found.")
         return log_message
     try:
         member = chat.get_member(user_id)
@@ -109,7 +109,7 @@ def ban(update: Update, context: CallbackContext) -> str:
         elif user_id in WOLVES:
             message.reply_text("Trader access make them ban immune!")
         else:
-            message.reply_text("⚠️ Cannot banned admin.")
+            message.reply_text("Cannot banned admin.")
         return log_message
     if message.text.startswith("/s"):
         silent = True
@@ -149,9 +149,9 @@ def ban(update: Update, context: CallbackContext) -> str:
                 [
                     [
                         InlineKeyboardButton(
-                            text="🔄  Unban", callback_data=f"unbanb_unban={user_id}"
+                            text="Unban", callback_data=f"unbanb_unban={user_id}"
                         ),
-                        InlineKeyboardButton(text="🗑️  Delete", callback_data="unbanb_del"),
+                        InlineKeyboardButton(text="Delete", callback_data="unbanb_del"),
                     ]
                 ]
             ),
@@ -195,7 +195,7 @@ def temp_ban(update: Update, context: CallbackContext) -> str:
     user_id, reason = extract_user_and_text(message, args)
 
     if not user_id:
-        message.reply_text("⚠️ User not found.")
+        message.reply_text("User not found.")
         return log_message
 
     try:
@@ -255,9 +255,9 @@ def temp_ban(update: Update, context: CallbackContext) -> str:
                 [
                     [
                         InlineKeyboardButton(
-                            text="🔄  Unban", callback_data=f"unbanb_unban={user_id}"
+                            text="Unban", callback_data=f"unbanb_unban={user_id}"
                         ),
-                        InlineKeyboardButton(text="🗑️  Delete", callback_data="unbanb_del"),
+                        InlineKeyboardButton(text="Delete", callback_data="unbanb_del"),
                     ]
                 ]
             ),
@@ -305,7 +305,7 @@ def unbanb_btn(update: Update, context: CallbackContext) -> str:
             if not is_user_admin(chat, int(user.id)):
                 bot.answer_callback_query(
                     query.id,
-                    text="⚠️ You don't have enough rights to unmute people",
+                    text="You don't have enough rights to unmute people",
                     show_alert=True,
                 )
                 return ""
@@ -330,7 +330,7 @@ def unbanb_btn(update: Update, context: CallbackContext) -> str:
         if not is_user_admin(chat, int(user.id)):
             bot.answer_callback_query(
                 query.id,
-                text="⚠️ You don't have enough rights to delete this message.",
+                text="You don't have enough rights to delete this message.",
                 show_alert=True,
             )
             return ""
@@ -354,7 +354,7 @@ def punch(update: Update, context: CallbackContext) -> str:
     user_id, reason = extract_user_and_text(message, args)
 
     if not user_id:
-        message.reply_text("⚠️ User not found")
+        message.reply_text("User not found")
         return log_message
 
     try:
@@ -363,7 +363,7 @@ def punch(update: Update, context: CallbackContext) -> str:
         if excp.message != "User not found":
             raise
 
-        message.reply_text("⚠️ I can't seem to find this user.")
+        message.reply_text("I can't seem to find this user.")
         return log_message
     if user_id == bot.id:
         message.reply_text("Yeahhh I'm not gonna do that.")
@@ -393,7 +393,7 @@ def punch(update: Update, context: CallbackContext) -> str:
         return log
 
     else:
-        message.reply_text("⚠️ Well damn, I can't punch that user.")
+        message.reply_text("Well damn, I can't punch that user.")
 
     return log_message
 
@@ -443,7 +443,7 @@ def unban(update: Update, context: CallbackContext) -> Optional[str]:
 
     user_id, reason = extract_user_and_text(message, args)
     if not user_id:
-        message.reply_text("⚠️ User not found.")
+        message.reply_text("User not found.")
         return log_message
 
     try:
@@ -458,7 +458,7 @@ def unban(update: Update, context: CallbackContext) -> Optional[str]:
         return log_message
 
     if is_user_in_chat(chat, user_id):
-        message.reply_text(f"⚠️ User not found.")
+        message.reply_text(f"User not found.")
         return log_message
 
     chat.unban_member(user_id)
@@ -530,7 +530,7 @@ def banme(update: Update, context: CallbackContext):
     chat = update.effective_chat
     user = update.effective_user
     if is_user_admin(update.effective_chat, user_id):
-        update.effective_message.reply_text("⚠️ I cannot banned admin.")
+        update.effective_message.reply_text("I cannot banned admin.")
         return
 
     res = update.effective_chat.ban_member(user_id)
@@ -573,22 +573,20 @@ def snipe(update: Update, context: CallbackContext):
 
 __help__ = """
 *User Commands:*
-
-❂ /kickme*:* kicks the user who issued the command
+- /kickme*:* kicks the user who issued the command
 
 *Admins only:*
-
-❂ /ban <userhandle>*:* bans a user. (via handle, or reply)
-❂ /sban <userhandle>*:* Silently ban a user. Deletes command, Replied message and doesn't reply. (via handle, or reply)
-❂ /tban <userhandle> x(m/h/d)*:* bans a user for x time. (via handle, or reply). m = minutes, h = hours, d = days.
-❂ /unban <userhandle>*:* unbans a user. (via handle, or reply)
-❂ /kick <userhandle>*:* kicks a user out of the group, (via handle, or reply)
-❂ /mute <userhandle>*:* silences a user. Can also be used as a reply, muting the replied to user.
-❂ /tmute <userhandle> x(m/h/d)*:* mutes a user for x time. (via handle, or reply). m = minutes, h = hours, d = days.
-❂ /unmute <userhandle>*:* unmutes a user. Can also be used as a reply, muting the replied to user.
-❂ /zombies*:* searches deleted accounts
-❂ /zombies clean*:* removes deleted accounts from the group.
-❂ /snipe <chatid> <string>*:* Make me send a message to a specific chat.
+- /ban <userhandle>*:* bans a user. (via handle, or reply)
+- /sban <userhandle>*:* Silently ban a user. Deletes command, Replied message and doesn't reply. (via handle, or reply)
+- /tban <userhandle> x(m/h/d)*:* bans a user for x time. (via handle, or reply). m = minutes, h = hours, d = days.
+- /unban <userhandle>*:* unbans a user. (via handle, or reply)
+- /kick <userhandle>*:* kicks a user out of the group, (via handle, or reply)
+- /mute <userhandle>*:* silences a user. Can also be used as a reply, muting the replied to user.
+- /tmute <userhandle> x(m/h/d)*:* mutes a user for x time. (via handle, or reply). m = minutes, h = hours, d = days.
+- /unmute <userhandle>*:* unmutes a user. Can also be used as a reply, muting the replied to user.
+- /zombies*:* searches deleted accounts
+- /zombies clean*:* removes deleted accounts from the group.
+- /snipe <chatid> <string>*:* Make me send a message to a specific chat.
 """
 
 

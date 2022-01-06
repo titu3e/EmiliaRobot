@@ -487,13 +487,13 @@ def gbanstat(update: Update, context: CallbackContext):
         if args[0].lower() in ["on", "yes"]:
             sql.enable_gbans(update.effective_chat.id)
             update.effective_message.reply_text(
-                "Antispam is now enabled ✅ "
+                "Antispam is now enabled"
                 "I am now protecting your group from potential remote threats!",
             )
         elif args[0].lower() in ["off", "no"]:
             sql.disable_gbans(update.effective_chat.id)
             update.effective_message.reply_text(
-                "Antispan is now disabled ❌ " "Spamwatch is now disabled ❌",
+                "Antispan is now disabled" "Spamwatch is now disabled",
             )
     else:
         update.effective_message.reply_text(
@@ -539,7 +539,7 @@ def __chat_settings__(chat_id, user_id):
 
 __help__ = f"""
 *Admins only:*
-❂ `/antispam <on/off/yes/no>`*:* Will toggle our antispam tech or return your current settings.
+- `/antispam <on/off/yes/no>`*:* Will toggle our antispam tech or return your current settings.
 
 Anti-Spam, used by bot devs to ban spammers across all groups. This helps protect \
 you and your groups by removing spam flooders as quickly as possible.
