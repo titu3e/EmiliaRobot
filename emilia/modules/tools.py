@@ -34,4 +34,11 @@ Link To File:
 
  Tagger
 ❂ /tagall : for tag everyone at least 100 member first.
+
+❂ /logo <text/name> - Create a logo with random view.
+❂ /wlogo <text/name> - Create a logo with wide view only.
+
+ Image Editor :
+
+❂  /edit <reply photo> - to edit image.
 """
