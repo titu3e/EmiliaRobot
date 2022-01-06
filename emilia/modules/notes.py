@@ -380,7 +380,7 @@ def list_notes(update: Update, context: CallbackContext):
     msg = "*List Of Notes:*\n"
     for note_id, note in zip(range(1, notes), note_list):
         if note_id < 10:
-            note_name = f" - {chat.title}\n"
+            note_name = f" - {(note.name.lower())}\n"
         else:
             note_name = f" - {(note.name.lower())}\n"
         if len(msg) + len(note_name) > MAX_MESSAGE_LENGTH:
