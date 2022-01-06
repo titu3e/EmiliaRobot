@@ -178,7 +178,7 @@ buttons = [
 
         InlineKeyboardButton(
 
-            text="➗ Add Emilia To Your Group ➗", url="t.me/EmiliaChanRobot?startgroup=new"),
+            text="➗ Add Emilia To Your Group ➗", url="t.me/EmiliaPrjkt_bot?startgroup=new"),
 
     ],
 
