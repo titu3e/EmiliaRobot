@@ -42,7 +42,7 @@ jobs:
 
           branch: autofix
 
-          committer: ZenitsuID <zenitsuid@users.noreply.github.com>
+          committer: ZenitsuID<ZenitsuID@users.noreply.github.com>
 
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
 
