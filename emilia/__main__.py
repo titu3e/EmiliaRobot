@@ -654,7 +654,7 @@ def emilia_about_callback(update, context):
 
                  [
 
-                    InlineKeyboardButton(text="Source Code", url="https://github.com/ZenitsuID/Emilia-Prjkt"),
+                    InlineKeyboardButton(text="Source Code", url="https://github.com/ZenitsuPrjkt/Emilia-Prjkt"),
 
                  ],
 
