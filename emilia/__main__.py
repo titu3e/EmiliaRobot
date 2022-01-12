@@ -183,18 +183,17 @@ HELP_STRINGS = """
 *Main Commands:*
 ✦ /start: Starts me! You've probably already used this.
 ✦ /help: Click this, I'll let you know about myself!
+✦ /donate: You can support my creater using this command.
+✦ /settings:
+   ✧ in PM: will send you your settings for all supported modules.
+   ✧ in a Group: will redirect you to pm, with all that chat's settings."""
 
-All commands can be used with the following: / or !"""
-
-EMILIA_IMG = "https://telegra.ph/file/915afe0954eba90060387.jpg"
+EMILIA_IMG = "https://telegra.ph/file/7cd17e6f15a68275a33a5.jpg"
 
 DONATE_STRING = """Heya, glad to hear you want to donate!
-
- You can support the project by contacting @ZenitsuID \
-
- Supporting isnt always financial! \
-
- Those who cannot provide monetary support are welcome to help us develop the bot at ."""
+You can support the project by contacting @ZenitsuID \n
+Supporting isnt always financial! \n
+Those who cannot provide monetary support are welcome to help us develop the bot at."""
 
 IMPORTED = {}
 
@@ -648,7 +647,7 @@ def emilia_about_callback(update, context):
 
                  [
 
-                    InlineKeyboardButton(text="Source Code", url="https://github.com/ZenitsuPrjkt/Emilia-Prjkt"),
+                    InlineKeyboardButton(text="Source Code", url="https://github.com/ZenitsuPrjkt/Emilia"),
 
                  ],
 
@@ -696,7 +695,7 @@ def emilia_about_callback(update, context):
 
         query.message.edit_text(
 
-            text=f"*๏ Let's make your group bit effective now*"
+            text=f"*Let's make your group bit effective now*"
 
             "\nCongragulations, Emilia now ready to manage your group."
 
@@ -728,7 +727,7 @@ def emilia_about_callback(update, context):
 
         query.message.edit_text(
 
-            text=f"<b>๏ Setting up notes</b>"
+            text=f"<b>Setting up notes</b>"
 
             f"\nYou can save message/media/audio or anything as notes"
 
@@ -750,9 +749,9 @@ def emilia_about_callback(update, context):
 
         query.message.edit_text(
 
-            text="*๏ Emilia support chats*"
+            text="*Emilia support chats*"
 
-            "\nJoin My Support Group/Channel for see or report a problem on Emilia-Prjkt.",
+            "\nJoin My Support Group/Channel for see or report a problem on Emilia.",
 
             parse_mode=ParseMode.MARKDOWN,
 
@@ -786,9 +785,9 @@ def emilia_about_callback(update, context):
 
         query.message.edit_text(
 
-            text=f"๏ Credis for Emilia\n"
+            text=f"Credis for Emilia\n"
 
-            "\nHere Developers Making And Give Inspiration For Made The Emilia-Prjkt",
+            "\nHere Developers Making And Give Inspiration For Made The Emilia",
 
             parse_mode=ParseMode.MARKDOWN,
 
@@ -798,7 +797,7 @@ def emilia_about_callback(update, context):
 
                  [
 
-                    InlineKeyboardButton(text="ZenitsuID", url="https://github.com/ZenitsuID"),
+                    InlineKeyboardButton(text="Zenitsu Prjkt™", url="https://github.com/ZenitsuPrjkt"),
 
                     InlineKeyboardButton(text="LuanjinX", url="https://github.com/LuanjinX"),
 
@@ -856,9 +855,9 @@ def Source_about_callback(update, context):
 
         query.message.edit_text(
 
-            text="๏›› This advance command for Musicplayer."
+            text="This advance command for Musicplayer."
 
-            "\n\n๏ Command for admins only."
+            "\n\nCommand for admins only."
 
             "\n • `/reload` - For refreshing the adminlist."
 
@@ -872,7 +871,7 @@ def Source_about_callback(update, context):
 
             "\n • `/musicplayer <on/off>` - Toggle for turn ON or turn OFF the musicplayer."
 
-            "\n\n๏ Command for all members."
+            "\n\nCommand for all members."
 
             "\n • `/play` <query /reply audio> - Playing music via YouTube."
 
@@ -1152,7 +1151,7 @@ def settings_button(update: Update, context: CallbackContext):
 
                             InlineKeyboardButton(
 
-                                text="Go Back",
+                                text="Back",
 
                                 callback_data="stngs_back({})".format(chat_id),
 
