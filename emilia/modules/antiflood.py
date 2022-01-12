@@ -405,7 +405,7 @@ __help__ = """
 ✧ /delflood <yes/no/on/off>*:* If you want bot to delete messages flooded by user.
 """
 
-__mod_name__ = "Shield"
+__mod_name__ = "Anti-Flood"
 
 FLOOD_BAN_HANDLER = MessageHandler(
     Filters.all & ~Filters.status_update & Filters.chat_type.groups,
