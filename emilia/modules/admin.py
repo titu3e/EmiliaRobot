@@ -938,11 +938,6 @@ __help__ = """
 - /setgpic*:* reply to an image to set as group photo.
 - /setdesc*:* Set group description.
 - /setsticker*:* Set group sticker.
-
-*Log Channel:*
-- /logchannel*:* get log channel info
-- /setlog*:* set the log channel.
-- /unsetlog*:* unset the log channel.
 """
 
 SET_DESC_HANDLER = CommandHandler("setdesc", set_desc, filters=Filters.chat_type.groups, run_async=True)
