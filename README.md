@@ -22,4 +22,6 @@
 <p align="center"><a href="https://heroku.com/deploy?template=https://github.com/ZenitsuPrjkt/Emilia"> <img src="https://img.shields.io/badge/Deploy%20To%20Heroku-blue?style=for-the-badge&logo=heroku" width="220" height="38.45"/></a></p>
 
 ## Credit 
-<img src="https://img.shields.io/badge/Sena%20-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/> <img src="https://img.shields.io/badge/Arya%20-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/> <img src="https://img.shields.io/badge/Kyy%20-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/>
+<img src="https://img.shields.io/badge/animekaizoku%20-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/> <img src="https://img.shields.io/badge/PaulSonOfLars%20-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/>
+<img src="https://img.shields.io/badge/HuntingsBots%20-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/> <img src="https://img.shields.io/badge/inukaasith%20-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/>
+<img src="https://img.shields.io/badge/noobkittu%20-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/> <img src="https://img.shields.io/badge/QueenArzoo%20-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/>
