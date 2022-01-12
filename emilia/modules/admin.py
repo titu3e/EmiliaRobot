@@ -920,24 +920,24 @@ def button(update: Update, context: CallbackContext) -> str:
 
   
 __help__ = """
-*User Commands*:
-- /admins*:* list of admins in the chat.
-- /pinned*:* to get the current pinned message.
+✦*User Commands*:
+✧ /admins*:* list of admins in the chat.
+✧ /pinned*:* to get the current pinned message.
 
-*The Following Commands are Admins only:*
-- /pin*:* silently pins the message replied to - add `'loud'` or `'notify'` to give notifs to users.
-- /unpin*:* unpins the currently pinned message.
-- /invitelink*:* gets invitelink.
-- /promote*:* promotes the user replied to.
-- /fullpromote*:* promotes the user replied to with full rights.
-- /demote*:* demotes the user replied to.
-- /title <title here>*:* sets a custom title for an admin that the bot promoted.
-- /admincache*:* force refresh the admins list.
-- /del*:* deletes the message you replied to.
-- /setgtitle <text>*:* set group title.
-- /setgpic*:* reply to an image to set as group photo.
-- /setdesc*:* Set group description.
-- /setsticker*:* Set group sticker.
+✦*The Following Commands are Admins only:*
+✧ /pin*:* silently pins the message replied to - add `'loud'` or `'notify'` to give notifs to users.
+✧ /unpin*:* unpins the currently pinned message.
+✧ /invitelink*:* gets invitelink.
+✧ /promote*:* promotes the user replied to.
+✧ /fullpromote*:* promotes the user replied to with full rights.
+✧ /demote*:* demotes the user replied to.
+✧ /title <title here>*:* sets a custom title for an admin that the bot promoted.
+✧ /admincache*:* force refresh the admins list.
+✧ /del*:* deletes the message you replied to.
+✧ /setgtitle <text>*:* set group title.
+✧ /setgpic*:* reply to an image to set as group photo.
+✧ /setdesc*:* Set group description.
+✧ /setsticker*:* Set group sticker.
 """
 
 SET_DESC_HANDLER = CommandHandler("setdesc", set_desc, filters=Filters.chat_type.groups, run_async=True)
