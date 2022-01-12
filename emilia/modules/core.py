@@ -9,7 +9,7 @@ from emilia import OWNER_ID, DEV_USERS
 from emilia import TEMP_DOWNLOAD_DIRECTORY as path
 from emilia import TEMP_DOWNLOAD_DIRECTORY
 from datetime import datetime
-water = './emilia/resources/emiko.png'
+water = './emilia/resources/emilia.png'
 client = tbot
 
 @register(pattern=r"^/send ?(.*)")
