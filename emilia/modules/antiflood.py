@@ -398,17 +398,22 @@ def __chat_settings__(chat_id, user_id):
     return "Antiflood has been set to`{}`.".format(limit)
 
 __help__ = """
-You know how sometimes, people join, send 100 messages, and ruin your chat? With antiflood, that happens no more!
-Antiflood allows you to take action on users that send more than x messages in a row. Actions are: ban/kick/mute
+✦*Anti spam:*
+✧ /antispam <on/off/yes/no>*:* Change antispam security settings in the group, or return your current settings(when no arguments).
 
-✦*Admin commands:*
+✦*Anti flood:*
 ✧ /flood*:* Get the current antiflood settings.
 ✧ /setflood <number/off/no>*:* Set the number of messages after which to take action on a user. Set to '0', 'off', or 'no' to disable.
 ✧ /setfloodmode <action type>*:* Choose which action to take on a user who has been flooding. Options: ban/kick/mute.
 ✧ /delflood <yes/no/on/off>*:* If you want bot to delete messages flooded by user.
+
+✦*Global shield:*
+✧ /gshield <i>on/off</i> - Enable|Disable Porn cleaning
+✧ /globalmode <i>on/off</i> - Enable|Disable English only mode
+✧ /profanity <i>on/off</i> - Enable|Disable slag word cleaning
 """
 
-__mod_name__ = "Anti-Flood"
+__mod_name__ = "Shield"
 
 FLOOD_BAN_HANDLER = MessageHandler(
     Filters.all & ~Filters.status_update & Filters.chat_type.groups,
