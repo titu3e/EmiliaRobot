@@ -550,26 +550,26 @@ __help__ = """
 Save data for future users with notes!
 Notes are great to save random tidbits of information; a phone number, a nice gif, a funny picture - anything!
 
-*Available commands are:*
- - /save <name> <content>: Save content to a note with the name "name". Replying to a message will save that message. Even works on media!
- - /get <name>: Get the note with the name "name".
- - #<name>: same as /get name
- - /clear <name>: delete the note called "name"
- - /notes: List all notes in the current chat
- - /saved: same as /notes
- - /removeallnotes: Clean all notes in your group, only use this if you know what you're doing
+✦ *Available commands are:*
+✧ /save <name> <content>: Save content to a note with the name "name". Replying to a message will save that message. Even works on media!
+✧ /get <name>: Get the note with the name "name".
+   #<name>: same as /get name
+✧ /clear <name>: delete the note called "name"
+✧ /notes: List all notes in the current chat
+✧ /saved: same as /notes
+✧ /removeallnotes: Clean all notes in your group, only use this if you know what you're doing
 
-*An example of how to save a note would be via:*
+✦ *An example of how to save a note would be via:*
 /save data This is some data!
 Now, anyone using "/get data", or "#data" will be replied to with "This is some data!".
 If you want to save an image, gif, or sticker, or any other data, do the following:
 /save word while replying to a sticker or whatever data you'd like. Now, the note at "#word" contains a sticker which will be sent as a reply.
 
-*Tip:*
+✦ *Tip:*
 to retrieve a note without the formatting, use /get <notename> noformat
 This will retrieve the note and send it without formatting it; getting you the raw markdown, allowing you to make easy edits
 
-*Note:*
+✦ *Note:*
 Note names are case-insensitive, and they are automatically converted to lowercase before getting saved.
 """
 
