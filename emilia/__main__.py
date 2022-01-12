@@ -145,13 +145,8 @@ def get_readable_time(seconds: int) -> str:
     return ping_time
 
 PM_START_TEXT = """
-
-*Hello {} !*
-
-I'm here to help you manage your groups! [✨](https://telegra.ph/file/915afe0954eba90060387.jpg)
-
-Hit /help to find out more about how to use me to my full potential.
-
+Hey there! My name is {}.
+I can managing your group with useful features, feel free to add me to your groups! [✨](https://telegra.ph/file/7cd17e6f15a68275a33a5.jpg)
 """
 
 buttons = [
@@ -185,10 +180,9 @@ buttons = [
 ]
 
 HELP_STRINGS = """
-
-I am a group management bot, here to help you get around and keep the order in your groups!
-
-I have lots of handy features, such as flood control, a warning system, a note keeping system, and even predetermined replies on certain keywords.
+*Main Commands:*
+✦ /start: Starts me! You've probably already used this.
+✦ /help: Click this, I'll let you know about myself!
 
 All commands can be used with the following: / or !"""
 
