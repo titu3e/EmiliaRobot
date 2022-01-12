@@ -398,19 +398,11 @@ def __chat_settings__(chat_id, user_id):
     return "Antiflood has been set to`{}`.".format(limit)
 
 __help__ = """
-✦*Anti spam:*
-✧ /antispam <on/off/yes/no>*:* Change antispam security settings in the group, or return your current settings(when no arguments).
-
 ✦*Anti flood:*
 ✧ /flood*:* Get the current antiflood settings.
 ✧ /setflood <number/off/no>*:* Set the number of messages after which to take action on a user. Set to '0', 'off', or 'no' to disable.
 ✧ /setfloodmode <action type>*:* Choose which action to take on a user who has been flooding. Options: ban/kick/mute.
 ✧ /delflood <yes/no/on/off>*:* If you want bot to delete messages flooded by user.
-
-✦*Global shield:*
-✧ /gshield <i>on/off</i> - Enable|Disable Porn cleaning
-✧ /globalmode <i>on/off</i> - Enable|Disable English only mode
-✧ /profanity <i>on/off</i> - Enable|Disable slag word cleaning
 """
 
 __mod_name__ = "Shield"
