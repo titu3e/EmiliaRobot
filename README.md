@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="https://telegra.ph/file/7cd17e6f15a68275a33a5.jpg">
+  <img src="https://telegra.ph/file/8142e7aac030eebd40a4e.jpg">
 </p>
 
-<h4><p align="center"> Emilia Project </p></h4>
+<h4><p align="center">Emilia</p></h4>
 
 <p align="center">Emilia is a modular bot running on python3 with anime theme and have a lot features.</p>
 
