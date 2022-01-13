@@ -146,7 +146,7 @@ def get_readable_time(seconds: int) -> str:
 
 PM_START_TEXT = """
 Hey there! My name is {}.
-I can managing your group with useful features, feel free to add me to your groups! [✨](https://telegra.ph/file/7cd17e6f15a68275a33a5.jpg)
+I can managing your group with useful features, feel free to add me to your groups! [✨](https://telegra.ph/file/8142e7aac030eebd40a4e.jpg)
 """
 
 buttons = [
@@ -188,7 +188,7 @@ HELP_STRINGS = """
    ✧ in PM: will send you your settings for all supported modules.
    ✧ in a Group: will redirect you to pm, with all that chat's settings."""
 
-EMILIA_IMG = "https://telegra.ph/file/7cd17e6f15a68275a33a5.jpg"
+EMILIA_IMG = "https://telegra.ph/file/8142e7aac030eebd40a4e.jpg"
 
 DONATE_STRING = """Heya, glad to hear you want to donate!
 You can support the project by contacting @ZenitsuID \n
