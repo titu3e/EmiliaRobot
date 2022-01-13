@@ -540,8 +540,8 @@ def __chat_settings__(chat_id, user_id):
 __help__ = """
 Antispam is used by the bot owners to ban spammers across all groups. This helps protect you and your groups by removing spam flooders as quickly as possible. This is enabled by default, but you can change this by using the command.
 
-*Admin only:*
-- /antispam <on/off/yes/no>*:* Change antispam security settings in the group, or return your current settings(when no arguments).
+✦ *Admin only:*
+✧ /antispam <on/off/yes/no>*:* Change antispam security settings in the group, or return your current settings(when no arguments).
 """
 
 GBAN_HANDLER = CommandHandler("gban", gban, run_async=True)
