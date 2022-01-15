@@ -1,3 +1,20 @@
+# Copyright (C) 2022 Zenitsu-Project.
+#
+# Emilia is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Emilia is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+# translate to Indonesian by @ZenitsuPrjkt
+
 import textwrap
 import os
 from PIL import Image, ImageFont, ImageDraw
@@ -10,17 +27,17 @@ async def handler(event):
     if event.fwd_from:
         return
     if not event.reply_to_msg_id:
-        await event.reply("`Provide Some Text To Draw! And Reply To Image/Stickers EXAMPLE: /mmf text`")
+        await event.reply("`Berikan Beberapa Teks Untuk Digambar! Dan balas ke Gambar/Stiker: CONTOH /mmf teks`")
         return
     reply_message = await event.get_reply_message()
     if not reply_message.media:
-        await event.reply("```Reply to a image/sticker.```")
+        await event.reply("```Balas ke gambar/stiker.```")
         return
     file = await bot.download_media(reply_message)
-    msg = await event.reply("```Memifying this image! (」ﾟﾛﾟ)｣ ```")
+    msg = await event.reply("```Memifying gambar ini! (」ﾟﾛﾟ)｣ ```")
     text = str(event.pattern_match.group(1)).strip()
     if len(text) < 1:
-        return await msg.edit("You might want to try `/mmf text`")
+        return await msg.edit("Anda mungkin ingin mencoba `/mmf teks`")
     meme = await drawText(file, text)
     await bot.send_file(event.chat_id, file=meme, force_document=False)
     await msg.delete()
