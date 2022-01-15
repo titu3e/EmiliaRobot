@@ -1,3 +1,20 @@
+# Copyright (C) 2022 Zenitsu-Project.
+#
+# Emilia is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Emilia is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+# translate to Indonesian by @ZenitsuPrjkt
+
 import time
 import re
 
@@ -27,18 +44,18 @@ def allow_connections(update, context) -> str:
                 sql.set_allow_connect_to_chat(chat.id, False)
                 send_message(
                     update.effective_message,
-                    "Connection has been disabled for this chat",
+                    "Sambungan telah dinonaktifkan untuk obrolan ini",
                 )
             elif var == "yes":
                 sql.set_allow_connect_to_chat(chat.id, True)
                 send_message(
                     update.effective_message,
-                    "Connection has been enabled for this chat",
+                    "Koneksi di aktifkan untuk obrolan ini",
                 )
             else:
                 send_message(
                     update.effective_message,
-                    "Please enter `yes` or `no`!",
+                    "Silakan masukkan `yes` atau `no`!",
                     parse_mode=ParseMode.MARKDOWN,
                 )
         else:
@@ -46,19 +63,19 @@ def allow_connections(update, context) -> str:
             if get_settings:
                 send_message(
                     update.effective_message,
-                    "Connections to this group are *Allowed* for members!",
+                    "Koneksi pada grup ini di *Di Izinkan* untuk member!",
                     parse_mode=ParseMode.MARKDOWN,
                 )
             else:
                 send_message(
                     update.effective_message,
-                    "Connection to this group are *Not Allowed* for members!",
+                    "Koneksi pada grup ini di *Tidak Izinkan* untuk member!",
                     parse_mode=ParseMode.MARKDOWN,
                 )
     else:
         send_message(
             update.effective_message,
-            "This command is for group only. Not in PM!",
+            "Anda bisa lakukan perintah ini pada grup, bukan pada PM!",
         )
 
 
@@ -80,9 +97,9 @@ def connection_chat(update, context):
         chat_name = update.effective_message.chat.title
 
     if conn:
-        message = "You are currently connected to {}.\n".format(chat_name)
+        message = "Saat ini Anda terhubung dengan {}.\n".format(chat_name)
     else:
-        message = "You are currently not connected in any group.\n"
+        message = "Saat ini Anda tidak terhubung dengan grup.\n"
     send_message(update.effective_message, message, parse_mode="markdown")
 
 
@@ -111,10 +128,10 @@ def connect_chat(update, context):
                         update.effective_message.from_user.id,
                     )
                 except BadRequest:
-                    send_message(update.effective_message, "Invalid Chat ID!")
+                    send_message(update.effective_message, "ID Obrolan tidak valid!")
                     return
             except BadRequest:
-                send_message(update.effective_message, "Invalid Chat ID!")
+                send_message(update.effective_message, "ID Obrolan tidak valid!")
                 return
 
             isadmin = getstatusadmin.status in ("administrator", "creator")
@@ -133,29 +150,29 @@ def connect_chat(update, context):
                     chat_name = conn_chat.title
                     send_message(
                         update.effective_message,
-                        "Successfully connected to *{}*. \nUse /helpconnect to check available commands.".format(
+                        "Berhasil tersambung ke *{}*. \nGunakan /connection untuk informasi perintah apa saja yang tersedia.".format(
                             chat_name,
                         ),
                         parse_mode=ParseMode.MARKDOWN,
                     )
                     sql.add_history_conn(user.id, str(conn_chat.id), chat_name)
                 else:
-                    send_message(update.effective_message, "Connection failed!")
+                    send_message(update.effective_message, "Koneksi gagal!")
             else:
                 send_message(
                     update.effective_message,
-                    "Connection to this chat is not allowed!",
+                    "Sambungan ke obrolan ini tidak diizinkan!",
                 )
         else:
             gethistory = sql.get_history_conn(user.id)
             if gethistory:
                 buttons = [
                     InlineKeyboardButton(
-                        text="❎ Close button",
+                        text="❎ Tutup tombol",
                         callback_data="connect_close",
                     ),
                     InlineKeyboardButton(
-                        text="🧹 Clear history",
+                        text="🧹 Hapus riwayat",
                         callback_data="connect_clear",
                     ),
                 ]
@@ -164,20 +181,20 @@ def connect_chat(update, context):
             conn = connected(context.bot, update, chat, user.id, need_admin=False)
             if conn:
                 connectedchat = dispatcher.bot.getChat(conn)
-                text = "You are currently connected to *{}* (`{}`)".format(
+                text = "Anda saat ini terhubung ke *{}* (`{}`)".format(
                     connectedchat.title,
                     conn,
                 )
                 buttons.append(
                     InlineKeyboardButton(
-                        text="🔌 Disconnect",
+                        text="🔌 Memutuskan",
                         callback_data="connect_disconnect",
                     ),
                 )
             else:
                 text = "Write the chat ID or tag to connect!"
             if gethistory:
-                text += "\n\n*Connection history:*\n"
+                text += "\n\n*Riwayat koneksi:*\n"
                 text += "╒═══「 *Info* 」\n"
                 text += "│  Sorted: `Newest`\n"
                 text += "│\n"
@@ -234,14 +251,14 @@ def connect_chat(update, context):
                 chat_name = dispatcher.bot.getChat(chat.id).title
                 send_message(
                     update.effective_message,
-                    "Successfully connected to *{}*.".format(chat_name),
+                    "Berhasil tersambung ke *{}*.".format(chat_name),
                     parse_mode=ParseMode.MARKDOWN,
                 )
                 try:
                     sql.add_history_conn(user.id, str(chat.id), chat_name)
                     context.bot.send_message(
                         update.effective_message.from_user.id,
-                        "You are connected to *{}*. \nUse `/helpconnect` to check available commands.".format(
+                        "Anda telah terhubung dengan *{}*. \nGunakan `/helpconnect` untuk informasi perintah apa saja yang tersedia.".format(
                             chat_name,
                         ),
                         parse_mode="markdown",
@@ -251,11 +268,11 @@ def connect_chat(update, context):
                 except Unauthorized:
                     pass
             else:
-                send_message(update.effective_message, "Connection failed!")
+                send_message(update.effective_message, "Koneksi gagal!")
         else:
             send_message(
                 update.effective_message,
-                "Connection to this chat is not allowed!",
+                "Sambungan ke obrolan ini tidak diizinkan!",
             )
 
 
@@ -266,12 +283,12 @@ def disconnect_chat(update, context):
         if disconnection_status:
             sql.disconnected_chat = send_message(
                 update.effective_message,
-                "Disconnected from chat!",
+                "Terputus dari obrolan!",
             )
         else:
-            send_message(update.effective_message, "You're not connected!")
+            send_message(update.effective_message, "Anda tidak terkoneksi!")
     else:
-        send_message(update.effective_message, "This command is only available in PM.")
+        send_message(update.effective_message, "Penggunaan terbatas hanya untuk PM.")
 
 
 def connected(bot: Bot, update: Update, chat, user_id, need_admin=True):
@@ -303,14 +320,14 @@ def connected(bot: Bot, update: Update, chat, user_id, need_admin=True):
                     return conn_id
                 send_message(
                     update.effective_message,
-                    "You must be an admin in the connected group!",
+                    "Anda harus menjadi admin dalam grup yang terhubung!",
                 )
             else:
                 return conn_id
         else:
             send_message(
                 update.effective_message,
-                "The group changed the connection rights or you are no longer an admin.\nI've disconnected you.",
+                "Grup mengubah koneksi hak atau Anda bukan admin lagi.\nSaya putuskan koneksi Anda.",
             )
             disconnect_chat(update, bot)
     else:
@@ -335,7 +352,7 @@ def help_connect_chat(update, context):
     args = context.args
 
     if update.effective_message.chat.type != "private":
-        send_message(update.effective_message, "PM me with that command to get help.")
+        send_message(update.effective_message, "PM saya dengan command itu untuk mendapatkan bantuan Koneksi.")
         return
     send_message(update.effective_message, CONN_HELP, parse_mode="markdown")
 
@@ -367,35 +384,35 @@ def connect_button(update, context):
                 )
                 chat_name = conn_chat.title
                 query.message.edit_text(
-                    "Successfully connected to *{}*. \nUse `/helpconnect` to check available commands.".format(
+                    "Berhasil tersambung ke *{}*. Gunakan /helpconnect untuk informasi perintah apa saja yang tersedia.".format(
                         chat_name,
                     ),
                     parse_mode=ParseMode.MARKDOWN,
                 )
                 sql.add_history_conn(user.id, str(conn_chat.id), chat_name)
             else:
-                query.message.edit_text("Connection failed!")
+                query.message.edit_text("Koneksi gagal!")
         else:
             context.bot.answer_callback_query(
                 query.id,
-                "Connection to this chat is not allowed!",
+                "Sambungan ke obrolan ini tidak diizinkan!",
                 show_alert=True,
             )
     elif disconnect_match:
         disconnection_status = sql.disconnect(query.from_user.id)
         if disconnection_status:
-            sql.disconnected_chat = query.message.edit_text("Disconnected from chat!")
+            sql.disconnected_chat = query.message.edit_text("Terputus dari obrolan!")
         else:
             context.bot.answer_callback_query(
                 query.id,
-                "You're not connected!",
+                "Anda tidak terkoneksi!",
                 show_alert=True,
             )
     elif clear_match:
         sql.clear_history_conn(query.from_user.id)
-        query.message.edit_text("History connected has been cleared!")
+        query.message.edit_text("Riwayat yang terhubung telah dihapus!")
     elif connect_close:
-        query.message.edit_text("Closed.\nTo open again, type /connect")
+        query.message.edit_text("Ditutup.\nUntuk membuka lagi, ketik /connect")
     else:
         connect_chat(update, context)
 
@@ -407,11 +424,11 @@ Sometimes, you just want to add some notes and filters to a group chat, but you 
 This allows you to connect to a chat's database, and add things to it without the commands appearing in chat! For obvious reasons, you need to be an admin to add things; but any member in the group.can view your data.
 
 ✦ *Admin only:*
-✧ /connect: Connects to chat (Can be done in a group by /connect or /connect <chat id> in PM)
-✧ /allowconnect <yes/no>: allow a user to connect to a chat.
-✧ /connection: List connected chats.
-✧ /disconnect: Disconnect from a chat.
-✧ /helpconnect: List available commands that can be used remotely.
+ ✧ /connect: Connects to chat (Can be done in a group by /connect or /connect <chat id> in PM)
+ ✧ /allowconnect <yes/no>: allow a user to connect to a chat.
+ ✧ /connection: List connected chats.
+ ✧ /disconnect: Disconnect from a chat.
+ ✧ /helpconnect: List available commands that can be used remotely.
 """
 
 CONNECT_CHAT_HANDLER = CommandHandler(
