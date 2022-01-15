@@ -1,3 +1,20 @@
+# Copyright (C) 2022 Zenitsu-Project.
+#
+# Emilia is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Emilia is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+# translate to Indonesian by @ZenitsuPrjkt
+
 from datetime import datetime
 from functools import wraps
 from telegram.ext import CallbackContext
@@ -37,7 +54,7 @@ if is_module_loaded(FILENAME):
                 result += f"\n<b>Event Stamp</b>: <code>{datetime.utcnow().strftime(datetime_fmt)}</code>"
 
                 if message.chat.type == chat.SUPERGROUP and message.chat.username:
-                    result += f'\n<b>Link:</b> <a href="https://t.me/{chat.username}/{message.message_id}">click here</a>'
+                    result += f'\n<b>Link:</b> <a href="https://t.me/{chat.username}/{message.message_id}">klik disini</a>'
                 log_chat = sql.get_chat_log_channel(chat.id)
                 if log_chat:
                     send_log(context, log_chat, chat.id, result)
@@ -60,7 +77,7 @@ if is_module_loaded(FILENAME):
                 )
 
                 if message.chat.type == chat.SUPERGROUP and message.chat.username:
-                    result += f'\n<b>Link:</b> <a href="https://t.me/{chat.username}/{message.message_id}">click here</a>'
+                    result += f'\n<b>Link:</b> <a href="https://t.me/{chat.username}/{message.message_id}">klik disini</a>'
                 log_chat = str(EVENT_LOGS)
                 if log_chat:
                     send_log(context, log_chat, chat.id, result)
@@ -83,7 +100,7 @@ if is_module_loaded(FILENAME):
         except BadRequest as excp:
             if excp.message == "Chat not found":
                 bot.send_message(
-                    orig_chat_id, "This log channel has been deleted - unsetting."
+                    orig_chat_id, "Saluran log ini telah dihapus - tidak bisa dibuka."
                 )
                 sql.stop_chat_logging(orig_chat_id)
             else:
@@ -94,7 +111,7 @@ if is_module_loaded(FILENAME):
                 bot.send_message(
                     log_chat_id,
                     result
-                    + "\n\nFormatting has been disabled due to an unexpected error.",
+                    + "\n\nMemformat telah dinonaktifkan karena kesalahan tak terduga.",
                 )
 
     @user_admin
@@ -107,13 +124,13 @@ if is_module_loaded(FILENAME):
         if log_channel:
             log_channel_info = bot.get_chat(log_channel)
             message.reply_text(
-                f"This group has all it's logs sent to:"
+                f"Grup ini memiliki semua log yang dikirim ke:"
                 f" {escape_markdown(log_channel_info.title)} (`{log_channel}`)",
                 parse_mode=ParseMode.MARKDOWN,
             )
 
         else:
-            message.reply_text("No log channel has been set for this group!")
+            message.reply_text("Tidak ada saluran log yang telah ditetapkan untuk grup ini!")
 
     @user_admin
     def setlog(update: Update, context: CallbackContext):
@@ -122,7 +139,7 @@ if is_module_loaded(FILENAME):
         chat = update.effective_chat
         if chat.type == chat.CHANNEL:
             message.reply_text(
-                "Now, forward the /setlog to the group you want to tie this channel to!"
+                "Sekarang, teruskan /setlog ke grup yang Anda ingin ikat saluran ini!"
             )
 
         elif message.forward_from_chat:
@@ -140,22 +157,22 @@ if is_module_loaded(FILENAME):
             try:
                 bot.send_message(
                     message.forward_from_chat.id,
-                    f"This channel has been set as the log channel for {chat.title or chat.first_name}.",
+                    f"Saluran ini telah ditetapkan sebagai saluran log untuk {chat.title or chat.first_name}.",
                 )
             except Unauthorized as excp:
                 if excp.message == "Forbidden: bot is not a member of the channel chat":
-                    bot.send_message(chat.id, "Successfully set log channel!")
+                    bot.send_message(chat.id, "Berhasil mengatur saluran log!")
                 else:
                     LOGGER.exception("ERROR in setting the log channel.")
 
-            bot.send_message(chat.id, "Successfully set log channel!")
+            bot.send_message(chat.id, "Berhasil mengatur saluran log!")
 
         else:
             message.reply_text(
-                "The steps to set a log channel are:\n"
-                " - add bot to the desired channel\n"
-                " - send /setlog to the channel\n"
-                " - forward the /setlog to the group\n"
+                "Langkah-langkah untuk mengatur saluran log adalah:\n"
+                " - tambahkan bot ke saluran yang diinginkan\n"
+                " - Kirimkan /setlog ke saluran\n"
+                " - Teruskan /setlog ke grup\n"
             )
 
     @user_admin
@@ -167,15 +184,15 @@ if is_module_loaded(FILENAME):
         log_channel = sql.stop_chat_logging(chat.id)
         if log_channel:
             bot.send_message(
-                log_channel, f"Channel has been unlinked from {chat.title}"
+                log_channel, f"Channel telah dibatalkan tautannya {chat.title}"
             )
-            message.reply_text("Log channel has been un-set.")
+            message.reply_text("Log saluran telah dinonaktifkan.")
 
         else:
-            message.reply_text("No log channel has been set yet!")
+            message.reply_text("Belum ada saluran log yang ditetapkan!")
 
     def __stats__():
-        return f"× {sql.num_logchannels()} log channels set."
+        return f"{sql.num_logchannels()} saluran log ditetapkan."
 
     def __migrate__(old_chat_id, new_chat_id):
         sql.migrate_chat(old_chat_id, new_chat_id)
@@ -184,8 +201,8 @@ if is_module_loaded(FILENAME):
         log_channel = sql.get_chat_log_channel(chat_id)
         if log_channel:
             log_channel_info = dispatcher.bot.get_chat(log_channel)
-            return f"This group has all it's logs sent to: {escape_markdown(log_channel_info.title)} (`{log_channel}`)"
-        return "No log channel is set for this group!"
+            return f"Grup ini memiliki semua log yang dikirim ke: {escape_markdown(log_channel_info.title)} (`{log_channel}`)"
+        return "Tidak ada saluran masuk yang ditetapkan untuk grup ini!"
 
 
     __mod_name__ = "Log Channel​"
