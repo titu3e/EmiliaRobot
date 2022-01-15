@@ -394,7 +394,7 @@ def list_notes(update: Update, context: CallbackContext):
     chat_id = update.effective_chat.id
     note_list = sql.get_all_chat_notes(chat_id)
     notes = len(note_list) + 1
-    msg = "Dapatkan catatan dengan `/nomorcatatan` atau `#namacatatan` \n\n *ID* *Catatan* \n"
+    msg = "Dapatkan catatan dengan\n `/nomorcatatan` atau `#namacatatan` \n\n *ID*  *Catatan* \n"
     for note_id, note in zip(range(1, notes), note_list):
         if note_id < 10:
             note_name = f"`{note_id:2}.`  `#{(note.name.lower())}`\n"
