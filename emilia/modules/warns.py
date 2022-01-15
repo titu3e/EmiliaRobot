@@ -508,17 +508,17 @@ def __chat_settings__(chat_id, user_id):
 
 __help__ = """
 ✦ *Command for Members:*
- ✧ /warns <userhandle>: get a user's number, and reason, of warns.
+✧ /warns <userhandle>: get a user's number, and reason, of warns.
 
 ✦ *This command is for admin or creator only:*
- ✧ /warnlist: list of all current warning filters
- ✧ /warn <userhandle>: warn a user. After 3 warns, the user will be banned from the group. Can also be used as a reply.
- ✧ /dwarn <userhandle>: warn a user and delete the message. After 3 warns, the user will be banned from the group. Can also be used as a reply.
- ✧ /resetwarn <userhandle>: reset the warns for a user. Can also be used as a reply.
- ✧ /addwarn <keyword> <reply message>: set a warning filter on a certain keyword. If you want your keyword to be a sentence, encompass it with quotes, as such: /addwarn "very angry" This is an angry user.
- ✧ /nowarn <keyword>: stop a warning filter
- ✧ /warnlimit <num>: set the warning limit
- ✧ /strongwarn <on/yes/off/no>: If set to on, exceeding the warn limit will result in a ban. Else, will just punch.
+✧ /warnlist: list of all current warning filters
+✧ /warn <userhandle>: warn a user. After 3 warns, the user will be banned from the group. Can also be used as a reply.
+✧ /dwarn <userhandle>: warn a user and delete the message. After 3 warns, the user will be banned from the group. Can also be used as a reply.
+✧ /resetwarn <userhandle>: reset the warns for a user. Can also be used as a reply.
+✧ /addwarn <keyword> <reply message>: set a warning filter on a certain keyword. If you want your keyword to be a sentence, encompass it with quotes, as such: /addwarn "very angry" This is an angry user.
+✧ /nowarn <keyword>: stop a warning filter
+✧ /warnlimit <num>: set the warning limit
+✧ /strongwarn <on/yes/off/no>: If set to on, exceeding the warn limit will result in a ban. Else, will just punch.
 
 Keep your members in check with warnings; stop them getting out of control!
 If you're looking for automated warnings, go read about the blacklist module.
