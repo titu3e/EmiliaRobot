@@ -145,8 +145,8 @@ def get_readable_time(seconds: int) -> str:
     return ping_time
 
 PM_START_TEXT = """
-Hei! Nama saya adalah {}.
-Saya di buat oleh @ZenitsuPrjkt
+Hei! {}. Nama saya adalah Emilia
+Saya di kelola oleh @ZenitsuPrjkt
 Dan saya dapat mengelola grup Anda dengan fitur yang bermanfaat, jangan ragu untuk menambahkan saya ke grup Anda! [✨](https://telegra.ph/file/8142e7aac030eebd40a4e.jpg)
 """
 
@@ -164,7 +164,7 @@ buttons = [
 
         InlineKeyboardButton(
 
-            text="Coba sebaris!", switch_inline_query_current_chat=""
+            text="Coba inline!", switch_inline_query_current_chat=""
 
         ),
 
@@ -1334,7 +1334,7 @@ def donate(update: Update, context: CallbackContext):
 
                 "Saya gratis untuk semua orang ❤️ Jika Anda ingin membuat saya tersenyum, bergabung saja"
 
-                "[My Channel]({})".format(DONATION_LINK),
+                "[My Channel] ({})".format(DONATION_LINK),
 
                 parse_mode=ParseMode.MARKDOWN,
 
