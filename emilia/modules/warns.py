@@ -96,7 +96,7 @@ def warn(user: User,
         else:  # ban
             chat.kick_member(user.id)
             reply = (
-                f"{mention_html(user.id, user.first_name)} [<code>{user.id}</code>] Banned")
+                f"peringatan, {mention_html(user.id, user.first_name)} [<code>{user.id}</code>] telah diblokir!")
 
         for warn_reason in reasons:
             reply += f"\n - {html.escape(warn_reason)}"
