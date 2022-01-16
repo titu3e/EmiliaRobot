@@ -1,317 +1,435 @@
+import random
 import threading
+from typing import Union
 
+from emilia.modules.helper_funcs.msg_types import Types
 from emilia.modules.sql import BASE, SESSION
-from sqlalchemy import Boolean, Column, String, UnicodeText, distinct, func, Integer
+from sqlalchemy import Boolean, Column, String, UnicodeText, Integer
 from sqlalchemy.sql.sqltypes import BigInteger
-from sqlalchemy.dialects import postgresql
 
 
-class Warns(BASE):
-    __tablename__ = "warns"
+DEFAULT_WELCOME_MESSAGES = "Hai {first}, bagaimana kabarmu? 🙂"
+DEFAULT_GOODBYE_MESSAGES = "Sampai jumpa! 😉"
 
+
+class Welcome(BASE):
+    __tablename__ = "welcome_pref"
+    chat_id = Column(String(14), primary_key=True)
+    should_welcome = Column(Boolean, default=True)
+    should_goodbye = Column(Boolean, default=True)
+    custom_content = Column(UnicodeText, default=None)
+
+    custom_welcome = Column(
+        UnicodeText,
+        default=random.choice(DEFAULT_WELCOME_MESSAGES),
+    )
+    welcome_type = Column(Integer, default=Types.TEXT.value)
+
+    custom_leave = Column(UnicodeText, default=random.choice(DEFAULT_GOODBYE_MESSAGES))
+    leave_type = Column(Integer, default=Types.TEXT.value)
+
+    clean_welcome = Column(Integer)
+
+    def __init__(self, chat_id, should_welcome=True, should_goodbye=True):
+        self.chat_id = chat_id
+        self.should_welcome = should_welcome
+        self.should_goodbye = should_goodbye
+
+    def __repr__(self):
+        return "<Chat {} should Welcome new users: {}>".format(
+            self.chat_id,
+            self.should_welcome,
+        )
+
+
+class WelcomeButtons(BASE):
+    __tablename__ = "welcome_urls"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    chat_id = Column(String(14), primary_key=True)
+    name = Column(UnicodeText, nullable=False)
+    url = Column(UnicodeText, nullable=False)
+    same_line = Column(Boolean, default=False)
+
+    def __init__(self, chat_id, name, url, same_line=False):
+        self.chat_id = str(chat_id)
+        self.name = name
+        self.url = url
+        self.same_line = same_line
+
+
+class GoodbyeButtons(BASE):
+    __tablename__ = "leave_urls"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    chat_id = Column(String(14), primary_key=True)
+    name = Column(UnicodeText, nullable=False)
+    url = Column(UnicodeText, nullable=False)
+    same_line = Column(Boolean, default=False)
+
+    def __init__(self, chat_id, name, url, same_line=False):
+        self.chat_id = str(chat_id)
+        self.name = name
+        self.url = url
+        self.same_line = same_line
+
+
+class WelcomeSecurity(BASE):
+	__tablename__ = "welcome_security"
+	chat_id = Column(String(14), primary_key=True)
+	security = Column(Boolean, default=False)
+	extra_verify = Column(Boolean, default=False)
+	mute_time = Column(UnicodeText, default="0")
+	timeout = Column(UnicodeText, default="0")
+	timeout_mode = Column(Integer, default=1)
+	custom_text = Column(UnicodeText, default="Klik disini untuk mensuarakan")
+
+	def __init__(self, chat_id, security=False, extra_verify=False, mute_time="0", timeout="0", timeout_mode=1, custom_text="Klik disini untuk mensuarakan"):
+		self.chat_id = str(chat_id) # ensure string
+		self.security = security
+		self.extra_verify = extra_verify
+		self.mute_time = mute_time
+		self.timeout = timeout
+		self.timeout_mode = timeout_mode
+		self.custom_text = custom_text
+		
+		
+class WelcomeMute(BASE):
+    __tablename__ = "welcome_mutes"
+    chat_id = Column(String(14), primary_key=True)
+    welcomemutes = Column(UnicodeText, default=False)
+
+    def __init__(self, chat_id, welcomemutes):
+        self.chat_id = str(chat_id)  # ensure string
+        self.welcomemutes = welcomemutes
+
+
+class WelcomeMuteUsers(BASE):
+    __tablename__ = "human_checks"
     user_id = Column(BigInteger, primary_key=True)
     chat_id = Column(String(14), primary_key=True)
-    num_warns = Column(Integer, default=0)
-    reasons = Column(postgresql.ARRAY(UnicodeText))
+    human_check = Column(Boolean)
 
-    def __init__(self, user_id, chat_id):
-        self.user_id = user_id
+    def __init__(self, user_id, chat_id, human_check):
+        self.user_id = user_id  # ensure string
         self.chat_id = str(chat_id)
-        self.num_warns = 0
-        self.reasons = []
-
-    def __repr__(self):
-        return "<{} warns for {} in {} for reasons {}>".format(
-            self.num_warns,
-            self.user_id,
-            self.chat_id,
-            self.reasons,
-        )
+        self.human_check = human_check
 
 
-class WarnFilters(BASE):
-    __tablename__ = "warn_filters"
+class CleanServiceSetting(BASE):
+    __tablename__ = "clean_service"
     chat_id = Column(String(14), primary_key=True)
-    keyword = Column(UnicodeText, primary_key=True, nullable=False)
-    reply = Column(UnicodeText, nullable=False)
+    clean_service = Column(Boolean, default=True)
 
-    def __init__(self, chat_id, keyword, reply):
-        self.chat_id = str(chat_id)  # ensure string
-        self.keyword = keyword
-        self.reply = reply
-
-    def __repr__(self):
-        return "<Permissions for %s>" % self.chat_id
-
-    def __eq__(self, other):
-        return bool(
-            isinstance(other, WarnFilters)
-            and self.chat_id == other.chat_id
-            and self.keyword == other.keyword,
-        )
-
-
-class WarnSettings(BASE):
-    __tablename__ = "warn_settings"
-    chat_id = Column(String(14), primary_key=True)
-    warn_limit = Column(Integer, default=3)
-    soft_warn = Column(Boolean, default=False)
-
-    def __init__(self, chat_id, warn_limit=3, soft_warn=False):
+    def __init__(self, chat_id):
         self.chat_id = str(chat_id)
-        self.warn_limit = warn_limit
-        self.soft_warn = soft_warn
 
     def __repr__(self):
-        return "<{} has {} possible warns.>".format(self.chat_id, self.warn_limit)
+        return "<Chat used clean service ({})>".format(self.chat_id)
 
 
-Warns.__table__.create(checkfirst=True)
-WarnFilters.__table__.create(checkfirst=True)
-WarnSettings.__table__.create(checkfirst=True)
+Welcome.__table__.create(checkfirst=True)
+WelcomeButtons.__table__.create(checkfirst=True)
+GoodbyeButtons.__table__.create(checkfirst=True)
+WelcomeSecurity.__table__.create(checkfirst=True)
+WelcomeMute.__table__.create(checkfirst=True)
+WelcomeMuteUsers.__table__.create(checkfirst=True)
+CleanServiceSetting.__table__.create(checkfirst=True)
 
-WARN_INSERTION_LOCK = threading.RLock()
-WARN_FILTER_INSERTION_LOCK = threading.RLock()
-WARN_SETTINGS_LOCK = threading.RLock()
-
-WARN_FILTERS = {}
-
-
-def warn_user(user_id, chat_id, reason=None):
-    with WARN_INSERTION_LOCK:
-        warned_user = SESSION.query(Warns).get((user_id, str(chat_id)))
-        if not warned_user:
-            warned_user = Warns(user_id, str(chat_id))
-
-        warned_user.num_warns += 1
-        if reason:
-            warned_user.reasons = warned_user.reasons + [
-                reason,
-            ]  # TODO:: double check this wizardry
-
-        reasons = warned_user.reasons
-        num = warned_user.num_warns
-
-        SESSION.add(warned_user)
-        SESSION.commit()
-
-        return num, reasons
+INSERTION_LOCK = threading.RLock()
+WELC_BTN_LOCK = threading.RLock()
+LEAVE_BTN_LOCK = threading.RLock()
+WM_LOCK = threading.RLock()
+CS_LOCK = threading.RLock()
 
 
-def remove_warn(user_id, chat_id):
-    with WARN_INSERTION_LOCK:
-        removed = False
-        warned_user = SESSION.query(Warns).get((user_id, str(chat_id)))
-
-        if warned_user and warned_user.num_warns > 0:
-            warned_user.num_warns -= 1
-            warned_user.reasons = warned_user.reasons[:-1]
-            SESSION.add(warned_user)
-            SESSION.commit()
-            removed = True
-
-        SESSION.close()
-        return removed
-
-
-def reset_warns(user_id, chat_id):
-    with WARN_INSERTION_LOCK:
-        warned_user = SESSION.query(Warns).get((user_id, str(chat_id)))
-        if warned_user:
-            warned_user.num_warns = 0
-            warned_user.reasons = []
-
-            SESSION.add(warned_user)
-            SESSION.commit()
-        SESSION.close()
-
-
-def get_warns(user_id, chat_id):
+def welcome_mutes(chat_id):
     try:
-        user = SESSION.query(Warns).get((user_id, str(chat_id)))
-        if not user:
-            return None
-        reasons = user.reasons
-        num = user.num_warns
-        return num, reasons
-    finally:
-        SESSION.close()
-
-
-def add_warn_filter(chat_id, keyword, reply):
-    with WARN_FILTER_INSERTION_LOCK:
-        warn_filt = WarnFilters(str(chat_id), keyword, reply)
-
-        if keyword not in WARN_FILTERS.get(str(chat_id), []):
-            WARN_FILTERS[str(chat_id)] = sorted(
-                WARN_FILTERS.get(str(chat_id), []) + [keyword],
-                key=lambda x: (-len(x), x),
-            )
-
-        SESSION.merge(warn_filt)  # merge to avoid duplicate key issues
-        SESSION.commit()
-
-
-def remove_warn_filter(chat_id, keyword):
-    with WARN_FILTER_INSERTION_LOCK:
-        warn_filt = SESSION.query(WarnFilters).get((str(chat_id), keyword))
-        if warn_filt:
-            if keyword in WARN_FILTERS.get(str(chat_id), []):  # sanity check
-                WARN_FILTERS.get(str(chat_id), []).remove(keyword)
-
-            SESSION.delete(warn_filt)
-            SESSION.commit()
-            return True
-        SESSION.close()
+        welcomemutes = SESSION.query(WelcomeMute).get(str(chat_id))
+        if welcomemutes:
+            return welcomemutes.welcomemutes
         return False
+    finally:
+        SESSION.close()
 
 
-def get_chat_warn_triggers(chat_id):
-    return WARN_FILTERS.get(str(chat_id), set())
+def set_welcome_mutes(chat_id, welcomemutes):
+    with WM_LOCK:
+        prev = SESSION.query(WelcomeMute).get((str(chat_id)))
+        if prev:
+            SESSION.delete(prev)
+        welcome_m = WelcomeMute(str(chat_id), welcomemutes)
+        SESSION.add(welcome_m)
+        SESSION.commit()
 
 
-def get_chat_warn_filters(chat_id):
+def set_human_checks(user_id, chat_id):
+    with INSERTION_LOCK:
+        human_check = SESSION.query(WelcomeMuteUsers).get((user_id, str(chat_id)))
+        if not human_check:
+            human_check = WelcomeMuteUsers(user_id, str(chat_id), True)
+
+        else:
+            human_check.human_check = True
+
+        SESSION.add(human_check)
+        SESSION.commit()
+
+        return human_check
+
+
+def get_human_checks(user_id, chat_id):
+    try:
+        human_check = SESSION.query(WelcomeMuteUsers).get((user_id, str(chat_id)))
+        if not human_check:
+            return None
+        human_check = human_check.human_check
+        return human_check
+    finally:
+        SESSION.close()
+
+
+def get_welc_mutes_pref(chat_id):
+    welcomemutes = SESSION.query(WelcomeMute).get(str(chat_id))
+    SESSION.close()
+
+    if welcomemutes:
+        return welcomemutes.welcomemutes
+
+    return False
+
+
+def get_welc_pref(chat_id):
+    welc = SESSION.query(Welcome).get(str(chat_id))
+    SESSION.close()
+    if welc:
+        return (
+            welc.should_welcome,
+            welc.custom_welcome,
+            welc.custom_content,
+            welc.welcome_type,
+        )
+    # Welcome by default.
+    return True, random.choice(DEFAULT_WELCOME_MESSAGES), None, Types.TEXT
+
+
+def get_gdbye_pref(chat_id):
+    welc = SESSION.query(Welcome).get(str(chat_id))
+    SESSION.close()
+    if welc:
+        return welc.should_goodbye, welc.custom_leave, welc.leave_type
+    # Welcome by default.
+    return True, random.choice(DEFAULT_GOODBYE_MESSAGES), Types.TEXT
+
+
+def set_clean_welcome(chat_id, clean_welcome):
+    with INSERTION_LOCK:
+        curr = SESSION.query(Welcome).get(str(chat_id))
+        if not curr:
+            curr = Welcome(str(chat_id))
+
+        curr.clean_welcome = int(clean_welcome)
+
+        SESSION.add(curr)
+        SESSION.commit()
+
+
+def get_clean_pref(chat_id):
+    welc = SESSION.query(Welcome).get(str(chat_id))
+    SESSION.close()
+
+    if welc:
+        return welc.clean_welcome
+
+    return False
+
+
+def set_welc_preference(chat_id, should_welcome):
+    with INSERTION_LOCK:
+        curr = SESSION.query(Welcome).get(str(chat_id))
+        if not curr:
+            curr = Welcome(str(chat_id), should_welcome=should_welcome)
+        else:
+            curr.should_welcome = should_welcome
+
+        SESSION.add(curr)
+        SESSION.commit()
+
+
+def set_gdbye_preference(chat_id, should_goodbye):
+    with INSERTION_LOCK:
+        curr = SESSION.query(Welcome).get(str(chat_id))
+        if not curr:
+            curr = Welcome(str(chat_id), should_goodbye=should_goodbye)
+        else:
+            curr.should_goodbye = should_goodbye
+
+        SESSION.add(curr)
+        SESSION.commit()
+
+
+def set_custom_welcome(
+    chat_id,
+    custom_content,
+    custom_welcome,
+    welcome_type,
+    buttons=None,
+):
+    if buttons is None:
+        buttons = []
+
+    with INSERTION_LOCK:
+        welcome_settings = SESSION.query(Welcome).get(str(chat_id))
+        if not welcome_settings:
+            welcome_settings = Welcome(str(chat_id), True)
+
+        if custom_welcome or custom_content:
+            welcome_settings.custom_content = custom_content
+            welcome_settings.custom_welcome = custom_welcome
+            welcome_settings.welcome_type = welcome_type.value
+
+        else:
+            welcome_settings.custom_welcome = random.choice(DEFAULT_WELCOME_MESSAGES)
+            welcome_settings.welcome_type = Types.TEXT.value
+
+        SESSION.add(welcome_settings)
+
+        with WELC_BTN_LOCK:
+            prev_buttons = (
+                SESSION.query(WelcomeButtons)
+                .filter(WelcomeButtons.chat_id == str(chat_id))
+                .all()
+            )
+            for btn in prev_buttons:
+                SESSION.delete(btn)
+
+            for b_name, url, same_line in buttons:
+                button = WelcomeButtons(chat_id, b_name, url, same_line)
+                SESSION.add(button)
+
+        SESSION.commit()
+
+
+def get_custom_welcome(chat_id):
+    welcome_settings = SESSION.query(Welcome).get(str(chat_id))
+    ret = random.choice(DEFAULT_WELCOME_MESSAGES)
+    if welcome_settings and welcome_settings.custom_welcome:
+        ret = welcome_settings.custom_welcome
+
+    SESSION.close()
+    return ret
+
+
+def set_custom_gdbye(chat_id, custom_goodbye, goodbye_type, buttons=None):
+    if buttons is None:
+        buttons = []
+
+    with INSERTION_LOCK:
+        welcome_settings = SESSION.query(Welcome).get(str(chat_id))
+        if not welcome_settings:
+            welcome_settings = Welcome(str(chat_id), True)
+
+        if custom_goodbye:
+            welcome_settings.custom_leave = custom_goodbye
+            welcome_settings.leave_type = goodbye_type.value
+
+        else:
+            welcome_settings.custom_leave = random.choice(DEFAULT_GOODBYE_MESSAGES)
+            welcome_settings.leave_type = Types.TEXT.value
+
+        SESSION.add(welcome_settings)
+
+        with LEAVE_BTN_LOCK:
+            prev_buttons = (
+                SESSION.query(GoodbyeButtons)
+                .filter(GoodbyeButtons.chat_id == str(chat_id))
+                .all()
+            )
+            for btn in prev_buttons:
+                SESSION.delete(btn)
+
+            for b_name, url, same_line in buttons:
+                button = GoodbyeButtons(chat_id, b_name, url, same_line)
+                SESSION.add(button)
+
+        SESSION.commit()
+
+
+def get_custom_gdbye(chat_id):
+    welcome_settings = SESSION.query(Welcome).get(str(chat_id))
+    ret = random.choice(DEFAULT_GOODBYE_MESSAGES)
+    if welcome_settings and welcome_settings.custom_leave:
+        ret = welcome_settings.custom_leave
+
+    SESSION.close()
+    return ret
+
+
+def get_welc_buttons(chat_id):
     try:
         return (
-            SESSION.query(WarnFilters).filter(WarnFilters.chat_id == str(chat_id)).all()
+            SESSION.query(WelcomeButtons)
+            .filter(WelcomeButtons.chat_id == str(chat_id))
+            .order_by(WelcomeButtons.id)
+            .all()
         )
     finally:
         SESSION.close()
 
 
-def get_warn_filter(chat_id, keyword):
-    try:
-        return SESSION.query(WarnFilters).get((str(chat_id), keyword))
-    finally:
-        SESSION.close()
-
-
-def set_warn_limit(chat_id, warn_limit):
-    with WARN_SETTINGS_LOCK:
-        curr_setting = SESSION.query(WarnSettings).get(str(chat_id))
-        if not curr_setting:
-            curr_setting = WarnSettings(chat_id, warn_limit=warn_limit)
-
-        curr_setting.warn_limit = warn_limit
-
-        SESSION.add(curr_setting)
-        SESSION.commit()
-
-
-def set_warn_strength(chat_id, soft_warn):
-    with WARN_SETTINGS_LOCK:
-        curr_setting = SESSION.query(WarnSettings).get(str(chat_id))
-        if not curr_setting:
-            curr_setting = WarnSettings(chat_id, soft_warn=soft_warn)
-
-        curr_setting.soft_warn = soft_warn
-
-        SESSION.add(curr_setting)
-        SESSION.commit()
-
-
-def get_warn_setting(chat_id):
-    try:
-        setting = SESSION.query(WarnSettings).get(str(chat_id))
-        if setting:
-            return setting.warn_limit, setting.soft_warn
-        return 3, False
-
-    finally:
-        SESSION.close()
-
-
-def num_warns():
-    try:
-        return SESSION.query(func.sum(Warns.num_warns)).scalar() or 0
-    finally:
-        SESSION.close()
-
-
-def num_warn_chats():
-    try:
-        return SESSION.query(func.count(distinct(Warns.chat_id))).scalar()
-    finally:
-        SESSION.close()
-
-
-def num_warn_filters():
-    try:
-        return SESSION.query(WarnFilters).count()
-    finally:
-        SESSION.close()
-
-
-def num_warn_chat_filters(chat_id):
+def get_gdbye_buttons(chat_id):
     try:
         return (
-            SESSION.query(WarnFilters.chat_id)
-            .filter(WarnFilters.chat_id == str(chat_id))
-            .count()
+            SESSION.query(GoodbyeButtons)
+            .filter(GoodbyeButtons.chat_id == str(chat_id))
+            .order_by(GoodbyeButtons.id)
+            .all()
         )
     finally:
         SESSION.close()
 
 
-def num_warn_filter_chats():
+def clean_service(chat_id: Union[str, int]) -> bool:
     try:
-        return SESSION.query(func.count(distinct(WarnFilters.chat_id))).scalar()
+        chat_setting = SESSION.query(CleanServiceSetting).get(str(chat_id))
+        if chat_setting:
+            return chat_setting.clean_service
+        return False
     finally:
         SESSION.close()
 
 
-def __load_chat_warn_filters():
-    global WARN_FILTERS
-    try:
-        chats = SESSION.query(WarnFilters.chat_id).distinct().all()
-        for (chat_id,) in chats:  # remove tuple by ( ,)
-            WARN_FILTERS[chat_id] = []
+def set_clean_service(chat_id: Union[int, str], setting: bool):
+    with CS_LOCK:
+        chat_setting = SESSION.query(CleanServiceSetting).get(str(chat_id))
+        if not chat_setting:
+            chat_setting = CleanServiceSetting(chat_id)
 
-        all_filters = SESSION.query(WarnFilters).all()
-        for x in all_filters:
-            WARN_FILTERS[x.chat_id] += [x.keyword]
-
-        WARN_FILTERS = {
-            x: sorted(set(y), key=lambda i: (-len(i), i))
-            for x, y in WARN_FILTERS.items()
-        }
-
-    finally:
-        SESSION.close()
+        chat_setting.clean_service = setting
+        SESSION.add(chat_setting)
+        SESSION.commit()
 
 
 def migrate_chat(old_chat_id, new_chat_id):
-    with WARN_INSERTION_LOCK:
-        chat_notes = (
-            SESSION.query(Warns).filter(Warns.chat_id == str(old_chat_id)).all()
-        )
-        for note in chat_notes:
-            note.chat_id = str(new_chat_id)
+    with INSERTION_LOCK:
+        chat = SESSION.query(Welcome).get(str(old_chat_id))
+        if chat:
+            chat.chat_id = str(new_chat_id)
+
+        with WELC_BTN_LOCK:
+            chat_buttons = (
+                SESSION.query(WelcomeButtons)
+                .filter(WelcomeButtons.chat_id == str(old_chat_id))
+                .all()
+            )
+            for btn in chat_buttons:
+                btn.chat_id = str(new_chat_id)
+
+        with LEAVE_BTN_LOCK:
+            chat_buttons = (
+                SESSION.query(GoodbyeButtons)
+                .filter(GoodbyeButtons.chat_id == str(old_chat_id))
+                .all()
+            )
+            for btn in chat_buttons:
+                btn.chat_id = str(new_chat_id)
+
         SESSION.commit()
-
-    with WARN_FILTER_INSERTION_LOCK:
-        chat_filters = (
-            SESSION.query(WarnFilters)
-            .filter(WarnFilters.chat_id == str(old_chat_id))
-            .all()
-        )
-        for filt in chat_filters:
-            filt.chat_id = str(new_chat_id)
-        SESSION.commit()
-        old_warn_filt = WARN_FILTERS.get(str(old_chat_id))
-        if old_warn_filt is not None:
-            WARN_FILTERS[str(new_chat_id)] = old_warn_filt
-            del WARN_FILTERS[str(old_chat_id)]
-
-    with WARN_SETTINGS_LOCK:
-        chat_settings = (
-            SESSION.query(WarnSettings)
-            .filter(WarnSettings.chat_id == str(old_chat_id))
-            .all()
-        )
-        for setting in chat_settings:
-            setting.chat_id = str(new_chat_id)
-        SESSION.commit()
-
-
-__load_chat_warn_filters()
