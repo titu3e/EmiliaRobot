@@ -145,12 +145,12 @@ def get_readable_time(seconds: int) -> str:
     return ping_time
 
 PM_START_TEXT = """
-Halo {}! [✨](https://telegra.ph/file/8142e7aac030eebd40a4e.jpg)
-Nama Saya Adalah Emilia.
-Dikelola Oleh: [ZenitsuPrjkt](https://t.me/ZenitsuPrjkt)
+Halo {} ! [✨](https://telegra.ph/file/8142e7aac030eebd40a4e.jpg)
+Nama Saya Adalah Emilia
+Dikelola Oleh: [Zenitsu Prjkt](https://t.me/ZenitsuPrjkt)
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
 ✧ *Waktu aktif:* `{}`
-✧ `{}` *Pengguna, pada* `{}` *chats.*
+✧ `{}` *Pengguna, pada* `{}` *Obrolan.*
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
 Dan saya dapat mengelola grup Anda dengan fitur yang bermanfaat, jangan ragu untuk menambahkan saya ke grup Anda!
 """
