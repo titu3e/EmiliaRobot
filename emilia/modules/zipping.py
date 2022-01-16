@@ -1,3 +1,20 @@
+# Copyright (C) 2022 Zenitsu-Project.
+#
+# Emilia is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Emilia is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+# translate to Indonesian by @ZenitsuPrjkt
+
 import os
 import time
 import zipfile
@@ -38,16 +55,16 @@ async def _(event):
         return
 
     if not event.is_reply:
-        await event.reply("Reply to a file to compress it.")
+        await event.reply("Balas ke file untuk mengompresnya.")
         return
     if event.is_group:
         if not (await is_register_admin(event.input_chat, event.message.sender_id)):
             await event.reply(
-                "Hey, You are not admin. You can't use this command, But you can use in my pm 🙂"
+                "Hei, Anda bukan admin. Anda tidak dapat menggunakan perintah ini, Tetapi Anda dapat menggunakan saya di PM 🙂"
             )
             return
 
-    mone = await event.reply("⏳️ Please wait...")
+    mone = await event.reply("⏳️ Tunggu sebentar...")
     if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
         os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
     if event.reply_to_msg_id:
@@ -120,12 +137,12 @@ async def _(event):
         return
 
     if not event.is_reply:
-        await event.reply("Reply to a zip file.")
+        await event.reply("Balas ke file zip.")
         return
     if event.is_group:
         if not (await is_register_admin(event.input_chat, event.message.sender_id)):
             await event.reply(
-                "Hey, You are not admin. You can't use this command, But you can use in my pm 🙂"
+                "Hei, Anda bukan admin. Anda tidak dapat menggunakan perintah ini, Tetapi Anda dapat menggunakan saya di PM 🙂"
             )
             return
 
@@ -149,7 +166,7 @@ async def _(event):
         with zipfile.ZipFile(downloaded_file_name, "r") as zip_ref:
             zip_ref.extractall(extracted)
         filename = sorted(get_lst_of_files(extracted, []))
-        await event.reply("Unzipping now 😌")
+        await event.reply("Unzip Sekarang 😌")
         for single_file in filename:
             if os.path.exists(single_file):
                 caption_rts = os.path.basename(single_file)
@@ -191,7 +208,7 @@ async def _(event):
                 except Exception as e:
                     await client.send_message(
                         event.chat_id,
-                        "{} caused `{}`".format(caption_rts, str(e)),
+                        "{} menyebabkan `{}`".format(caption_rts, str(e)),
                         reply_to=event.message.id,
                     )
                     continue
