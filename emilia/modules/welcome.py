@@ -131,7 +131,7 @@ def send(update, message, keyboard, backup_message):
                 quote=False,
             )
 
-        elif excp.message == "Unsupported url protocol":
+        elif excp.message == "Protokol url tidak didukung":
             msg = update.effective_chat.send_message(
                 markdown_parser(
                     (
@@ -143,7 +143,7 @@ def send(update, message, keyboard, backup_message):
                 reply_to_message_id=reply,
             )
 
-        elif excp.message == "Wrong url host":
+        elif excp.message == "Salah url host":
             msg = update.effective_chat.send_message(
                 markdown_parser(
                     (
@@ -1166,7 +1166,7 @@ def user_captcha_button(update: Update, context: CallbackContext):
             kicked_msg = f"""
             ❌ [{escape_markdown(join_usr_data.first_name)}](tg://user?id={join_user}) failed the captcha and was kicked.
             """
-            query.answer(text="Wrong answer")
+            query.answer(text="Jawaban salah")
             res = chat.unban_member(join_user)
             if res:
                 bot.sendMessage(
@@ -1205,7 +1205,7 @@ WELC_HELP_TXT = (
 
 WELC_MUTE_HELP_TXT = (
     "Anda bisa mendapatkan bot untuk membisukan orang baru yang bergabung dengan grup Anda dan karenanya mencegah bot spam membanjiri grup Anda."
-    "Opsi berikut dimungkinkan::"
+    "Opsi berikut dimungkinkan:"
     "✧ `/welcomemute soft`*:* membatasi anggota baru mengirim media selama 24 jam."
     "✧ `/welcomemute strong`*:* membisukan anggota baru sampai mereka mengetuk tombol sehingga memverifikasi bahwa mereka manusia."
     "✧ `/welcomemute captcha`*:*  membisukan anggota baru sampai mereka memecahkan tombol captcha sehingga memverifikasi bahwa mereka manusia."
@@ -1252,7 +1252,7 @@ def __chat_settings__(chat_id, _):
 
 
 __help__ = """
-✦ *Admins saja:*
+✦ *Hanya Admins:*
  ✧ /welcome <on/off>*:* aktifkan/nonaktifkan pesan selamat datang.
  ✧ /welcome*:* menunjukkan pengaturan sambutan saat ini.
  ✧ /welcome noformat*:* menunjukkan pengaturan selamat datang saat ini, tanpa pemformatan - berguna untuk mendaur ulang pesan selamat datang Anda!
@@ -1265,8 +1265,7 @@ __help__ = """
  ✧ /welcomemutehelp*:* memberikan informasi tentang penyambutan bisu.
  ✧ /cleanservice <on/off*:* menghapus pesan layanan selamat datang/kiri telegram.
 
-✦ *Contoh:*
-pengguna bergabung dengan obrolan, pengguna meninggalkan obrolan.
+✦ *Contoh:* pengguna bergabung dengan obrolan, pengguna meninggalkan obrolan.
 
 ✦ *Markdown pesan selamat datang:*
  ✧ /welcomehelp*:* lihat lebih banyak informasi pemformatan untuk pesan selamat datang/selamat tinggal kustom.
