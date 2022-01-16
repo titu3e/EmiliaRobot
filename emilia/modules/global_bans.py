@@ -310,7 +310,7 @@ def ungban(update: Update, context: CallbackContext):
 
     user_chat = bot.get_chat(user_id)
     if user_chat.type != "private":
-        message.reply_text("Itu bukan pengguna!")=
+        message.reply_text("Itu bukan pengguna!")
         return
 
     if not sql.is_user_gbanned(user_id):
