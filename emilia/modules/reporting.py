@@ -1,20 +1,3 @@
-# Copyright (C) 2022 Zenitsu-Project.
-#
-# Emilia is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# Emilia is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-# translate to Indonesian by @ZenitsuPrjkt
-
 import html
 
 from emilia import LOGGER, DRAGONS, TIGERS, WOLVES, dispatcher
@@ -47,15 +30,15 @@ def report_setting(update: Update, context: CallbackContext):
             if args[0] in ("yes", "on"):
                 sql.set_user_setting(chat.id, True)
                 msg.reply_text(
-                    "Menghidupkan pelaporan! Anda akan diberi tahu setiap kali ada yang melaporkan sesuatu.",
+                    "Turned on reporting! You'll be notified whenever anyone reports something.",
                 )
 
             elif args[0] in ("no", "off"):
                 sql.set_user_setting(chat.id, False)
-                msg.reply_text("Mematikan pelaporan! Anda tidak akan mendapatkan laporan apa pun.")
+                msg.reply_text("Turned off reporting! You wont get any reports.")
         else:
             msg.reply_text(
-                f"Preferensi laporan Anda saat ini: `{sql.user_should_report(chat.id)}`",
+                f"Your current report preference is: `{sql.user_should_report(chat.id)}`",
                 parse_mode=ParseMode.MARKDOWN,
             )
 
@@ -64,18 +47,18 @@ def report_setting(update: Update, context: CallbackContext):
             if args[0] in ("yes", "on"):
                 sql.set_chat_setting(chat.id, True)
                 msg.reply_text(
-                    f"Mengaktifkan pelaporan di {chat.title}!\n\nAdmin yang telah mengaktifkan laporan akan diberi tahu ketika seseorang menyebut `/report` "
+                    f"Turned on reporting in {chat.title}!\n\nAdmins who have turned on reports will be notified when `/report` "
                     "or @admin is called.",
                 )
 
             elif args[0] in ("no", "off"):
                 sql.set_chat_setting(chat.id, False)
                 msg.reply_text(
-                    f"Mematikan pelaporan di {chat.title}!\n\nTidak ada admin yang akan diberitahukan ketika seseorang menyebut `/report` atau @admin.",
+                    f"Turned off reporting in {chat.title}!\n\nNo admins will be notified on `/report` or @admin.",
                 )
         else:
             msg.reply_text(
-                f"Pengaturan obrolan saat ini adalah: `{sql.chat_should_report(chat.id)}`.\n\nUntuk mengubah pengaturan ini, coba perintah ini lagi, dengan salah satu argumen berikut: yes/no/on/off",
+                f"Current report setting is: `{sql.chat_should_report(chat.id)}`.\n\nTo change this setting, try this command again, with one of the following args: yes/no/on/off",
                 parse_mode=ParseMode.MARKDOWN,
             )
 
@@ -96,52 +79,52 @@ def report(update: Update, context: CallbackContext) -> str:
         message = update.effective_message
 
         if not args:
-            message.reply_text("Tambahkan alasan untuk melaporkan terlebih dahulu.")
+            message.reply_text("Add a reason for reporting first.")
             return ""
 
         if user.id == reported_user.id:
-            message.reply_text("Oh ya, tentu saja... sangat banyak?")
+            message.reply_text("Uh yeah, Sure sure...maso much?")
             return ""
 
         if user.id == bot.id:
-            message.reply_text("Selamat mencoba.")
+            message.reply_text("Nice try.")
             return ""
 
         if reported_user.id in REPORT_IMMUNE_USERS:
-            message.reply_text("eh? Anda melaporkan Asosiasi?")
+            message.reply_text("Uh? You reporting a Kingdom Asosiation?")
             return ""
 
         if chat.username and chat.type == Chat.SUPERGROUP:
 
-            reported = f"{mention_html(user.id, user.first_name)} dilaporkan {mention_html(reported_user.id, reported_user.first_name)} ke admin!"
+            reported = f"{mention_html(user.id, user.first_name)} reported {mention_html(reported_user.id, reported_user.first_name)} to the admins!"
 
             msg = (
-                f"<b>Laporan: </b>{html.escape(chat.title)}\n"
-                f"<b>Di laporkan oleh:</b> {mention_html(user.id, user.first_name)}(<code>{user.id}</code>)\n"
-                f"<b>Pengguna yang dilaporkan:</b> {mention_html(reported_user.id, reported_user.first_name)} (<code>{reported_user.id}</code>)\n"
+                f"<b>⚠️ Report: </b>{html.escape(chat.title)}\n"
+                f"<b> • Report by:</b> {mention_html(user.id, user.first_name)}(<code>{user.id}</code>)\n"
+                f"<b> • Reported user:</b> {mention_html(reported_user.id, reported_user.first_name)} (<code>{reported_user.id}</code>)\n"
             )
-            link = f'<b>Pesan yang dilaporkan:</b> <a href="https://t.me/{chat.username}/{message.reply_to_message.message_id}">Klik disini</a>'
+            link = f'<b> • Reported message:</b> <a href="https://t.me/{chat.username}/{message.reply_to_message.message_id}">click here</a>'
             should_forward = False
             keyboard = [
                 [
                     InlineKeyboardButton(
-                        "Pesan",
+                        "➡ Message",
                         url=f"https://t.me/{chat.username}/{message.reply_to_message.message_id}",
                     ),
                 ],
                 [
                     InlineKeyboardButton(
-                        "Tendang",
+                        "⚠ Kick",
                         callback_data=f"report_{chat.id}=kick={reported_user.id}={reported_user.first_name}",
                     ),
                     InlineKeyboardButton(
-                        "Banned",
+                        "⛔️ Ban",
                         callback_data=f"report_{chat.id}=banned={reported_user.id}={reported_user.first_name}",
                     ),
                 ],
                 [
                     InlineKeyboardButton(
-                        "Hapus pesan",
+                        "❎ Delete Message",
                         callback_data=f"report_{chat.id}=delete={reported_user.id}={message.reply_to_message.message_id}",
                     ),
                 ],
@@ -149,11 +132,11 @@ def report(update: Update, context: CallbackContext) -> str:
             reply_markup = InlineKeyboardMarkup(keyboard)
         else:
             reported = (
-                f"{mention_html(user.id, user.first_name)} "
-                f"{mention_html(reported_user.id, reported_user.first_name)} Telah di laporkan ke semua admin!"
+                f"{mention_html(user.id, user.first_name)} reported "
+                f"{mention_html(reported_user.id, reported_user.first_name)} to the admins!"
             )
 
-            msg = f'{mention_html(user.id, user.first_name)} memanggil admin di "{html.escape(chat_name)}"!'
+            msg = f'{mention_html(user.id, user.first_name)} is calling for admins in "{html.escape(chat_name)}"!'
             link = ""
             should_forward = True
 
@@ -211,10 +194,10 @@ def report(update: Update, context: CallbackContext) -> str:
                 except Unauthorized:
                     pass
                 except BadRequest as excp:  # TODO: cleanup exceptions
-                    LOGGER.exception("Pengecualian saat melaporkan pengguna")
+                    LOGGER.exception("Exception while reporting user")
 
         message.reply_to_message.reply_text(
-            f"{mention_html(user.id, user.first_name)} laporkan pesan ke admin.",
+            f"{mention_html(user.id, user.first_name)} reported the message to the admins.",
             parse_mode=ParseMode.HTML,
         )
         return msg
@@ -227,14 +210,14 @@ def __migrate__(old_chat_id, new_chat_id):
 
 
 def __chat_settings__(chat_id, _):
-    return f"Obrolan ini disetel untuk mengirim laporan pengguna ke admin, melalui /report dan @admin: `{sql.chat_should_report(chat_id)}`"
+    return f"This chat is setup to send user reports to admins, via /report and @admin: `{sql.chat_should_report(chat_id)}`"
 
 
 def __user_settings__(user_id):
     if sql.user_should_report(user_id) is True:
-        text = "Anda akan menerima laporan dari obrolan yang Anda kelola."
+        text = "You will receive reports from chats you're admin."
     else:
-        text = "Anda *tidak* akan menerima laporan dari obrolan yang Anda kelola."
+        text = "You will *not* receive reports from chats you're admin."
     return text
 
 
@@ -246,10 +229,10 @@ def buttons(update: Update, context: CallbackContext):
         try:
             bot.kickChatMember(splitter[0], splitter[2])
             bot.unbanChatMember(splitter[0], splitter[2])
-            query.aswer("Berhasil ditendang")
+            query.aswer("✅ Succesfully kicked")
             return ""
         except Exception as err:
-            query.answer("Gagal Menendang")
+            query.answer("🛑 Failed to Kick")
             bot.sendMessage(
                 text=f"Error: {err}",
                 chat_id=query.message.chat_id,
@@ -258,7 +241,7 @@ def buttons(update: Update, context: CallbackContext):
     elif splitter[1] == "banned":
         try:
             bot.kickChatMember(splitter[0], splitter[2])
-            query.answer("Berhasil di Banned")
+            query.answer("✅  Succesfully Banned")
             return ""
         except Exception as err:
             bot.sendMessage(
@@ -266,11 +249,11 @@ def buttons(update: Update, context: CallbackContext):
                 chat_id=query.message.chat_id,
                 parse_mode=ParseMode.HTML,
             )
-            query.answer("Gagal Membanned")
+            query.answer("🛑 Failed to Ban")
     elif splitter[1] == "delete":
         try:
             bot.deleteMessage(splitter[0], splitter[3])
-            query.answer("Pesan dihapus")
+            query.answer("✅ Message Deleted")
             return ""
         except Exception as err:
             bot.sendMessage(
@@ -278,7 +261,7 @@ def buttons(update: Update, context: CallbackContext):
                 chat_id=query.message.chat_id,
                 parse_mode=ParseMode.HTML,
             )
-            query.answer("gagal menghapus Pesan!")
+            query.answer("🛑 Failed to delete message!")
 
 
 SETTING_HANDLER = CommandHandler("reports", report_setting, run_async=True)

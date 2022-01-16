@@ -1,20 +1,3 @@
-# Copyright (C) 2022 Zenitsu-Project.
-#
-# Emilia is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# Emilia is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-# translate to Indonesian by @ZenitsuPrjkt
-
 import time
 import os
 import re
@@ -92,10 +75,10 @@ def echo(update: Update, context: CallbackContext):
 def markdown_help_sender(update: Update):
     update.effective_message.reply_text(MARKDOWN_HELP, parse_mode=ParseMode.HTML)
     update.effective_message.reply_text(
-        "Coba teruskan pesan berikut kepada saya, dan Anda akan melihat, dan Gunakan #test!"
+        "Try forwarding the following message to me, and you'll see, and Use #test!"
     )
     update.effective_message.reply_text(
-        "/save tes Ini adalah markdown test. _italics_, *bold*, code, "
+        "/save test This is a markdown test. _italics_, *bold*, code, "
         "[URL](example.com) [button](buttonurl:github.com) "
         "[button2](buttonurl://google.com:same)"
     )
@@ -104,12 +87,12 @@ def markdown_help_sender(update: Update):
 def markdown_help(update: Update, context: CallbackContext):
     if update.effective_chat.type != "private":
         update.effective_message.reply_text(
-            "Hubungi saya di pm",
+            "Contact me in pm",
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
                         InlineKeyboardButton(
-                            "Bantuan Markdown",
+                            "Markdown help",
                             url=f"t.me/{context.bot.username}?start=markdownhelp",
                         )
                     ]
@@ -127,12 +110,12 @@ def wiki(update: Update, context: CallbackContext):
         update.effective_message.reply_text("Enter keywords!")
     else:
         try:
-            pertama = update.effective_message.reply_text("Memuat...")
+            pertama = update.effective_message.reply_text("Loading...")
             keyboard = InlineKeyboardMarkup(
                 [
                     [
                         InlineKeyboardButton(
-                            text="Info lebih lanjut...",
+                            text="More Info...",
                             url=wikipedia.page(kueri).url,
                         )
                     ]
@@ -150,7 +133,7 @@ def wiki(update: Update, context: CallbackContext):
             update.effective_message.reply_text(f"Error: {et}")
         except wikipedia.exceptions.DisambiguationError as eet:
             update.effective_message.reply_text(
-                f"⚠ Error\n Ada terlalu banyak permintaan!! Ekspresikan lebih banyak!\nKemungkinan hasil kueri:\n{eet}"
+                f"⚠ Error\n There are too many query! Express it more!\nPossible query result:\n{eet}"
             )
 
 
@@ -162,7 +145,7 @@ def wall(update: Update, context: CallbackContext):
     args = context.args
     query = " ".join(args)
     if not query:
-        msg.reply_text("Silakan masukkan kueri!")
+        msg.reply_text("Please enter a query!")
         return
     caption = query
     term = query.replace(" ", "%20")

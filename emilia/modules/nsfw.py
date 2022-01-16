@@ -1,20 +1,3 @@
-# Copyright (C) 2022 Zenitsu-Project.
-#
-# Emilia is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# Emilia is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-# translate to Indonesian by @ZenitsuPrjkt
-
 import os
 import html
 import nekos
@@ -40,7 +23,7 @@ def add_nsfw(update: Update, context: CallbackContext):
     is_nsfw = sql.is_nsfw(chat.id)
     if not is_nsfw:
         sql.set_nsfw(chat.id)
-        msg.reply_text("Mode NSFW Diaktifkan!")
+        msg.reply_text("Activated NSFW Mode!")
         message = (
             f"<b>{html.escape(chat.title)}:</b>\n"
             f"ACTIVATED_NSFW\n"
@@ -48,7 +31,7 @@ def add_nsfw(update: Update, context: CallbackContext):
         )
         return message
     else:
-        msg.reply_text("Mode NSFW sudah Diaktifkan untuk obrolan ini!")
+        msg.reply_text("NSFW Mode is already Activated for this chat!")
         return ""
 
 
@@ -60,11 +43,11 @@ def rem_nsfw(update: Update, context: CallbackContext):
     user = update.effective_user
     is_nsfw = sql.is_nsfw(chat.id)
     if not is_nsfw:
-        msg.reply_text("Mode NSFW sudah Dinonaktifkan")
+        msg.reply_text("NSFW Mode is already Deactivated")
         return ""
     else:
         sql.rem_nsfw(chat.id)
-        msg.reply_text("Kembali ke Mode NSFW!")
+        msg.reply_text("Rolled Back to SFW Mode!")
         message = (
             f"<b>{html.escape(chat.title)}:</b>\n"
             f"DEACTIVATED_NSFW\n"
@@ -74,12 +57,12 @@ def rem_nsfw(update: Update, context: CallbackContext):
 
 def list_nsfw_chats(update: Update, context: CallbackContext):
     chats = sql.get_all_nsfw_chats()
-    text = "<b>Obrolan Diaktifkan NSFW</b>\n"
+    text = "<b>NSFW Activated Chats</b>\n"
     for chat in chats:
         try:
             x = context.bot.get_chat(int(*chat))
             name = x.title if x.title else x.first_name
-            text += f"- <code>{name}</code>\n"
+            text += f"• <code>{name}</code>\n"
         except BadRequest:
             sql.rem_nsfw(*chat)
         except Unauthorized:
@@ -609,7 +592,7 @@ def dva(update, context):
     url = nsfw.get("url")
     # do shit with url if you want to
     if not url:
-        msg.reply_text("Tidak ada URL yang diterima dari API!")
+        msg.reply_text("No URL was received from the API!")
         return
     msg.reply_photo(url)
 
@@ -788,60 +771,60 @@ __handlers__ = [
 
 __help__ = """
 ✦ *NSFW:*
- ✧ /addnsfw : Enable NSFW mode
- ✧ /rmnsfw : Disable NSFW mode
+✧ /addnsfw : Enable NSFW mode
+✧ /rmnsfw : Disable NSFW mode
  
 ✦ *Available commands:*  
- ✧ /neko: Sends Random SFW Neko source Images.
- ✧ /feet: Sends Random Anime Feet Images.
- ✧ /yuri: Sends Random Yuri source Images.
- ✧ /trap: Sends Random Trap source Images.
- ✧ /futanari: Sends Random Futanari source Images.
- ✧ /hololewd: Sends Random Holo Lewds.
- ✧ /lewdkemo: Sends Random Kemo Lewds.
- ✧ /sologif: Sends Random Solo GIFs.
- ✧ /cumgif: Sends Random Cum GIFs.
- ✧ /erokemo: Sends Random Ero-Kemo Images.
- ✧ /lesbian: Sends Random Les Source Images.
- ✧ /lewdk: Sends Random Kitsune Lewds.
- ✧ /ngif: Sends Random Neko GIFs.
- ✧ /tickle: Sends Random Tickle GIFs.
- ✧ /lewd: Sends Random Lewds.
- ✧ /feed: Sends Random Feeding GIFs.
- ✧ /eroyuri: Sends Random Ero-Yuri source Images.
- ✧ /eron: Sends Random Ero-Neko source Images.
- ✧ /cum: Sends Random Cum Images.
- ✧ /bjgif: Sends Random Blow Job GIFs.
- ✧ /bj: Sends Random Blow Job source Images.
- ✧ /nekonsfw: Sends Random NSFW Neko source Images.
- ✧ /solo: Sends Random NSFW Neko GIFs.
- ✧ /kemonomimi: Sends Random KemonoMimi source Images.
- ✧ /avatarlewd: Sends Random Avater Lewd Stickers.
- ✧ /gasm: Sends Random Orgasm Stickers.
- ✧ /poke: Sends Random Poke GIFs.
- ✧ /anal: Sends Random Anal GIFs.
- ✧ /hentai: Sends Random Hentai source Images.
- ✧ /avatar: Sends Random Avatar Stickers.
- ✧ /erofeet: Sends Random Ero-Feet source Images.
- ✧ /holo: Sends Random Holo source Images.
- ✧ /tits: Sends Random Tits source Images.
- ✧ /pussygif: Sends Random Pussy GIFs.
- ✧ /holoero: Sends Random Ero-Holo source Images.
- ✧ /pussy: Sends Random Pussy source Images.
- ✧ /hentaigif: Sends Random Hentai GIFs.
- ✧ /classic: Sends Random Classic Hentai GIFs.
- ✧ /kuni: Sends Random Pussy Lick GIFs.
- ✧ /waifu: Sends Random Waifu Stickers.
- ✧ /kiss: Sends Random Kissing GIFs.
- ✧ /femdom: Sends Random Femdom source Images.
- ✧ /cuddle: Sends Random Cuddle GIFs.
- ✧ /erok: Sends Random Ero-Kitsune source Images.
- ✧ /foxgirl: Sends Random FoxGirl source Images.
- ✧ /titsgif: Sends Random Tits GIFs.
- ✧ /ero: Sends Random Ero source Images.
- ✧ /smug: Sends Random Smug GIFs.
- ✧ /baka: Sends Random Baka Shout GIFs.
- ✧ /dva: Sends Random D.VA source Images.
+✧ /neko: Sends Random SFW Neko source Images.
+✧ /feet: Sends Random Anime Feet Images.
+✧ /yuri: Sends Random Yuri source Images.
+✧ /trap: Sends Random Trap source Images.
+✧ /futanari: Sends Random Futanari source Images.
+✧ /hololewd: Sends Random Holo Lewds.
+✧ /lewdkemo: Sends Random Kemo Lewds.
+✧ /sologif: Sends Random Solo GIFs.
+✧ /cumgif: Sends Random Cum GIFs.
+✧ /erokemo: Sends Random Ero-Kemo Images.
+✧ /lesbian: Sends Random Les Source Images.
+✧ /lewdk: Sends Random Kitsune Lewds.
+✧ /ngif: Sends Random Neko GIFs.
+✧ /tickle: Sends Random Tickle GIFs.
+✧ /lewd: Sends Random Lewds.
+✧ /feed: Sends Random Feeding GIFs.
+✧ /eroyuri: Sends Random Ero-Yuri source Images.
+✧ /eron: Sends Random Ero-Neko source Images.
+✧ /cum: Sends Random Cum Images.
+✧ /bjgif: Sends Random Blow Job GIFs.
+✧ /bj: Sends Random Blow Job source Images.
+✧ /nekonsfw: Sends Random NSFW Neko source Images.
+✧ /solo: Sends Random NSFW Neko GIFs.
+✧ /kemonomimi: Sends Random KemonoMimi source Images.
+✧ /avatarlewd: Sends Random Avater Lewd Stickers.
+✧ /gasm: Sends Random Orgasm Stickers.
+✧ /poke: Sends Random Poke GIFs.
+✧ /anal: Sends Random Anal GIFs.
+✧ /hentai: Sends Random Hentai source Images.
+✧ /avatar: Sends Random Avatar Stickers.
+✧ /erofeet: Sends Random Ero-Feet source Images.
+✧ /holo: Sends Random Holo source Images.
+✧ /tits: Sends Random Tits source Images.
+✧ /pussygif: Sends Random Pussy GIFs.
+✧ /holoero: Sends Random Ero-Holo source Images.
+✧ /pussy: Sends Random Pussy source Images.
+✧ /hentaigif: Sends Random Hentai GIFs.
+✧ /classic: Sends Random Classic Hentai GIFs.
+✧ /kuni: Sends Random Pussy Lick GIFs.
+✧ /waifu: Sends Random Waifu Stickers.
+✧ /kiss: Sends Random Kissing GIFs.
+✧ /femdom: Sends Random Femdom source Images.
+✧ /cuddle: Sends Random Cuddle GIFs.
+✧ /erok: Sends Random Ero-Kitsune source Images.
+✧ /foxgirl: Sends Random FoxGirl source Images.
+✧ /titsgif: Sends Random Tits GIFs.
+✧ /ero: Sends Random Ero source Images.
+✧ /smug: Sends Random Smug GIFs.
+✧ /baka: Sends Random Baka Shout GIFs.
+✧ /dva: Sends Random D.VA source Images.
 """
 
 

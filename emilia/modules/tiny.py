@@ -9,20 +9,20 @@ from emilia import telethn as tbot
 async def _(event):
     reply = await event.get_reply_message()
     if not (reply and(reply.media)):
-           await event.reply("`Tolong balas stiker`")
+           await event.reply("`Please reply to a sticker`")
            return
-    kontol = await event.reply("`Memproses tiny...`")
+    kontol = await event.reply("`Processing tiny...`")
     ik = await tbot.download_media(reply)
-    im1 = Image.open("emilia/resources/emilia.png")
+    im1 = Image.open("emilia/resources/ken.png")
     if ik.endswith(".tgs"):
-        await tbot.download_media(reply, "emilia.tgs")
-        os.system("lottie_convert.py emilia.tgs json.json")
+        await tbot.download_media(reply, "ken.tgs")
+        os.system("lottie_convert.py ken.tgs json.json")
         json = open("json.json", "r")
         jsn = json.read()
         jsn = jsn.replace("512", "2000")
         open = ("json.json", "w").write(jsn)
-        os.system("lottie_convert.py json.json emilia.tgs")
-        file = "emilia.tgs"
+        os.system("lottie_convert.py json.json ken.tgs")
+        file = "ken.tgs"
         os.remove("json.json")
     elif ik.endswith((".gif", ".mp4")):
         iik = cv2.VideoCapture(ik)
@@ -42,14 +42,14 @@ async def _(event):
             xxx = 200 + 5 * aa
             yyy = 200 + 5 * bb
         k = im.resize((int(xxx), int(yyy)))
-        k.save("e.png", format="PNG", optimize=True)
-        im2 = Image.open("e.png")
+        k.save("k.png", format="PNG", optimize=True)
+        im2 = Image.open("k.png")
         back_im = im1.copy()
         back_im.paste(im2, (150, 0))
         back_im.save("o.webp", "WEBP", quality=95)
         file = "o.webp"
         os.remove(fil)
-        os.remove("e.png")
+        os.remove("k.png")
     else:
         im = Image.open(ik)
         z, d = im.size
@@ -64,13 +64,13 @@ async def _(event):
             xxx = 200 + 5 * aa
             yyy = 200 + 5 * bb
         k = im.resize((int(xxx), int(yyy)))
-        k.save("e.png", format="PNG", optimize=True)
-        im2 = Image.open("e.png")
+        k.save("k.png", format="PNG", optimize=True)
+        im2 = Image.open("k.png")
         back_im = im1.copy()
         back_im.paste(im2, (150, 0))
         back_im.save("o.webp", "WEBP", quality=95)
         file = "o.webp"
-        os.remove("e.png")
+        os.remove("k.png")
     await tbot.send_file(event.chat_id, file, reply_to=event.reply_to_msg_id)
     await kontol.delete()
     os.remove(file)

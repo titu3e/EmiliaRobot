@@ -1,20 +1,3 @@
-# Copyright (C) 2022 Zenitsu-Project.
-#
-# Emilia is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# Emilia is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-# translate to Indonesian by @ZenitsuPrjkt
-
 import html
 import re
 import os
@@ -166,7 +149,7 @@ def get_id(update: Update, context: CallbackContext):
             user2 = message.reply_to_message.forward_from
 
             msg.reply_text(
-                f"<b>ID Telegram:</b>\n"
+                f"<b>Telegram ID:</b>\n"
                 f"• {html.escape(user2.first_name)} - <code>{user2.id}</code>.\n"
                 f"• {html.escape(user1.first_name)} - <code>{user1.id}</code>.",
                 parse_mode=ParseMode.HTML,
@@ -176,18 +159,18 @@ def get_id(update: Update, context: CallbackContext):
 
             user = bot.get_chat(user_id)
             msg.reply_text(
-                f"{html.escape(user.first_name)}'s ID adalah <code>{user.id}</code>.",
+                f"{html.escape(user.first_name)}'s id is <code>{user.id}</code>.",
                 parse_mode=ParseMode.HTML,
             )
 
     elif chat.type == "private":
         msg.reply_text(
-            f"ID Anda adalah <code>{chat.id}</code>.", parse_mode=ParseMode.HTML,
+            f"Your id is <code>{chat.id}</code>.", parse_mode=ParseMode.HTML,
         )
 
     else:
         msg.reply_text(
-            f"ID grup ini adalah <code>{chat.id}</code>.", parse_mode=ParseMode.HTML,
+            f"This group's id is <code>{chat.id}</code>.", parse_mode=ParseMode.HTML,
         )
 
 
@@ -206,7 +189,7 @@ async def group_info(event) -> None:
         ch_full = await event.client(GetFullChannelRequest(channel=entity))
     except:
         await event.reply(
-            "Tidak bisa karena alasan tertentu, mungkin itu pribadi atau saya dilarang di sana.",
+            "Can't for some reason, maybe it is a private one or that I am banned there.",
         )
         return
     msg = f"**ID**: `{entity.id}`"
@@ -234,11 +217,11 @@ def gifid(update: Update, context: CallbackContext):
     msg = update.effective_message
     if msg.reply_to_message and msg.reply_to_message.animation:
         update.effective_message.reply_text(
-            f"ID Gif:\n<code>{msg.reply_to_message.animation.file_id}</code>",
+            f"Gif ID:\n<code>{msg.reply_to_message.animation.file_id}</code>",
             parse_mode=ParseMode.HTML,
         )
     else:
-        update.effective_message.reply_text("Harap balas gif untuk mendapatkan ID-nya.")
+        update.effective_message.reply_text("Please reply to a gif to get its ID.")
 
 
 def info(update: Update, context: CallbackContext):
@@ -262,30 +245,30 @@ def info(update: Update, context: CallbackContext):
             and not message.parse_entities([MessageEntity.TEXT_MENTION])
         )
     ):
-        message.reply_text("Saya tidak dapat mengekstrak pengguna dari ini.")
+        message.reply_text("I can't extract a user from this.")
         return
 
     else:
         return
 
-    rep = message.reply_text("<code>Mendapatkan info...</code>", parse_mode=ParseMode.HTML)
+    rep = message.reply_text("<code>Getting info...</code>", parse_mode=ParseMode.HTML)
 
     text = (
-        f"<b>Hasil penilaian:</b>\n"
-        f"ID: <code>{user.id}</code>\n"
-        f"Nama depan: {html.escape(user.first_name)}"
+        f"╔═━「<b> Appraisal results:</b> 」\n"
+        f"✪ ID: <code>{user.id}</code>\n"
+        f"✪ First Name: {html.escape(user.first_name)}"
     )
 
     if user.last_name:
-        text += f"\nNama belakang: {html.escape(user.last_name)}"
+        text += f"\n✪ Last Name: {html.escape(user.last_name)}"
 
     if user.username:
-        text += f"\nNama pengguna: @{html.escape(user.username)}"
+        text += f"\n✪ Username: @{html.escape(user.username)}"
 
-    text += f"\nTautan pengguna: {mention_html(user.id, 'link')}"
+    text += f"\n✪ Userlink: {mention_html(user.id, 'link')}"
 
     if chat.type != "private" and user_id != bot.id:
-        _stext = "\nJabatan: <code>{}</code>"
+        _stext = "\n✪ Presence: <code>{}</code>"
 
         afk_st = is_afk(user.id)
         if afk_st:
@@ -301,39 +284,39 @@ def info(update: Update, context: CallbackContext):
                     text += _stext.format("Admin")
     if user_id not in [bot.id, 777000, 1087968824]:
         userhp = hpmanager(user)
-        text += f"\n\n<b>Kesehatan:</b> <code>{userhp['earnedhp']}/{userhp['totalhp']}</code>\n[<i>{make_bar(int(userhp['percentage']))} </i>{userhp['percentage']}%]"
+        text += f"\n\n<b>Health:</b> <code>{userhp['earnedhp']}/{userhp['totalhp']}</code>\n[<i>{make_bar(int(userhp['percentage']))} </i>{userhp['percentage']}%]"
 
     try:
         spamwtc = sw.get_ban(int(user.id))
         if spamwtc:
-            text += "\n\n<b>Orang ini diawasi Spamwatch!</b>"
-            text += f"\nAlasan: <pre>{spamwtc.reason}</pre>"
-            text += "\nBanding di @SpamWatchSupport"
+            text += "\n\n<b>This person is Spamwatched!</b>"
+            text += f"\nReason: <pre>{spamwtc.reason}</pre>"
+            text += "\nAppeal at @SpamWatchSupport"
     except:
         pass  # don't crash if api is down somehow...
 
     disaster_level_present = False
 
     if user.id == OWNER_ID:
-        text += "\n\nLevel orang ini adalah 'King'."
+        text += "\n\nThe Disaster level of this person is 'King'."
         disaster_level_present = True
     elif user.id in DEV_USERS:
-        text += "\n\nPengguna ini adalah anggota dari 'Prince'."
+        text += "\n\nThis user is member of 'Prince'."
         disaster_level_present = True
     elif user.id in DRAGONS:
-        text += "\n\nLevel orang ini adalah 'Emperor'."
+        text += "\n\nThe Disaster level of this person is 'Emperor'."
         disaster_level_present = True
     elif user.id in DEMONS:
-        text += "\n\nLevel orang ini adalah 'Governor'."
+        text += "\n\nThe Disaster level of this person is 'Governor'."
         disaster_level_present = True
     elif user.id in TIGERS:
-        text += "\n\nLevel orang ini adalah 'Captain'."
+        text += "\n\nThe Disaster level of this person is 'Captain'."
         disaster_level_present = True
     elif user.id in WOLVES:
-        text += "\n\nLevel orang ini adalah 'Soldier'."
+        text += "\n\nThe Disaster level of this person is 'Soldier'."
         disaster_level_present = True
     elif user.id == 1829047705:
-         text += "\n\nPemilik Bot. Ratu dari @ZenitsuPrjkt. Nama Bot Terinspirasi Dari 'Re:Zero − Starting Life in Another World'."
+         text += "\n\nOwner Of A Bot. Queen Of @excrybaby. Bot Name Inspired From 'JoJo'."
          disaster_level_present = True
 
     try:
@@ -370,9 +353,9 @@ def info(update: Update, context: CallbackContext):
                     [
                         [
                             InlineKeyboardButton(
-                                "Kesehatan", url="https://t.me/KennedyProject/44"),
+                                "Health", url="https://t.me/KennedyProject/44"),
                             InlineKeyboardButton(
-                                "Bencana", url="https://t.me/KennedyProject/43")
+                                "Disaster", url="https://t.me/KennedyProject/43")
                         ],
                     ]
                 ),
@@ -388,9 +371,9 @@ def info(update: Update, context: CallbackContext):
                     [
                         [
                             InlineKeyboardButton(
-                                "Kesehatan", url="https://t.me/KennedyProject/44"),
+                                "Health", url="https://t.me/KennedyProject/44"),
                             InlineKeyboardButton(
-                                "Bencana", url="https://t.me/KennedyProject/43")
+                                "Disaster", url="https://t.me/KennedyProject/43")
                         ],
                     ]
                 ),
@@ -423,10 +406,10 @@ def about_me(update: Update, context: CallbackContext):
     elif message.reply_to_message:
         username = message.reply_to_message.from_user.first_name
         update.effective_message.reply_text(
-            f"{username} belum mengatur pesan info tentang diri mereka sendiri!",
+            f"{username} hasn't set an info message about themselves yet!",
         )
     else:
-        update.effective_message.reply_text("Tidak ada satupun, gunakan, gunakan /setme untuk mengaturnya.")
+        update.effective_message.reply_text("There isnt one, use /setme to set one.")
 
 
 def set_about_me(update: Update, context: CallbackContext):
@@ -447,14 +430,14 @@ def set_about_me(update: Update, context: CallbackContext):
         if len(info[1]) < MAX_MESSAGE_LENGTH // 4:
             sql.set_user_me_info(user_id, info[1])
             if user_id in [777000, 1087968824]:
-                message.reply_text("Authorized...Informasi diperbarui!")
+                message.reply_text("Authorized...Information updated!")
             elif user_id == bot.id:
-                message.reply_text("Saya telah memperbarui info saya dengan yang Anda berikan!")
+                message.reply_text("I have updated my info with the one you provided!")
             else:
-                message.reply_text("Informasi diperbarui!")
+                message.reply_text("Information updated!")
         else:
             message.reply_text(
-                "Info harus di bawah {} karakter! Kamu punya {}.".format(
+                "The info needs to be under {} characters! You have {}.".format(
                     MAX_MESSAGE_LENGTH // 4,
                     len(info[1]),
                 ),
@@ -462,9 +445,9 @@ def set_about_me(update: Update, context: CallbackContext):
 
 @sudo_plus
 def stats(update: Update, context: CallbackContext):
-    stats = "<b>Statistik Emilia Saat Ini</b>\n" + "\n".join([mod.__stats__() for mod in STATS])
+    stats = "<b>╔═━「 Current Emilia Statistics 」</b>\n" + "\n".join([mod.__stats__() for mod in STATS])
     result = re.sub(r"(\d+)", r"<code>\1</code>", stats)
-    result += "\n<b>Dipersembahkan oleh Emilia-Project</b>"
+    result += "\n<b>╘═━「 Powered By Emilia-Prjkt 」</b>"
     update.effective_message.reply_text(
         result,
         parse_mode=ParseMode.HTML, 
@@ -489,11 +472,11 @@ def about_bio(update: Update, context: CallbackContext):
     elif message.reply_to_message:
         username = user.first_name
         update.effective_message.reply_text(
-            f"{username} belum memiliki pesan tentang diri mereka sendiri!\nSetel satu, menggunakan /setbio",
+            f"{username} hasn't had a message set about themselves yet!\nSet one using /setbio",
         )
     else:
         update.effective_message.reply_text(
-            "Anda belum memiliki set bio tentang diri Anda!",
+            "You haven't had a bio set about yourself yet!",
         )
 
 
@@ -508,17 +491,17 @@ def set_about_bio(update: Update, context: CallbackContext):
 
         if user_id == message.from_user.id:
             message.reply_text(
-                "Ha, Anda tidak dapat mengatur bio Anda sendiri! Anda berada di bawah belas kasihan orang lain di sini...",
+                "Ha, you can't set your own bio! You're at the mercy of others here...",
             )
             return
 
         if user_id in [777000, 1087968824] and sender_id not in DEV_USERS:
-            message.reply_text("Anda tidak authorised")
+            message.reply_text("You are not authorised")
             return
 
         if user_id == bot.id and sender_id not in DEV_USERS:
             message.reply_text(
-                "Erm... ya, saya hanya mempercayai @ZenitsuPrjkt untuk mengatur bio saya.",
+                "Erm... yeah, I only trust the Ackermans to set my bio.",
             )
             return
 
@@ -531,16 +514,16 @@ def set_about_bio(update: Update, context: CallbackContext):
             if len(bio[1]) < MAX_MESSAGE_LENGTH // 4:
                 sql.set_user_bio(user_id, bio[1])
                 message.reply_text(
-                    "Diperbarui bio {}'s".format(repl_message.from_user.first_name),
+                    "Updated {}'s bio!".format(repl_message.from_user.first_name),
                 )
             else:
                 message.reply_text(
-                    "Bio harus di bawah {} Karakter! Anda mencoba mengatur {}.".format(
+                    "Bio needs to be under {} characters! You tried to set {}.".format(
                         MAX_MESSAGE_LENGTH // 4, len(bio[1]),
                     ),
                 )
     else:
-        message.reply_text("Balas seseorang untuk mengatur bio mereka!")
+        message.reply_text("Reply to someone to set their bio!")
 
 
 def __user_info__(user_id):
@@ -548,36 +531,36 @@ def __user_info__(user_id):
     me = html.escape(sql.get_user_me_info(user_id) or "")
     result = ""
     if me:
-        result += f"<b>Tentang pengguna:</b>\n{me}\n"
+        result += f"<b>About user:</b>\n{me}\n"
     if bio:
-        result += f"<b>Apa yang orang lain katakan:</b>\n{bio}\n"
+        result += f"<b>What others say:</b>\n{bio}\n"
     result = result.strip("\n")
     return result
 
 
 __help__ = """
 ✦ *ID:*
- ✧ /id*:* dapatkan id grup saat ini. Jika digunakan dengan membalas pesan, dapatkan id pengguna itu.
- ✧ /gifid*:* balas gif kepada saya untuk memberi tahu Anda ID file-nya.
+✧ /id*:* get the current group id. If used by replying to a message, gets that user's id.
+✧ /gifid*:* reply to a gif to me to tell you its file ID.
  
-✦ *Informasi tambahan tentang Anda:* 
- ✧ /setme <text>*:* akan mengatur info Anda.
- ✧ /me*:* akan mendapatkan info Anda atau pengguna lain.
+✦ *Self addded information:* 
+✧ /setme <text>*:* will set your info
+✧ /me*:* will get your or another user's info.
  
-✦ *Informasi yang ditambahkan orang lain tentang Anda:* 
- ✧ /bio*:* akan mendapatkan bio Anda atau pengguna lain. Ini tidak dapat diatur sendiri.
- ✧ /setbio <text>*:* saat membalas, akan menyimpan bio pengguna lain.
+✦ *Information others add on you:* 
+✧ /bio*:* will get your or another user's bio. This cannot be set by yourself.
+✧ /setbio <text>*:* while replying, will save another user's bio 
 
-✦ *Informasi Keseluruhan tentang Anda:*
- ✧ /info*:* mendapatkan informasi tentang pengguna.
+✦ *Overall Information about you:*
+✧ /info*:* get information about a user. 
  
-✦ *json Info detail:*
- ✧ /json*:* Dapatkan info detail tentang pesan apa pun.
+✦ *json Detailed info:*
+✧ /json*:* Get Detailed info about any message.
  
-✦ *Afk:*
-Saat ditandai sebagai AFK, penyebutan apa pun akan dibalas dengan pesan yang menyatakan bahwa Anda tidak tersedia!
- ✧ /afk <reason>*:* Tandai diri Anda sedang AFK.
- ✧ brb <reason>: Sama seperti perintah afk, tapi bukan perintah.
+✦ *AFk:*
+When marked as AFK, any mentions will be replied to with a message stating that you're not available!
+✧ /afk <reason>*:* Mark yourself as AFK.
+✧ brb <reason>: Same as the afk command, but not a command. 
 """
 
 SET_BIO_HANDLER = DisableAbleCommandHandler("setbio", set_about_bio, run_async=True)

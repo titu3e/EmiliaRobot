@@ -1,20 +1,3 @@
-# Copyright (C) 2022 Zenitsu-Project.
-#
-# Emilia is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# Emilia is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-# translate to Indonesian by @ZenitsuPrjkt
-
 # Module to blacklist users and prevent them from using commands by @TheRealPhoenix
 import html
 import emilia.modules.sql.blacklistusers_sql as sql
@@ -51,15 +34,15 @@ def bl_user(update: Update, context: CallbackContext) -> str:
     user_id, reason = extract_user_and_text(message, args)
 
     if not user_id:
-        message.reply_text("Saya ragu itu pengguna.")
+        message.reply_text("I doubt that's a user.")
         return ""
 
     if user_id == bot.id:
-        message.reply_text("Bagaimana saya bisa melakukan pekerjaan saya jika saya mengabaikan diri saya sendiri?")
+        message.reply_text("How am I supposed to do my work if I am ignoring myself?")
         return ""
 
     if user_id in BLACKLISTWHITELIST:
-        message.reply_text("Tidak!\nMemperhatikan Disasters adalah pekerjaan saya.")
+        message.reply_text("No!\nNoticing Disasters is my job.")
         return ""
 
     try:
@@ -71,14 +54,14 @@ def bl_user(update: Update, context: CallbackContext) -> str:
         raise
 
     sql.blacklist_user(user_id, reason)
-    message.reply_text("Saya akan mengabaikan keberadaan pengguna ini!")
+    message.reply_text("I shall ignore the existence of this user!")
     log_message = (
         f"#BLACKLIST\n"
         f"<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))}\n"
         f"<b>User:</b> {mention_html(target_user.id, html.escape(target_user.first_name))}"
     )
     if reason:
-        log_message += f"\n<b>Alasan:</b> {reason}"
+        log_message += f"\n<b>Reason:</b> {reason}"
 
     return log_message
 
@@ -92,18 +75,18 @@ def unbl_user(update: Update, context: CallbackContext) -> str:
     user_id = extract_user(message, args)
 
     if not user_id:
-        message.reply_text("Saya ragu itu pengguna.")
+        message.reply_text("I doubt that's a user.")
         return ""
 
     if user_id == bot.id:
-        message.reply_text("Saya selalu memperhatikan diri saya sendiri.")
+        message.reply_text("I always notice myself.")
         return ""
 
     try:
         target_user = bot.get_chat(user_id)
     except BadRequest as excp:
         if excp.message == "User not found":
-            message.reply_text("Sepertinya saya tidak dapat menemukan pengguna ini.")
+            message.reply_text("I can't seem to find this user.")
             return ""
         raise
 
@@ -118,7 +101,7 @@ def unbl_user(update: Update, context: CallbackContext) -> str:
         )
 
         return log_message
-    message.reply_text("Saya tidak mengabaikan mereka sama sekali!")
+    message.reply_text("I am not ignoring them at all though!")
     return ""
 
 
@@ -137,7 +120,7 @@ def bl_users(update: Update, context: CallbackContext):
         else:
             users.append(f"• {mention_html(user.id, html.escape(user.first_name))}")
 
-    message = "<b>Pengguna yang Masuk Daftar Hitam</b>\n"
+    message = "<b>Blacklisted Users</b>\n"
     if not users:
         message += "Noone is being ignored as of yet."
     else:
@@ -149,7 +132,7 @@ def bl_users(update: Update, context: CallbackContext):
 def __user_info__(user_id):
     is_blacklisted = sql.is_user_blacklisted(user_id)
 
-    text = "Daftar hitam: <b>{}</b>"
+    text = "Blacklisted: <b>{}</b>"
     if user_id in [777000, 1087968824]:
         return ""
     if user_id == dispatcher.bot.id:
@@ -160,7 +143,7 @@ def __user_info__(user_id):
         text = text.format("Yes")
         reason = sql.get_reason(user_id)
         if reason:
-            text += f"\nAlasan: <code>{reason}</code>"
+            text += f"\nReason: <code>{reason}</code>"
     else:
         text = text.format("No")
 

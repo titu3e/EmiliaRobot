@@ -1,20 +1,3 @@
-# Copyright (C) 2022 Zenitsu-Project.
-#
-# Emilia is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# Emilia is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-# translate to Indonesian by @ZenitsuPrjkt
-
 import html
 import json
 import re
@@ -44,11 +27,11 @@ async def whatanime(e):
         r = await e.get_reply_message()
         media = getattr(r, "media", None)
     if not media:
-        await e.reply("`Diperlukan media`")
+        await e.reply("`Media required`")
         return
     ig = is_gif(media) or is_video(media)
     if not is_image(media) and not ig:
-        await e.reply("`Media harus berupa gambar atau gif atau video`")
+        await e.reply("`Media must be an image or gif or video`")
         return
     filename = "file.jpg"
     if not ig and isinstance(media, MessageMediaDocument):
@@ -57,9 +40,9 @@ async def whatanime(e):
             if isinstance(i, DocumentAttributeFilename):
                 filename = i.file_name
                 break
-    cut = await e.reply("`Mengunduh gambar..`")
+    cut = await e.reply("`Downloading image..`")
     content = await e.client.download_media(media, bytes, thumb=-1 if ig else None)
-    await cut.edit("`Mencari hasil..`")
+    await cut.edit("`Searching for result..`")
     file = memory_file(filename, content)
     async with aiohttp.ClientSession() as session:
         url = "https://api.trace.moe/search?anilistInfo"
@@ -67,7 +50,7 @@ async def whatanime(e):
             resp0 = await raw_resp0.json()
         js0 = resp0.get("result")
         if not js0:
-            await cut.edit("`Tidak ada hasil yang ditemukan.`")
+            await cut.edit("`No results found.`")
             return
         js0 = js0[0]
         text = f'<b>{html.escape(js0["anilist"]["title"]["romaji"])}'
@@ -77,7 +60,7 @@ async def whatanime(e):
         if js0["episode"]:
             text += f'<b>Episode:</b> {html.escape(str(js0["episode"]))}\n'
         percent = round(js0["similarity"] * 100, 2)
-        text += f"<b>Kesamaan:</b> {percent}%\n"
+        text += f"<b>Similarity:</b> {percent}%\n"
         at = re.findall(r"t=(.+)&", js0["video"])[0]
         dt = pendulum.from_timestamp(float(at))
         text += f"<b>At:</b> {html.escape(dt.to_time_string())}"
@@ -92,7 +75,7 @@ async def whatanime(e):
         try:
             await e.reply(ctext, file=file, parse_mode="html")
         except FilePartsInvalidError:
-            await e.reply("`Tidak dapat mengirim pratinjau.`")
+            await e.reply("`Cannot send preview.`")
 
 
 def memory_file(name=None, contents=None, *, _bytes=True):

@@ -1,20 +1,3 @@
-# Copyright (C) 2022 Zenitsu-Project.
-#
-# Emilia is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# Emilia is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-# translate to Indonesian by @ZenitsuPrjkt
-
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from emilia import telethn as tbot
 from emilia.events import register
@@ -25,20 +8,20 @@ from asyncio.exceptions import TimeoutError
 @register(pattern="^/sg ?(.*)")
 async def lastname(steal):
     steal.pattern_match.group(1)
-    puki = await steal.reply("```Mengambil Informasi Pengguna Tersebut..```")
+    puki = await steal.reply("```Retrieving Such User Information..```")
     if steal.fwd_from:
         return
     if not steal.reply_to_msg_id:
-        await puki.edit("```Mohon Balas Ke Pesan Pengguna.```")
+        await puki.edit("```Please Reply To User Message.```")
         return
     message = await steal.get_reply_message()
     chat = "@SangMataInfo_bot"
     user_id = message.sender.id
     id = f"/search_id {user_id}"
     if message.sender.bot:
-        await puki.edit("```Balas Pesan Pengguna Asli.```")
+        await puki.edit("```Reply To Real User's Message.```")
         return
-    await puki.edit("```Tunggu sebentar...```")
+    await puki.edit("```Please wait...```")
     try:
         async with ubot.conversation(chat) as conv:
             try:
@@ -47,7 +30,7 @@ async def lastname(steal):
                 response = await conv.get_response()
             except YouBlockedUserError:
                 await steal.reply(
-                    "```Error, melapor kepada @ZenitsuPrjkt```"
+                    "```Error, report to @kenbotsupport```"
                 )
                 return
             if r.text.startswith("Name"):
@@ -60,7 +43,7 @@ async def lastname(steal):
             if response.text.startswith("No records") or r.text.startswith(
                 "No records"
             ):
-                await puki.edit("```Saya Tidak Dapat Menemukan Informasi Pengguna Ini, Sepertinya Pengguna Ini Belum Pernah Mengubah Namanya Sebelumnya.```")
+                await puki.edit("```I Can't Find This User's Information, This User Has Never Changed His Name Before.```")
                 await ubot.delete_messages(
                     conv.chat_id, [msg.id, r.id, response.id]
                 )
