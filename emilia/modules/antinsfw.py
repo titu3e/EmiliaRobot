@@ -1,3 +1,20 @@
+# Copyright (C) 2022 Zenitsu-Project.
+#
+# Emilia is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Emilia is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+# translate to Indonesian by @ZenitsuPrjkt
+
 from os import remove
 
 from pyrogram import filters
@@ -83,13 +100,13 @@ async def detect_nsfw(_, message):
     await message.reply_text(
         f"""
 ————————————————————————**
-**NSFW Image Detected & Deleted Successfully!
-**✧ User:** {message.from_user.mention} [`{message.from_user.id}`]
-**✧ Safe:** `{results.neutral} %`
-**✧ Porn:** `{results.porn} %`
-**✧ Adult:** `{results.sexy} %`
+**Gambar NSFW Terdeteksi & Berhasil Dihapus!
+**✧ Pengguna:** {message.from_user.mention} [`{message.from_user.id}`]
+**✧ Aman:** `{results.neutral} %`
+**✧ Porno:** `{results.porn} %`
+**✧ Dewasa:** `{results.sexy} %`
 **✧ Hentai:** `{results.hentai} %`
-**✧ Drawings:** `{results.drawings} %`
+**✧ Gambar:** `{results.drawings} %`
 **————————————————————————**
 """
     )
@@ -100,7 +117,7 @@ async def detect_nsfw(_, message):
 async def nsfw_scan_command(_, message):
     if not message.reply_to_message:
         await message.reply_text(
-            "`Reply to an image/document/sticker/animation to scan it.`"
+            "`Balas ke gambar/dokumen/stiker/animasi untuk memindainya.`"
         )
         return
     reply = message.reply_to_message
@@ -112,13 +129,13 @@ async def nsfw_scan_command(_, message):
         and not reply.video
     ):
         await message.reply_text(
-            "`Reply to an image/document/sticker/animation to scan it.`"
+            "`Balas ke gambar/dokumen/stiker/animasi untuk memindainya.`"
         )
         return
-    m = await message.reply_text("`Scanning...`")
+    m = await message.reply_text("`Memindai...`")
     file_id = await get_file_id_from_message(reply)
     if not file_id:
-        return await m.edit("`Something wrong happened LOL`")
+        return await m.edit("`Sesuatu yang salah terjadi LOL`")
     file = await pbot.download_media(file_id)
     try:
         results = await arq.nsfw_scan(file=file)
@@ -154,12 +171,12 @@ async def nsfw_enable_disable(_, message):
     if status == "on":
         nsfw_on(chat_id)
         await message.reply_text(
-            "Enabled AntiNSFW System. I will Delete Messages Containing Inappropriate Content."
+            "Mengaktifkan Sistem AntiNSFW. Saya akan Menghapus Pesan yang Mengandung Konten Tidak Pantas."
         )
     elif status == "off":
         nsfw_off(chat_id)
-        await message.reply_text("Disabled AntiNSFW System.")
+        await message.reply_text("Sistem AntiNSFW Dinonaktifkan.")
     else:
         await message.reply_text(
-            "`Unknown Suffix, Use /antinsfw [enable|disable]`"
+            "`Suffix Tidak Diketahui, Gunakan /antinsfw [enable|disable]`"
         )
