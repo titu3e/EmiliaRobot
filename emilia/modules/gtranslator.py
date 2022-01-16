@@ -1,3 +1,20 @@
+# Copyright (C) 2022 Zenitsu-Project.
+#
+# Emilia is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Emilia is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+# translate to Indonesian by @ZenitsuPrjkt
+
 from gpytranslate import Translator
 from telegram.ext import CommandHandler, CallbackContext
 from telegram import (
@@ -15,17 +32,17 @@ from emilia.modules.disable import DisableAbleCommandHandler
 
 
 __help__ = """ 
-✦ *Commands:*
-✧ /tl (or /tr): as a reply to a message, translates it to English.
-✧ /tl <lang>: translates to <lang>
-eg: /tl ja: translates to Japanese.
-✧ /tl <source>//<dest>: translates from <source> to <lang>.
-eg:  /tl ja//en: translates from Japanese to English.
-✧ /langs: get a list of supported languages for translation.
-✧ /tts <lang code>*:* Reply to any message to get text to speech output
-✧ /stt*:* Type in reply to a voice message(support english only) to extract text from it.
+✦ *Daftar Perintah:*
+ ✧ /tl (atau /tr): sebagai balasan pesan, menerjemahkannya ke bahasa Inggris.
+ ✧ /tl <lang>: diterjemahkan menjadi <lang>
+    misalnya: /tl id: diterjemahkan ke dalam bahasa Indonesia..
+ ✧ /tl <source>//<dest>: diterjemahkan dari <source> to <lang>.
+    misalnya:  /tl id//en: menerjemahkan dari bahasa Indonesia ke bahasa Inggris.
+ ✧ /langs: dapatkan daftar bahasa yang didukung untuk terjemahan.
+ ✧ /tts <lang code>*:* Balas pesan apa pun untuk mendapatkan output teks ke ucapan
+ ✧ /stt*:* Ketik membalas pesan suara (hanya mendukung bahasa Inggris) untuk mengekstrak teks darinya.
 
-✦ *Language Codes*
+✦ *Kode Bahasa*
 `af,am,ar,az,be,bg,bn,bs,ca,ceb,co,cs,cy,da,de,el,en,eo,es,
 et,eu,fa,fi,fr,fy,ga,gd,gl,gu,ha,haw,hi,hmn,hr,ht,hu,hy,
 id,ig,is,it,iw,ja,jw,ka,kk,km,kn,ko,ku,ky,la,lb,lo,lt,lv,mg,mi,mk,
@@ -44,7 +61,7 @@ trans = Translator()
 async def translate(_, message: Message) -> None:
     reply_msg = message.reply_to_message
     if not reply_msg:
-        await message.reply_text("Reply to a message to translate it!")
+        await message.reply_text("Balas pesan untuk menerjemahkannya!")
         return
     if reply_msg.caption:
         to_translate = reply_msg.caption
@@ -63,7 +80,7 @@ async def translate(_, message: Message) -> None:
         dest = "en"
     translation = await trans(to_translate, sourcelang=source, targetlang=dest)
     reply = (
-        f"<b>Translated from {source} to {dest}</b>:\n"
+        f"<b>Diterjemahkan dari {source} ke {dest}</b>:\n"
         f"<code>{translation.text}</code>"
     )
 
@@ -72,13 +89,13 @@ async def translate(_, message: Message) -> None:
 
 def languages(update: Update, context: CallbackContext) -> None:
     update.effective_message.reply_text(
-        "Click on the button below to see the list of supported language codes.",
+        "Klik tombol di bawah untuk melihat daftar kode bahasa yang didukung.",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        text="Language codes",
-                        url="https://telegra.ph/Lang-Codes-03-19-3",
+                        text="Kode bahasa,,",
+                        url="https://telegra.ph/Lang-codes-table-01-15",
                     ),
                 ],
             ],
