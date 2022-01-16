@@ -91,24 +91,24 @@ def warn(user: User,
         if soft_warn:  # punch
             chat.unban_member(user.id)
             reply = (
-                f"{mention_html(user.id, user.first_name)} [<code>{user.id}</code>] telah ditendang!")
+                f"{mention_html(user.id, user.first_name)} telah ditendang! 🤭")
 
         else:  # ban
             chat.kick_member(user.id)
             reply = (
-                f"{mention_html(user.id, user.first_name)} [<code>{user.id}</code>] telah diblokir!")
+                f"{mention_html(user.id, user.first_name)} telah diblokir! 😋")
 
         for warn_reason in reasons:
-            reply += f"\n - {html.escape(warn_reason)}"
+            reply += f"\nAlasan pada peringatan terakhir: {html.escape(warn_reason)}"
 
         # message.bot.send_sticker(chat.id, BAN_STICKER)  # Saitama's sticker
         keyboard = None
         log_reason = (f"<b>{html.escape(chat.title)}:</b>\n"
                       f"#WARN_BAN\n"
                       f"<b>Admin:</b> {warner_tag}\n"
-                      f"<b>User:</b> {mention_html(user.id, user.first_name)}\n"
-                      f"<b>Reason:</b> {reason}\n"
-                      f"<b>Counts:</b> <code>{num_warns}/{limit}</code>")
+                      f"<b>Pengguna:</b> {mention_html(user.id, user.first_name)}\n"
+                      f"<b>Alasan:</b> {reason}\n"
+                      f"<b>Menghitung:</b> <code>{num_warns}/{limit}</code>")
 
     else:
         keyboard = InlineKeyboardMarkup([[
@@ -117,23 +117,23 @@ def warn(user: User,
         ]])
 
         reply = (
-            f"{mention_html(user.id, user.first_name)} [<code>{user.id}</code>]"
-            f" Warned ({num_warns} of {limit}).")
+            f"{mention_html(user.id, user.first_name)} punya ({num_warns} dari {limit})"
+            f" peringatan... Hati-hati!")
         if reason:
-            reply += f"\nReason: {html.escape(reason)}"
+            reply += f"\nAlasan: {html.escape(reason)}"
 
         log_reason = (f"<b>{html.escape(chat.title)}:</b>\n"
                       f"#WARN\n"
                       f"<b>Admin:</b> {warner_tag}\n"
-                      f"<b>User:</b> {mention_html(user.id, user.first_name)}\n"
-                      f"<b>Reason:</b> {reason}\n"
-                      f"<b>Counts:</b> <code>{num_warns}/{limit}</code>")
+                      f"<b>Pengguna:</b> {mention_html(user.id, user.first_name)}\n"
+                      f"<b>Alasan:</b> {reason}\n"
+                      f"<b>Menghitung:</b> <code>{num_warns}/{limit}</code>")
 
     try:
         message.reply_text(
             reply, reply_markup=keyboard, parse_mode=ParseMode.HTML)
     except BadRequest as excp:
-        if excp.message == "Reply message not found":
+        if excp.message == "Pesan balasan tidak ditemukan":
             # Do not reply
             message.reply_text(
                 reply,
@@ -161,7 +161,7 @@ def button(update: Update, context: CallbackContext) -> str:
         if res:
             user_member = chat.get_member(user_id)
             update.effective_message.edit_text(
-                f"{mention_html(user_member.user.id, user_member.user.first_name)} [<code>{user_member.user.id}</code>] Peringatan dihapus.",
+                f"{mention_html(user_member.user.id, user_member.user.first_name)} Peringatan dihapus.",
                 parse_mode=ParseMode.HTML,
             )
             user_member = chat.get_member(user_id)
@@ -169,7 +169,7 @@ def button(update: Update, context: CallbackContext) -> str:
                 f"<b>{html.escape(chat.title)}:</b>\n"
                 f"#UNWARN\n"
                 f"<b>Admin:</b> {mention_html(user.id, user.first_name)}\n"
-                f"<b>User:</b> {mention_html(user_member.user.id, user_member.user.first_name)}"
+                f"<b>Pengguna:</b> {mention_html(user_member.user.id, user_member.user.first_name)}"
             )
         else:
             update.effective_message.edit_text(
@@ -231,7 +231,7 @@ def reset_warns(update: Update, context: CallbackContext) -> str:
             f"<b>{html.escape(chat.title)}:</b>\n"
             f"#RESETWARNS\n"
             f"<b>Admin:</b> {mention_html(user.id, user.first_name)}\n"
-            f"<b>User:</b> {mention_html(warned.id, warned.first_name)}"
+            f"<b>Pengguna:</b> {mention_html(warned.id, warned.first_name)}"
         )
     else:
         message.reply_text("Tidak ada pengguna yang ditunjuk!")
@@ -407,7 +407,7 @@ def set_warn_limit(update: Update, context: CallbackContext) -> str:
                     f"<b>{html.escape(chat.title)}:</b>\n"
                     f"#SET_WARN_LIMIT\n"
                     f"<b>Admin:</b> {mention_html(user.id, user.first_name)}\n"
-                    f"Set the warn limit to <code>{args[0]}</code>"
+                    f"Setel batas peringatan ke <code>{args[0]}</code>"
                 )
         else:
             msg.reply_text("Give me a number as an arg!")
@@ -490,21 +490,21 @@ def __chat_settings__(chat_id, user_id):
     )
 
 __help__ = """
-✦ *Command for Members:*
-✧ /warns <userhandle>: get a user's number, and reason, of warns.
+✦ *Perintah untuk Anggota:*
+ ✧ /warns <userhandle>: dapatkan nomor pengguna, dan alasan, dari peringatan.
 
-✦ *This command is for admin or creator only:*
-✧ /warnlist: list of all current warning filters
-✧ /warn <userhandle>: warn a user. After 3 warns, the user will be banned from the group. Can also be used as a reply.
-✧ /dwarn <userhandle>: warn a user and delete the message. After 3 warns, the user will be banned from the group. Can also be used as a reply.
-✧ /resetwarn <userhandle>: reset the warns for a user. Can also be used as a reply.
-✧ /addwarn <keyword> <reply message>: set a warning filter on a certain keyword. If you want your keyword to be a sentence, encompass it with quotes, as such: /addwarn "very angry" This is an angry user.
-✧ /nowarn <keyword>: stop a warning filter
-✧ /warnlimit <num>: set the warning limit
-✧ /strongwarn <on/yes/off/no>: If set to on, exceeding the warn limit will result in a ban. Else, will just punch.
+✦ *Perintah ini hanya untuk admin atau kreator:*
+ ✧ /warnlist: daftar semua filter peringatan saat ini.
+ ✧ /warn <userhandle>: memperingatkan pengguna. Setelah 3 kali peringatan, pengguna akan diblokir dari grup. Bisa juga digunakan sebagai balasan.
+ ✧ /dwarn <userhandle>: memperingatkan pengguna dan menghapus pesan. Setelah 3 kali peringatan, pengguna akan diblokir dari grup. Bisa juga digunakan sebagai balasan.
+ ✧ /resetwarn <userhandle>: mengatur ulang peringatan untuk pengguna. Bisa juga digunakan sebagai balasan.
+ ✧ /addwarn <keyword> <reply message>: atur filter peringatan pada kata kunci tertentu. Jika Anda ingin kata kunci Anda menjadi kalimat, lampirkan dengan tanda kutip, seperti: /addwarn "sangat marah" Ini adalah pengguna yang marah.
+ ✧ /nowarn <keyword>: hentikan filter peringatan.
+ ✧ /warnlimit <num>: atur batas peringatan.
+ ✧ /strongwarn <on/yes/off/no>: Jika disetel ke aktif, melebihi batas peringatan akan mengakibatkan larangan. Lain, hanya akan ditendang.
 
-Keep your members in check with warnings; stop them getting out of control!
-If you're looking for automated warnings, go read about the blacklist module.
+Jauhkan anggota Anda di cek dengan peringatan; menghentikan mereka keluar dari kendali!
+Jika Anda mencari peringatan otomatis, baca tentang modul modul blacklist.
 """
 
 __mod_name__ = "Warns"
