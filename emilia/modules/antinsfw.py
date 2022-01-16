@@ -100,8 +100,8 @@ async def detect_nsfw(_, message):
     await message.reply_text(
         f"""
 ————————————————————————**
-**Gambar NSFW Terdeteksi & Berhasil Dihapus!
-**✧ Pengguna:** {message.from_user.mention} [`{message.from_user.id}`]
+**Gambar NSFW Terdeteksi!**
+**✧ Pengguna:** {message.from_user.mention}
 **✧ Aman:** `{results.neutral} %`
 **✧ Porno:** `{results.porn} %`
 **✧ Dewasa:** `{results.sexy} %`
