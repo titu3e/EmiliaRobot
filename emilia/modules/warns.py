@@ -225,16 +225,16 @@ def reset_warns(update: Update, context: CallbackContext) -> str:
 
     if user_id:
         sql.reset_warns(user_id, chat.id)
-        message.reply_text("Warns have been reset!")
+        message.reply_text("Peringatan telah disetel ulang!")
         warned = chat.get_member(user_id).user
         return (
             f"<b>{html.escape(chat.title)}:</b>\n"
             f"#RESETWARNS\n"
             f"<b>Admin:</b> {mention_html(user.id, user.first_name)}\n"
-            f"<b>User:</b> {mention_html(warned.id, warned.first_name)}"
+            f"<b>Pengguna:</b> {mention_html(warned.id, warned.first_name)}"
         )
     else:
-        message.reply_text("No user has been designated!")
+        message.reply_text("Pengguna sudah tidak memiliki peringatan")
     return ""
 
 
