@@ -485,8 +485,8 @@ def __chat_settings__(chat_id, user_id):
     num_warn_filters = sql.num_warn_chat_filters(chat_id)
     limit, soft_warn = sql.get_warn_setting(chat_id)
     return (
-        f"This chat has `{num_warn_filters}` warn filters. "
-        f"It takes `{limit}` warns before the user gets *{'kicked' if soft_warn else 'banned'}*."
+        f"Obrolan ini mempunyai `{num_warn_filters}` saringan peringatkan. "
+        f"Dibutuhkan `{limit}` peringatan sebelum pengguna akan mendapatkan *{'kicked' jika soft_warn kalau tidak 'banned'}*."
     )
 
 __help__ = """
