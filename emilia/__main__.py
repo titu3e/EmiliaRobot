@@ -150,26 +150,26 @@ My name is Emilia.
 Managed by [ZenitsuPrjkt](https://t.me/ZenitsuPrjkt)
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
 • *Uptime:* `{}`
-• `{}` *Users, Across* `{}` *chats.*
+• `{}` *Pengguna, pada* `{}` *chats.*
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
-I can managing your group with useful features, feel free to add me to your groups! [✨](https://telegra.ph/file/8142e7aac030eebd40a4e.jpg)
+Dan saya dapat mengelola grup Anda dengan fitur yang bermanfaat, jangan ragu untuk menambahkan saya ke grup Anda!
 """
 
 buttons = [
 
     [
 
-        InlineKeyboardButton(text="About Emilia", callback_data="Emilia_"),
+        InlineKeyboardButton(text="Tentang Emilia", callback_data="Emilia_"),
 
     ],
 
     [
 
-        InlineKeyboardButton(text="Get Help", callback_data="help_back"),
+        InlineKeyboardButton(text="bantuan", callback_data="help_back"),
 
         InlineKeyboardButton(
 
-            text="Try inline!", switch_inline_query_current_chat=""
+            text="Coba inline!", switch_inline_query_current_chat=""
 
         ),
 
@@ -179,27 +179,27 @@ buttons = [
 
         InlineKeyboardButton(
 
-            text="➗ Add Emilia To Your Group ➗", url="t.me/EmiliaPrjkt_bot?startgroup=new"),
+            text="➗ Tambahkan Emilia ke Grup Anda ➗", url="t.me/EmiliaPrjkt_bot?startgroup=new"),
 
     ],
 
 ]
 
 HELP_STRINGS = """
-✦*Main Commands:*
-✧ /start: Starts me! You've probably already used this.
-✧ /help: Click this, I'll let you know about myself!
-✧ /donate: You can support my creater using this command.
-✧ /settings:
-   ✧ in PM: will send you your settings for all supported modules.
-   ✧ in a Group: will redirect you to pm, with all that chat's settings."""
+✦*Perintah Utama:*
+ ✧ /start: Mulai saya! Anda mungkin sudah menggunakan ini.
+ ✧ /help: Klik ini, saya akan memberi tahu Anda tentang diri saya!
+ ✧ /donate: Anda dapat mendukung pembuat saya menggunakan perintah ini.
+ ✧ /settings:
+   ✧ di PM: akan mengirimkan pengaturan Anda untuk semua modul yang didukung.
+   ✧ di Grup: akan mengarahkan Anda ke pm, dengan semua pengaturan obrolan itu."""
 
 EMILIA_IMG = "https://telegra.ph/file/8142e7aac030eebd40a4e.jpg"
 
-DONATE_STRING = """Heya, glad to hear you want to donate!
-You can support the project by contacting @ZenitsuPrjkt \n
-Supporting isnt always financial! \n
-Those who cannot provide monetary support are welcome to help us develop the bot at."""
+DONATE_STRING = """Heya, senang mendengar Anda ingin menyumbang! \n
+Anda dapat mendukung proyek dengan menghubungi @ZenitsuPrjkt \n
+Mendukung tidak selalu finansial! \n
+Mereka yang tidak dapat memberikan dukungan keuangan dipersilakan untuk membantu kami mengembangkan bot ini."""
 
 IMPORTED = {}
 
@@ -233,7 +233,7 @@ for module_name in ALL_MODULES:
 
     else:
 
-        raise Exception("Can't have two modules with the same name! Please change one")
+        raise Exception("Tidak dapat memiliki dua modul dengan nama yang sama! Tolong ubah satu")
 
     if hasattr(imported_module, "__help__") and imported_module.__help__:
 
@@ -295,9 +295,9 @@ def test(update: Update, context: CallbackContext):
 
     # pprint(eval(str(update)))
 
-    # update.effective_message.reply_text("Hola tester! _I_ *have* `markdown`", parse_mode=ParseMode.MARKDOWN)
+    # update.effective_message.reply_text("Halo penguji! _I_ *memiliki* `markdown`", parse_mode=ParseMode.MARKDOWN)
 
-    update.effective_message.reply_text("This person edited a message")
+    update.effective_message.reply_text("Orang ini mengedit pesan")
 
     print(update.effective_message)
 
@@ -331,7 +331,7 @@ def start(update: Update, context: CallbackContext):
 
                     InlineKeyboardMarkup(
 
-                        [[InlineKeyboardButton(text="Back", callback_data="help_back")]]
+                        [[InlineKeyboardButton(text="Kembali", callback_data="help_back")]]
 
                     ),
 
@@ -385,7 +385,7 @@ def start(update: Update, context: CallbackContext):
 
         update.effective_message.reply_text(
 
-            f"👋 Hi, I'm {dispatcher.bot.first_name}. Nice to meet You.",
+            f"👋 Hi saya {dispatcher.bot.first_name}. Senang berkenalan dengan Anda.",
 
             parse_mode=ParseMode.HTML
 
@@ -393,15 +393,15 @@ def start(update: Update, context: CallbackContext):
 
 def error_handler(update, context):
 
-    """Log the error and send a telegram message to notify the developer."""
+    """Catat kesalahan dan kirim pesan telegram untuk memberi tahu pengembang."""
 
-    # Log the error before we do anything else, so we can see it even if something breaks.
+    # Catat kesalahan sebelum kami melakukan hal lain, sehingga kami dapat melihatnya meskipun ada yang rusak.
 
-    LOGGER.error(msg="Exception while handling an update:", exc_info=context.error)
+    LOGGER.error(msg="Pengecualian saat menangani pembaruan:", exc_info=context.error)
 
-    # traceback.format_exception returns the usual python message about an exception, but as a
+    # traceback.format_exception mengembalikan pesan python biasa tentang pengecualian, tetapi sebagai
 
-    # list of strings rather than a single string, so we have to join them together.
+    # daftar string daripada string tunggal, jadi kita harus menggabungkannya.
 
     tb_list = traceback.format_exception(
 
@@ -415,9 +415,9 @@ def error_handler(update, context):
 
     message = (
 
-        "An exception was raised while handling an update\n"
+        "Pengecualian muncul saat menangani pembaruan\n"
 
-        "<pre>update = {}</pre>\n\n"
+        "<pre>pembaruan = {}</pre>\n\n"
 
         "<pre>{}</pre>"
 
@@ -459,7 +459,7 @@ def error_callback(update: Update, context: CallbackContext):
 
         print("no nono2")
 
-        print("BadRequest caught")
+        print("Permintaan Buruk tertangkap")
 
         print(error)
 
@@ -513,7 +513,7 @@ def help_button(update, context):
 
             text = (
 
-                "Here is the help for the *{}* module:\n".format(
+                "Berikut adalah bantuan untuk *{}* modul:\n".format(
 
                     HELPABLE[module].__mod_name__
 
@@ -533,7 +533,7 @@ def help_button(update, context):
 
                 reply_markup=InlineKeyboardMarkup(
 
-                    [[InlineKeyboardButton(text="Back", callback_data="help_back")]]
+                    [[InlineKeyboardButton(text="Kembali", callback_data="help_back")]]
 
                 ),
 
@@ -609,23 +609,21 @@ def emilia_about_callback(update, context):
 
         query.message.edit_text(
 
-            text="✦ I'm *Emilia*, a powerful group management bot built to help you manage your group easily."
+            text="✦ Saya *Emilia*, bot manajemen grup yang kuat yang dibuat untuk membantu Anda mengelola grup dengan mudah."
 
-            "\nI can restrict users."
+            "\nSaya dapat membatasi pengguna."
 
-            "\nI can greet users with customizable welcome messages and even set a group's rules."
+            "\nSaya dapat menyapa pengguna dengan pesan selamat datang yang dapat disesuaikan dan bahkan menetapkan aturan grup."
 
-            "\nI have an advanced anti-flood system."
+            "\nSaya memiliki sistem anti-banjir yang canggih."
 
-            "\nI can warn users until they reach max warns, with each predefined actions such as ban, mute, kick, etc."
+            "\nSaya dapat memperingatkan pengguna hingga mereka mencapai peringatan maksimal, dengan setiap tindakan yang telah ditentukan sebelumnya seperti larangan, bisu, tendangan, dll."
 
-            "\nI have a note keeping system, blacklists, and even predetermined replies on certain keywords."
+            "\nSaya memiliki sistem pencatatan, daftar hitam, dan bahkan balasan yang telah ditentukan sebelumnya pada kata kunci tertentu."
 
-            "\nI check for admins' permissions before executing any command and more stuffs"
+            "\nSaya memeriksa izin admin sebelum menjalankan perintah apa pun dan lebih banyak barang"
 
-            "\n\n_Emilia's licensed under the GNU General Public License v3.0_"
-
-            "\n\nClick on button bellow to get basic help for Emilia.",
+            "\n\nKlik tombol di bawah untuk mendapatkan bantuan dasar untuk Emilia.",
 
             parse_mode=ParseMode.MARKDOWN,
 
@@ -637,7 +635,7 @@ def emilia_about_callback(update, context):
 
                  [
 
-                    InlineKeyboardButton(text="Admins", callback_data="Emilia_admin"),
+                    InlineKeyboardButton(text="Admin", callback_data="Emilia_admin"),
 
                     InlineKeyboardButton(text="Notes", callback_data="Emilia_notes"),
 
@@ -653,13 +651,7 @@ def emilia_about_callback(update, context):
 
                  [
 
-                    InlineKeyboardButton(text="Source Code", url="https://github.com/ZenitsuPrjkt/Emilia"),
-
-                 ],
-
-                 [
-
-                    InlineKeyboardButton(text="Back", callback_data="Emilia_back"),
+                    InlineKeyboardButton(text="Kembali", callback_data="Emilia_back"),
 
                  ]
 
@@ -701,21 +693,21 @@ def emilia_about_callback(update, context):
 
         query.message.edit_text(
 
-            text=f"✦ *Let's make your group bit effective now*"
+            text=f"✦ *Ayo buat grup Anda sedikit efektif sekarang*"
 
-            "\nCongragulations, Emilia now ready to manage your group."
+            "\nSelamat, Emilia sekarang siap mengelola grup Anda."
 
             "\n\n✦ *Admin Tools*"
 
-            "\nBasic Admin tools help you to protect and powerup your group."
+            "\nAlat Admin dasar membantu Anda melindungi dan memperkuat grup Anda."
 
-            "\nYou can ban members, Kick members, Promote someone as admin through commands of bot."
+            "\nAnda dapat mencekal anggota, Menendang anggota, Mempromosikan seseorang sebagai admin melalui perintah bot."
 
             "\n\n✦ *Greetings*"
 
-            "\nLets set a welcome message to welcome new users coming to your group."
+            "\nMari atur pesan selamat datang untuk menyambut pengguna baru yang datang ke grup Anda."
 
-            "\nsend `/setwelcome [message]` to set a welcome message!",
+            "\nMengirim `/setwelcome [message]` untuk mengatur pesan selamat datang!",
 
             parse_mode=ParseMode.MARKDOWN,
 
@@ -723,7 +715,7 @@ def emilia_about_callback(update, context):
 
             reply_markup=InlineKeyboardMarkup(
 
-                [[InlineKeyboardButton(text="Back", callback_data="Emilia_")]]
+                [[InlineKeyboardButton(text="Kembali", callback_data="Emilia_")]]
 
             ),
 
@@ -733,19 +725,19 @@ def emilia_about_callback(update, context):
 
         query.message.edit_text(
 
-            text=f"<b>✦ Setting up notes</b>"
+            text=f"<b>✦ Menyiapkan catatan</b>"
 
-            f"\nYou can save message/media/audio or anything as notes"
+            f"\nAnda dapat menyimpan pesan/media/audio atau apa pun sebagai catatan"
 
-            f"\nto get a note simply use # at the beginning of a word"
+            f"\nUntuk mendapatkan catatan cukup gunakan # di awal kata"
 
-            f"\n\nYou can also set buttons for notes and filters (refer help menu)",
+            f"\n\nAnda juga dapat mengatur tombol untuk catatan dan filter (lihat menu bantuan)",
 
             parse_mode=ParseMode.HTML,
 
             reply_markup=InlineKeyboardMarkup(
 
-                [[InlineKeyboardButton(text="Back", callback_data="Emilia_")]]
+                [[InlineKeyboardButton(text="Kembali", callback_data="Emilia_")]]
 
             ),
 
@@ -755,9 +747,9 @@ def emilia_about_callback(update, context):
 
         query.message.edit_text(
 
-            text="*✦ Emilia support chats*"
+            text="*✦ Obrolan dukungan Emilia*"
 
-            "\nJoin My Support Group/Channel for see or report a problem on Emilia.",
+            "\nBergabunglah dengan Grup/Saluran Dukungan Saya untuk melihat atau melaporkan masalah di Emilia.",
 
             parse_mode=ParseMode.MARKDOWN,
 
@@ -767,15 +759,15 @@ def emilia_about_callback(update, context):
 
                  [
 
-                    InlineKeyboardButton(text="Support", url="t.me/emiliasupport"),
+                    InlineKeyboardButton(text="Grup", url="t.me/emiliasupport"),
 
-                    InlineKeyboardButton(text="Updates", url="https://t.me/EmiliaProject"),
+                    InlineKeyboardButton(text="Channel", url="https://t.me/EmiliaProject"),
 
                  ],
 
                  [
 
-                    InlineKeyboardButton(text="Back", callback_data="Emilia_"),
+                    InlineKeyboardButton(text="Kembali", callback_data="Emilia_"),
 
                  
 
@@ -791,9 +783,9 @@ def emilia_about_callback(update, context):
 
         query.message.edit_text(
 
-            text=f"✦ *Credis for Emilia*\n"
+            text=f"✦ *Penghargaan untuk Emilia*\n"
 
-            "\nHere Developers Making And Give Inspiration For Made The Emilia",
+            "\nDisini Developer Membuat Dan Memberikan Inspirasi Untuk Membuat Emilia",
 
             parse_mode=ParseMode.MARKDOWN,
 
@@ -803,47 +795,23 @@ def emilia_about_callback(update, context):
 
                  [
 
-                    InlineKeyboardButton(text="Zenitsu Prjkt", url="https://github.com/ZenitsuPrjkt"),
+                    InlineKeyboardButton(text="Zenitsu Prjkt", url="https://t.me/ZenitsuPrjkt"),
 
-                    InlineKeyboardButton(text="LuanjinX", url="https://github.com/LuanjinX"),
-
-                 ],
-
-                 [
-
-                    InlineKeyboardButton(text="KNGCLX69", url="https://github.com/KNGCLX69"),
-
-                    InlineKeyboardButton(text="Thestar37", url="https://github.com/Thestar37"),
+                    InlineKeyboardButton(text="LuanjinX", url="https://t.me/LuanjinX"),
 
                  ],
 
                  [
 
-                    InlineKeyboardButton(text="Anime Kaizoku", url="https://github.com/animekaizoku"),
+                    InlineKeyboardButton(text="KNGCLX69", url="https://t.me/KNGCLX69"),
 
-                    InlineKeyboardButton(text="TheGhost Hunter", url="https://github.com/HuntingBots"),
-
-                 ],
-
-                 [
-
-                    InlineKeyboardButton(text="Inuka Asith", url="https://github.com/inukaasith"),
-
-                    InlineKeyboardButton(text="Noob-Kittu", url="https://github.com/noob-kittu"),
+                    InlineKeyboardButton(text="Thestar37", url="https://t.me/Thestar37"),
 
                  ],
 
                  [
 
-                    InlineKeyboardButton(text="Queen Arzoo", url="https://github.com/QueenArzoo"),
-
-                    InlineKeyboardButton(text="Paul Larsen", url="https://github.com/PaulSonOfLars"),
-
-                 ],
-
-                 [
-
-                    InlineKeyboardButton(text="Back", callback_data="Emilia_"),
+                    InlineKeyboardButton(text="Kembali", callback_data="Emilia_"),
 
                  ]
 
@@ -861,19 +829,19 @@ def Source_about_callback(update, context):
 
         query.message.edit_text(
 
-            text="✦ *This advance command for Musicplayer."
+            text="✦ *Perintah lanjutan ini untuk Musicplayer."
 
-            "\n\n✦ Command for admins only:*"
+            "\n\n✦ Perintah hanya untuk admin:*"
 
-            "\n`/reload` - For refreshing the adminlist."
+            "\n`/reload` - Untuk menyegarkan daftar admin."
 
-            "\n`/pause` - To pause the playback."
+            "\n`/pause` - Untuk menjeda pemutaran."
 
-            "\n`/resume` - To resuming the playback You've paused."
+            "\n`/resume` - Untuk melanjutkan pemutaran Anda telah menjeda."
 
-            "\n`/skip` - To skipping the player."
+            "\n`/skip` - Untuk melewatkan pemain."
 
-            "\n`/end` - For end the playback."
+            "\n`/end` - Untuk mengakhiri pemutaran."
 
             "\n`/musicplayer <on/off>` - Toggle for turn ON or turn OFF the musicplayer."
 
@@ -881,7 +849,7 @@ def Source_about_callback(update, context):
 
             "\n`/play` <query /reply audio> - Playing music via YouTube."
 
-            "\n`/playlist` - To playing a playlist of groups or your personal playlist",
+            "\n`/playlist` - Beralih untuk AKTIFKAN atau MATIKAN pemutar musik",
 
             parse_mode=ParseMode.MARKDOWN,
 
@@ -893,7 +861,7 @@ def Source_about_callback(update, context):
 
                  [
 
-                    InlineKeyboardButton(text="Back", callback_data="Emilia_")
+                    InlineKeyboardButton(text="Kembali", callback_data="Emilia_")
 
                  ]
 
@@ -945,7 +913,7 @@ def get_help(update: Update, context: CallbackContext):
 
             update.effective_message.reply_text(
 
-                f"Contact me in PM to get help of {module.capitalize()}",
+                f"Hubungi saya di PM untuk mendapatkan bantuan {module.capitalize()}",
 
                 reply_markup=InlineKeyboardMarkup(
 
@@ -955,7 +923,7 @@ def get_help(update: Update, context: CallbackContext):
 
                             InlineKeyboardButton(
 
-                                text="Help",
+                                text="Bantuan",
 
                                 url="t.me/{}?start=ghelp_{}".format(
 
@@ -977,7 +945,7 @@ def get_help(update: Update, context: CallbackContext):
 
         update.effective_message.reply_text(
 
-            "Contact me in PM to get the list of possible commands.",
+            "Hubungi saya di PM untuk mendapatkan daftar perintah.",
 
             reply_markup=InlineKeyboardMarkup(
 
@@ -987,7 +955,7 @@ def get_help(update: Update, context: CallbackContext):
 
                         InlineKeyboardButton(
 
-                            text="Help",
+                            text="Bantuan",
 
                             url="t.me/{}?start=help".format(context.bot.username),
 
@@ -1009,7 +977,7 @@ def get_help(update: Update, context: CallbackContext):
 
         text = (
 
-            "Here is the available help for the *{}* module:\n".format(
+            "Berikut adalah bantuan yang tersedia untuk *{}* modul:\n".format(
 
                 HELPABLE[module].__mod_name__
 
@@ -1027,7 +995,7 @@ def get_help(update: Update, context: CallbackContext):
 
             InlineKeyboardMarkup(
 
-                [[InlineKeyboardButton(text="Back", callback_data="help_back")]]
+                [[InlineKeyboardButton(text="Kembali", callback_data="help_back")]]
 
             ),
 
@@ -1055,7 +1023,7 @@ def send_settings(chat_id, user_id, user=False):
 
                 user_id,
 
-                "These are your current settings:" + "\n\n" + settings,
+                "Ini adalah pengaturan Anda saat ini:" + "\n\n" + settings,
 
                 parse_mode=ParseMode.MARKDOWN,
 
@@ -1067,7 +1035,7 @@ def send_settings(chat_id, user_id, user=False):
 
                 user_id,
 
-                "Seems like there aren't any user specific settings available :'(",
+                "Sepertinya tidak ada pengaturan khusus pengguna yang tersedia:'(",
 
                 parse_mode=ParseMode.MARKDOWN,
 
@@ -1083,7 +1051,7 @@ def send_settings(chat_id, user_id, user=False):
 
                 user_id,
 
-                text="Which module would you like to check {}'s settings for?".format(
+                text="Modul mana yang ingin Anda periksa {} pengaturan untuk?".format(
 
                     chat_name
 
@@ -1103,9 +1071,9 @@ def send_settings(chat_id, user_id, user=False):
 
                 user_id,
 
-                "Seems like there aren't any chat settings available :'(\nSend this "
+                "Sepertinya tidak ada pengaturan obrolan yang tersedia:'(\nKirim ini"
 
-                "in a group chat you're admin in to find its current settings!",
+                "dalam obrolan grup tempat Anda menjadi admin untuk menemukan pengaturannya saat ini!",
 
                 parse_mode=ParseMode.MARKDOWN,
 
@@ -1137,7 +1105,7 @@ def settings_button(update: Update, context: CallbackContext):
 
             chat = bot.get_chat(chat_id)
 
-            text = "*{}* has the following settings for the *{}* module:\n\n".format(
+            text = "*{}* memiliki pengaturan berikut untuk *{}* modul:\n\n".format(
 
                 escape_markdown(chat.title), CHAT_SETTINGS[module].__mod_name__
 
@@ -1157,7 +1125,7 @@ def settings_button(update: Update, context: CallbackContext):
 
                             InlineKeyboardButton(
 
-                                text="Back",
+                                text="Kembali",
 
                                 callback_data="stngs_back({})".format(chat_id),
 
@@ -1181,9 +1149,9 @@ def settings_button(update: Update, context: CallbackContext):
 
             query.message.reply_text(
 
-                "Hi there! There are quite a few settings for {} - go ahead and pick what "
+                "Hai, yang di sana! Ada beberapa pengaturan untuk {} - pergi ke depan dan memilih apa"
 
-                "you're interested in.".format(chat.title),
+                "kamu tertarik dengan.".format(chat.title),
 
                 reply_markup=InlineKeyboardMarkup(
 
@@ -1207,9 +1175,9 @@ def settings_button(update: Update, context: CallbackContext):
 
             query.message.reply_text(
 
-                "Hi there! There are quite a few settings for {} - go ahead and pick what "
+                "Hai, yang di sana! Ada beberapa pengaturan untuk {} - pergi ke depan dan memilih apa"
 
-                "you're interested in.".format(chat.title),
+                "kamu tertarik dengan.".format(chat.title),
 
                 reply_markup=InlineKeyboardMarkup(
 
@@ -1231,9 +1199,9 @@ def settings_button(update: Update, context: CallbackContext):
 
             query.message.reply_text(
 
-                text="Hi there! There are quite a few settings for {} - go ahead and pick what "
+                text="Hai, yang di sana! Ada beberapa pengaturan untuk {} - pergi ke depan dan memilih apa"
 
-                "you're interested in.".format(escape_markdown(chat.title)),
+                "kamu tertarik dengan.".format(escape_markdown(chat.title)),
 
                 parse_mode=ParseMode.MARKDOWN,
 
@@ -1255,15 +1223,15 @@ def settings_button(update: Update, context: CallbackContext):
 
         if excp.message not in [
 
-            "Message is not modified",
+            "Pesan tidak diubah",
 
             "Query_id_invalid",
 
-            "Message can't be deleted",
+            "Pesan tidak dapat dihapus",
 
         ]:
 
-            LOGGER.exception("Exception in settings buttons. %s", str(query.data))
+            LOGGER.exception("Pengecualian pada tombol pengaturan. %s", str(query.data))
 
 def get_settings(update: Update, context: CallbackContext):
 
@@ -1279,7 +1247,7 @@ def get_settings(update: Update, context: CallbackContext):
 
         if is_user_admin(chat, user.id):
 
-            text = "Click here to get this chat's settings, as well as yours."
+            text = "Klik di sini untuk mendapatkan pengaturan obrolan ini, serta pengaturan Anda."
 
             msg.reply_text(
 
@@ -1293,7 +1261,7 @@ def get_settings(update: Update, context: CallbackContext):
 
                             InlineKeyboardButton(
 
-                                text="Settings",
+                                text="Pengaturan",
 
                                 url="t.me/{}?start=stngs_{}".format(
 
@@ -1313,7 +1281,7 @@ def get_settings(update: Update, context: CallbackContext):
 
         else:
 
-            text = "Click here to check your settings."
+            text = "Klik di sini untuk memeriksa pengaturan Anda."
 
     else:
 
@@ -1339,9 +1307,9 @@ def donate(update: Update, context: CallbackContext):
 
             update.effective_message.reply_text(
 
-                "I'm free for everyone ❤️ If you wanna make me smile, just join"
+                "Saya gratis untuk semua orang ❤️ Jika Anda ingin membuat saya tersenyum, bergabung saja"
 
-                "[My Channel]({})".format(DONATION_LINK),
+                "[My Channel] ({})".format(DONATION_LINK),
 
                 parse_mode=ParseMode.MARKDOWN,
 
@@ -1365,7 +1333,7 @@ def donate(update: Update, context: CallbackContext):
 
             update.effective_message.reply_text(
 
-                "I've PM'ed you about donating to my creator!"
+                "Saya telah PM Anda tentang menyumbang ke pencipta saya!"
 
             )
 
@@ -1373,7 +1341,7 @@ def donate(update: Update, context: CallbackContext):
 
             update.effective_message.reply_text(
 
-                "Contact me in PM first to get donation information."
+                "Hubungi saya di PM dulu untuk mendapatkan informasi donasi"
 
             )
 
@@ -1397,13 +1365,13 @@ def migrate_chats(update: Update, context: CallbackContext):
 
         return
 
-    LOGGER.info("Migrating from %s, to %s", str(old_chat), str(new_chat))
+    LOGGER.info("Bermigrasi dari %s, ke %s", str(old_chat), str(new_chat))
 
     for mod in MIGRATEABLE:
 
         mod.__migrate__(old_chat, new_chat)
 
-    LOGGER.info("Successfully migrated!")
+    LOGGER.info("Berhasil bermigrasi!")
 
     raise DispatcherHandlerStop
 
@@ -1417,7 +1385,7 @@ def main():
 
                 f"@{SUPPORT_CHAT}", 
 
-                "👋 Hi, i'm alive.",
+                "👋 Hai, aku telah aktif.",
 
                 parse_mode=ParseMode.MARKDOWN
 
@@ -1427,7 +1395,7 @@ def main():
 
             LOGGER.warning(
 
-                "Bot isnt able to send message to support_chat, go and check!"
+                "Bot tidak dapat mengirim pesan ke support_chat, pergi dan periksa!"
 
             )
 
@@ -1499,7 +1467,7 @@ def main():
 
     if WEBHOOK:
 
-        LOGGER.info("Using webhooks.")
+        LOGGER.info("Menggunakan webhook.")
 
         updater.start_webhook(listen="0.0.0.0", port=PORT, url_path=TOKEN)
 
@@ -1513,7 +1481,7 @@ def main():
 
     else:
 
-        LOGGER.info("Using long polling.")
+        LOGGER.info("Menggunakan polling panjang.")
 
         updater.start_polling(timeout=15, read_latency=4, drop_pending_updates=True)
 
@@ -1529,7 +1497,7 @@ def main():
 
 if __name__ == "__main__":
 
-    LOGGER.info("Successfully loaded modules: " + str(ALL_MODULES))
+    LOGGER.info("Modul berhasil dimuat: " + str(ALL_MODULES))
 
     telethn.start(bot_token=TOKEN)
 
