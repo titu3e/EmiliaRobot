@@ -154,7 +154,7 @@ def ban(update: Update, context: CallbackContext) -> str:
 
         # bot.send_sticker(chat.id, BAN_STICKER)  # banhammer marie sticker
         reply = (
-            f"Terbanned 😝 {mention_html(member.user.id, html.escape(member.user.first_name))} [<code>{member.user.id}</code>]!"
+            f"Terbanned! 😝 {mention_html(member.user.id, html.escape(member.user.first_name))} [<code>{member.user.id}</code>]"
         )
         if reason:
             reply += f"\nAlasan: {html.escape(reason)}"
@@ -166,9 +166,9 @@ def ban(update: Update, context: CallbackContext) -> str:
                 [
                     [
                         InlineKeyboardButton(
-                            text="Unban", callback_data=f"unbanb_unban={user_id}"
+                            text="Batalkan Banned", callback_data=f"unbanb_unban={user_id}"
                         ),
-                        InlineKeyboardButton(text="Delete", callback_data="unbanb_del"),
+                        InlineKeyboardButton(text="Hapus", callback_data="unbanb_del"),
                     ]
                 ]
             ),
@@ -177,7 +177,7 @@ def ban(update: Update, context: CallbackContext) -> str:
         return log
 
     except BadRequest as excp:
-        if excp.message == "Reply message not found":
+        if excp.message == "Pesan balasan tidak ditemukan":
             # Do not reply
             if silent:
                 return log
@@ -212,13 +212,13 @@ def temp_ban(update: Update, context: CallbackContext) -> str:
     user_id, reason = extract_user_and_text(message, args)
 
     if not user_id:
-        message.reply_text("User not found.")
+        message.reply_text("Pengguna tidak ditemukan.")
         return log_message
 
     try:
         member = chat.get_member(user_id)
     except BadRequest as excp:
-        if excp.message != "User not found":
+        if excp.message != "Pengguna tidak ditemukan":
             raise
         message.reply_text("Anda sepertinya tidak mengacu pada pengguna.")
         return log_message
@@ -259,7 +259,7 @@ def temp_ban(update: Update, context: CallbackContext) -> str:
 
         reply_msg = (
             f"Banned! Pengguna diblokir {mention_html(member.user.id, html.escape(member.user.first_name))} [<code>{member.user.id}</code>]"
-            f" untuk (`{time_val}`)."
+            f" untuk waktu (`{time_val}`)."
         )
 
         if reason:
@@ -272,9 +272,9 @@ def temp_ban(update: Update, context: CallbackContext) -> str:
                 [
                     [
                         InlineKeyboardButton(
-                            text="Unban", callback_data=f"unbanb_unban={user_id}"
+                            text="Batalkan Banned", callback_data=f"unbanb_unban={user_id}"
                         ),
-                        InlineKeyboardButton(text="Delete", callback_data="unbanb_del"),
+                        InlineKeyboardButton(text="Hapus", callback_data="unbanb_del"),
                     ]
                 ]
             ),
@@ -283,7 +283,7 @@ def temp_ban(update: Update, context: CallbackContext) -> str:
         return log
 
     except BadRequest as excp:
-        if excp.message == "Reply message not found":
+        if excp.message == "Pesan balasan tidak ditemukan":
             # Do not reply
             message.reply_text(
                 f"Banned! Pengguna diblokir {mention_html(member.user.id, html.escape(member.user.first_name))} [<code>{member.user.id}</code>] untuk waktu {time_val}.", quote=False
@@ -292,7 +292,7 @@ def temp_ban(update: Update, context: CallbackContext) -> str:
         else:
             LOGGER.warning(update)
             LOGGER.exception(
-                "ERROR banning user %s in chat %s (%s) due to %s",
+                "ERROR banned pengguna %s dalam obrolan %s (%s) karena %s",
                 user_id,
                 chat.title,
                 chat.id,
@@ -371,13 +371,13 @@ def punch(update: Update, context: CallbackContext) -> str:
     user_id, reason = extract_user_and_text(message, args)
 
     if not user_id:
-        message.reply_text("User not found")
+        message.reply_text("Pengguna tidak ditemukan")
         return log_message
 
     try:
         member = chat.get_member(user_id)
     except BadRequest as excp:
-        if excp.message != "User not found":
+        if excp.message != "Pengguna tidak ditemukan":
             raise
 
         message.reply_text("Saya tidak dapat menemukan pengguna ini.")
@@ -395,7 +395,7 @@ def punch(update: Update, context: CallbackContext) -> str:
         # bot.send_sticker(chat.id, BAN_STICKER)  # banhammer marie sticker
         bot.sendMessage(
             chat.id,
-            f"{mention_html(member.user.id, html.escape(member.user.first_name))} [<code>{member.user.id}</code>] Kicked.",
+            f"Tertendang! 😝 {mention_html(member.user.id, html.escape(member.user.first_name))} [<code>{member.user.id}</code>]",
             parse_mode=ParseMode.HTML
         )
         log = (
@@ -460,13 +460,13 @@ def unban(update: Update, context: CallbackContext) -> Optional[str]:
 
     user_id, reason = extract_user_and_text(message, args)
     if not user_id:
-        message.reply_text("User not found.")
+        message.reply_text("Pengguna tidak ditemukan.")
         return log_message
 
     try:
         member = chat.get_member(user_id)
     except BadRequest as excp:
-        if excp.message != "User not found":
+        if excp.message != "Pengguna tidak ditemukan":
             raise
         message.reply_text("Saya tidak dapat menemukan pengguna ini.")
         return log_message
@@ -475,7 +475,7 @@ def unban(update: Update, context: CallbackContext) -> Optional[str]:
         return log_message
 
     if is_user_in_chat(chat, user_id):
-        message.reply_text(f"User not found.")
+        message.reply_text(f"Pengguna tidak ditemukan.")
         return log_message
 
     chat.unban_member(user_id)
@@ -517,7 +517,7 @@ def selfunban(update: Update, context: CallbackContext) -> str:
     try:
         member = chat.get_member(user.id)
     except BadRequest as excp:
-        if excp.message == "User not found":
+        if excp.message == "Pengguna tidak ditemukan.":
             message.reply_text("Saya tidak dapat menemukan pengguna ini.")
             return
         else:
@@ -576,7 +576,7 @@ def snipe(update: Update, context: CallbackContext):
         chat_id = str(args[0])
         del args[0]
     except TypeError:
-        update.effective_message.reply_text("Please give me a chat to echo to!")
+        update.effective_message.reply_text("Tolong beri saya obrolan untuk digaungkan!")
     to_send = " ".join(args)
     if len(to_send) >= 2:
         try:
@@ -589,21 +589,21 @@ def snipe(update: Update, context: CallbackContext):
 
 
 __help__ = """
-✦ *User Commands:*
-✧ /kickme*:* kicks the user who issued the command
+✦ *Perintah Pengguna:*
+ ✧ /kickme*:* menendang pengguna yang mengeluarkan perintah.
 
-✦ *Admins only:*
-✧ /ban <userhandle>*:* bans a user. (via handle, or reply)
-✧ /sban <userhandle>*:* Silently ban a user. Deletes command, Replied message and doesn't reply. (via handle, or reply)
-✧ /tban <userhandle> x(m/h/d)*:* bans a user for x time. (via handle, or reply). m = minutes, h = hours, d = days.
-✧ /unban <userhandle>*:* unbans a user. (via handle, or reply)
-✧ /kick <userhandle>*:* kicks a user out of the group, (via handle, or reply)
-✧ /mute <userhandle>*:* silences a user. Can also be used as a reply, muting the replied to user.
-✧ /tmute <userhandle> x(m/h/d)*:* mutes a user for x time. (via handle, or reply). m = minutes, h = hours, d = days.
-✧ /unmute <userhandle>*:* unmutes a user. Can also be used as a reply, muting the replied to user.
-✧ /zombies*:* searches deleted accounts
-✧ /zombies clean*:* removes deleted accounts from the group.
-✧ /snipe <chatid> <string>*:* Make me send a message to a specific chat.
+✦ *Hanya Admins:*
+ ✧ /ban <userhandle>*:* melarang pengguna. (melalui pegangan, atau balasan)
+ ✧ /sban <userhandle>*:* Diam-diam melarang pengguna. Menghapus perintah, Membalas pesan dan tidak membalas. (melalui pegangan, atau balasan)
+ ✧ /tban <userhandle> x(m/h/d)*:* melarang pengguna untuk x waktu. (melalui pegangan, atau balasan). m = menit, h = jam, d = hari.
+ ✧ /unban <userhandle>*:* membatalkan pemblokiran pengguna. (melalui pegangan, atau balasan)
+ ✧ /kick <userhandle>*:* menendang pengguna keluar dari grup, (melalui pegangan, atau balasan)
+ ✧ /mute <userhandle>*:* membungkam pengguna. Dapat juga digunakan sebagai balasan, menonaktifkan pengguna yang dibalas.
+ ✧ /tmute <userhandle> x(m/h/d)*:* membisukan pengguna selama x waktu. (melalui pegangan, atau balasan). m = menit, h = jam, d = hari.
+ ✧ /unmute <userhandle>*:* membunyikan pengguna. Dapat juga digunakan sebagai balasan, menonaktifkan balasan ke pengguna.
+ ✧ /zombies*:* mencari akun yang dihapus.
+ ✧ /zombies clean*:* menghapus akun yang sudah dihapus dari grup.
+ ✧ /snipe <chatid> <string>*:* Buat saya mengirim pesan ke obrolan tertentu.
 """
 
 
