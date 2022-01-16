@@ -1195,7 +1195,7 @@ WELC_HELP_TXT = (
     "Pesan selamat datang juga mendukung markdown, sehingga Anda dapat membuat elemen apa pun tebal/miring/kode/tautan. "
     "Tombol juga didukung, sehingga Anda dapat membuat sambutan Anda terlihat luar biasa dengan beberapa intro yang bagus "
     "Tombol.\n"
-    f"Untuk membuat tombol yang menautkan ke aturan Anda, gunakan ini: `[Rules](buttonurl://t.me/{dispatcher.bot.username}?start=group_id)`. "
+    "Untuk membuat tombol yang menautkan ke aturan Anda, gunakan ini: `[Rules](buttonurl://t.me/{dispatcher.bot.username}?start=group_id)`. "
     "Cukup ganti `group_id` dengan id grup Anda, yang dapat diperoleh melalui /id, dan Anda dapat melakukannya "
     "Pergilah. Perhatikan bahwa id grup biasanya didahului dengan tanda `-`; ini wajib, jadi tolong jangan "
     "Singkirkan.\n"
@@ -1253,23 +1253,23 @@ def __chat_settings__(chat_id, _):
 
 __help__ = """
 ✦ *Admins saja:*
-✧ /welcome <on/off>*:* aktifkan/nonaktifkan pesan selamat datang.
-✧ /welcome*:* menunjukkan pengaturan sambutan saat ini.
-✧ /welcome noformat*:* menunjukkan pengaturan selamat datang saat ini, tanpa pemformatan - berguna untuk mendaur ulang pesan selamat datang Anda!
-✧ /goodbye*:* penggunaan dan argumen yang sama sebagai `/welcome`.
-✧ /setwelcome <sometext>*:* atur pesan selamat datang kustom. Jika digunakan membalas media, gunakan media itu.
-✧ /setgoodbye <sometext>*:* atur pesan selamat tinggal kustom. Jika digunakan membalas media, gunakan media itu.
-✧ /resetwelcome*:* reset ke pesan selamat datang default.
-✧ /resetgoodbye*:* reset ke pesan selamat tinggal default.
-✧ /cleanwelcome <on/off>*:* Pada anggota baru, coba hapus pesan selamat datang sebelumnya untuk menghindari spam obrolan.
-✧ /welcomemutehelp*:* memberikan informasi tentang penyambutan bisu.
-✧ /cleanservice <on/off*:* menghapus pesan layanan selamat datang/kiri telegram.
+ ✧ /welcome <on/off>*:* aktifkan/nonaktifkan pesan selamat datang.
+ ✧ /welcome*:* menunjukkan pengaturan sambutan saat ini.
+ ✧ /welcome noformat*:* menunjukkan pengaturan selamat datang saat ini, tanpa pemformatan - berguna untuk mendaur ulang pesan selamat datang Anda!
+ ✧ /goodbye*:* penggunaan dan argumen yang sama sebagai `/welcome`.
+ ✧ /setwelcome <sometext>*:* atur pesan selamat datang kustom. Jika digunakan membalas media, gunakan media itu.
+ ✧ /setgoodbye <sometext>*:* atur pesan selamat tinggal kustom. Jika digunakan membalas media, gunakan media itu.
+ ✧ /resetwelcome*:* reset ke pesan selamat datang default.
+ ✧ /resetgoodbye*:* reset ke pesan selamat tinggal default.
+ ✧ /cleanwelcome <on/off>*:* Pada anggota baru, coba hapus pesan selamat datang sebelumnya untuk menghindari spam obrolan.
+ ✧ /welcomemutehelp*:* memberikan informasi tentang penyambutan bisu.
+ ✧ /cleanservice <on/off*:* menghapus pesan layanan selamat datang/kiri telegram.
 
 ✦ *Contoh:*
 pengguna bergabung dengan obrolan, pengguna meninggalkan obrolan.
 
 ✦ *Markdown pesan selamat datang:*
-✧ /welcomehelp*:* lihat lebih banyak informasi pemformatan untuk pesan selamat datang/selamat tinggal kustom.
+ ✧ /welcomehelp*:* lihat lebih banyak informasi pemformatan untuk pesan selamat datang/selamat tinggal kustom.
 """
 
 NEW_MEM_HANDLER = MessageHandler(
