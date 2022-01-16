@@ -1,3 +1,20 @@
+# Copyright (C) 2022 Zenitsu-Project.
+#
+# Emilia is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Emilia is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+# translate to Indonesian by @ZenitsuPrjkt
+
 import aiohttp
 from pyrogram import filters
 from emilia import pbot, BOT_USERNAME
@@ -11,7 +28,7 @@ __mod_name__ = "Github"
 @capture_err
 async def github(_, message):
     if len(message.command) != 2:
-        await message.reply_text("/git Username")
+        await message.reply_text("/git Nama pengguna")
         return
     username = message.text.split(None, 1)[1]
     URL = f"https://api.github.com/users/{username}"
@@ -33,17 +50,17 @@ async def github(_, message):
                 repositories = result["public_repos"]
                 followers = result["followers"]
                 following = result["following"]
-                caption = f"""**Info Of {name}**
-**Username:** `{username}`
+                caption = f"""**Info dari {name}**
+**Nama Pengguna:** `{username}`
 **Bio:** `{bio}`
-**Profile Link:** [Here]({url})
-**Company:** `{company}`
-**Created On:** `{created_at}`
-**Repositories:** `{repositories}`
+**Tautan Profil:** [Here]({url})
+**Perusahaan:** `{company}`
+**Dibuat pada:** `{created_at}`
+**Repositori:** `{repositories}`
 **Blog:** `{blog}`
-**Location:** `{location}`
-**Followers:** `{followers}`
-**Following:** `{following}`"""
+**Lokasi:** `{location}`
+**Pengikut:** `{followers}`
+**Mengikuti:** `{following}`"""
             except Exception as e:
                 print(str(e))
                 pass

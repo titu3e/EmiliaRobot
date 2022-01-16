@@ -1,3 +1,20 @@
+# Copyright (C) 2022 Zenitsu-Project.
+#
+# Emilia is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Emilia is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+# translate to Indonesian by @ZenitsuPrjkt
+
 import time
 from typing import List
 
@@ -73,15 +90,15 @@ def ping(update: Update, context: CallbackContext):
     msg = update.effective_message
 
     start_time = time.time()
-    message = msg.reply_text("Pinging...")
+    message = msg.reply_text("Memuat...")
     end_time = time.time()
     telegram_ping = str(round((end_time - start_time) * 1000, 3)) + " ms"
     uptime = get_readable_time((time.time() - StartTime))
 
     message.edit_text(
         "<b>PONG</b> ✨\n"
-        "<b>Time Taken:</b> <code>{}</code>\n"
-        "<b>Service Uptime:</b> <code>{}</code>".format(telegram_ping, uptime),
+        "<b>Waktu yang Diambil:</b> <code>{}</code>\n"
+        "<b>Layanan Uptime:</b> <code>{}</code>".format(telegram_ping, uptime),
         parse_mode=ParseMode.HTML,
     )
 
@@ -95,7 +112,7 @@ def pingall(update: Update, context: CallbackContext):
 
     reply_msg = "⏱Ping results are:\n"
     reply_msg += "\n".join(pinged_list)
-    reply_msg += "\n<b>Service uptime:</b> <code>{}</code>".format(uptime)
+    reply_msg += "\n<b>Layanan Uptime:</b> <code>{}</code>".format(uptime)
 
     update.effective_message.reply_text(
         reply_msg, parse_mode=ParseMode.HTML, disable_web_page_preview=True
