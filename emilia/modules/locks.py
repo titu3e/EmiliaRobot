@@ -148,7 +148,7 @@ def unrestr_members(
 def locktypes(update, context):
     update.effective_message.reply_text(
         "\n × ".join(
-            ["Kunci tersedia: "]
+            ["Locks available: "]
             + sorted(list(LOCK_TYPES) + list(LOCK_CHAT_RESTRICTION))
         )
     )
@@ -370,8 +370,8 @@ def del_lockables(update, context):
                         try:
                             message.delete()
                         except BadRequest as excp:
-                            if excp.message != "Pesan untuk dihapus tidak ditemukan":
-                                LOGGER.exception("ERROR di lockables")
+                            if excp.message != "Message to delete not found":
+                                LOGGER.exception("ERROR in lockables")
                         break
                 if message.text:
                     check = ad.detect_alphabet("{}".format(message.text))
@@ -379,8 +379,8 @@ def del_lockables(update, context):
                         try:
                             message.delete()
                         except BadRequest as excp:
-                            if excp.message != "Pesan untuk dihapus tidak ditemukan":
-                                LOGGER.exception("ERROR di lockables")
+                            if excp.message != "Message to delete not found":
+                                LOGGER.exception("ERROR in lockables")
                         break
             continue
         if lockable == "button":
@@ -393,8 +393,8 @@ def del_lockables(update, context):
                 try:
                     message.delete()
                 except BadRequest as excp:
-                    if excp.message != "Pesan untuk dihapus tidak ditemukan":
-                        LOGGER.exception("ERROR di lockables")
+                    if excp.message != "Message to delete not found":
+                        LOGGER.exception("ERROR in lockables")
                 break
             continue
         if lockable == "inline":
@@ -407,7 +407,7 @@ def del_lockables(update, context):
                 try:
                     message.delete()
                 except BadRequest as excp:
-                    if excp.message != "Pesan untuk dihapus tidak ditemukan":
+                    if excp.message != "Message to delete not found":
                         LOGGER.exception("ERROR in lockables")
                 break
             continue
@@ -438,8 +438,8 @@ def del_lockables(update, context):
                 try:
                     message.delete()
                 except BadRequest as excp:
-                    if excp.message != "Pesan untuk dihapus tidak ditemukan":
-                        LOGGER.exception("ERROR di lockables")
+                    if excp.message != "Message to delete not found":
+                        LOGGER.exception("ERROR in lockables")
 
                 break
 
@@ -565,12 +565,14 @@ dunia telegram; bot akan otomatis menghapusnya! \
  ✧ /locktypes*:* Daftar semua kemungkinan tipe kunci.
 
 Kunci dapat digunakan untuk membatasi pengguna grup
-misalnya:Mengunci url akan otomatis menghapus semua pesan dengan url, mengunci stiker akan membatasi semua
+misalnya:
+Mengunci url akan otomatis menghapus semua pesan dengan url, mengunci stiker akan membatasi semua
 pengguna non-admin dari mengirim stiker, dll.
 bot akan menghentikan non-admin menambahkan bot ke obrolan.
 
-✦ *Catatan:*Membuka izin *info* akan memungkinkan anggota (non-admin) untuk mengubah informasi grup, seperti deskripsi atau nama grup.
-   Membuka izin *pin* akan memungkinkan anggota (non-admin) untuk menyematkan pesan dalam grup.
+✦ *Catatan:*
+Membuka izin *info* akan memungkinkan anggota (non-admin) untuk mengubah informasi grup, seperti deskripsi atau nama grup.
+Membuka izin *pin* akan memungkinkan anggota (non-admin) untuk menyematkan pesan dalam grup.
 """
 
 __mod_name__ = "Locks"
