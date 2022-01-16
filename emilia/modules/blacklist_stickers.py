@@ -352,7 +352,7 @@ def blacklist_mode(update: Update, context: CallbackContext):
         return (
             "<b>{}:</b>\n"
             "<b>Admin:</b> {}\n"
-            "Changed sticker blacklist mode. users will be {}.".format(
+            "Mengubah mode daftar hitam stiker. pengguna akan {}.".format(
                 html.escape(chat.title),
                 mention_html(user.id, html.escape(user.first_name)),
                 settypeblacklist,
@@ -376,12 +376,12 @@ def blacklist_mode(update: Update, context: CallbackContext):
     elif getmode == 7:
         settypeblacklist = "mute sementara selama {}".format(getvalue)
     if conn:
-        text = "Mode blacklist saat ini disetel ke *{}* pada *{}*.".format(
+        text = "mode daftar hitam saat ini disetel ke *{}* pada *{}*.".format(
             settypeblacklist,
             chat_name,
         )
     else:
-        text = "Mode blacklist saat ini disetel ke *{}*.".format(
+        text = "mode daftar hitam saat ini disetel ke *{}*.".format(
             settypeblacklist,
         )
     send_message(update.effective_message, text, parse_mode=ParseMode.MARKDOWN)
