@@ -192,7 +192,7 @@ def connect_chat(update, context):
                     ),
                 )
             else:
-                text = "Write the chat ID or tag to connect!"
+                text = "Tulis ID obrolan atau tag untuk terhubung!"
             if gethistory:
                 text += "\n\n*Riwayat koneksi:*\n"
                 text += "╒═══「 *Info* 」\n"
