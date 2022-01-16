@@ -282,7 +282,7 @@ def save(update: Update, context: CallbackContext):
     note_name, text, data_type, content, buttons = get_note_type(msg)
     note_name = note_name.lower()
     if data_type is None:
-        msg.reply_text("Bung, tidak ada catatan")
+        msg.reply_text("tidak ada catatan")
         return
 
     sql.add_note_to_db(
@@ -394,7 +394,7 @@ def list_notes(update: Update, context: CallbackContext):
     chat_id = update.effective_chat.id
     note_list = sql.get_all_chat_notes(chat_id)
     notes = len(note_list) + 1
-    msg = "Dapatkan catatan dengan\n `/nomorcatatan` atau `#namacatatan` \n\n *ID*  *Catatan* \n"
+    msg = "*ID*  *Catatan* \n"
     for note_id, note in zip(range(1, notes), note_list):
         if note_id < 10:
             note_name = f"`{note_id:2}.`  `#{(note.name.lower())}`\n"
