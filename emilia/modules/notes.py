@@ -1,3 +1,20 @@
+# Copyright (C) 2022 Zenitsu-Project.
+#
+# Emilia is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Emilia is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+# translate to Indonesian by @ZenitsuPrjkt
+
 import re, ast
 from io import BytesIO
 import random
@@ -78,10 +95,10 @@ def get(update, context, notename, show_none=True, no_format=False):
                         message_id=note.value,
                     )
                 except BadRequest as excp:
-                    if excp.message == "Message to forward not found":
+                    if excp.message == "Pesan untuk diteruskan tidak ditemukan":
                         message.reply_text(
-                            "This message seems to have been lost - I'll remove it "
-                            "from your notes list.",
+                            "Pesan ini tampaknya telah hilang - saya akan menghapusnya "
+                            "dari daftar catatan Anda..",
                         )
                         sql.rm_note(note_chat_id, notename)
                     else:
@@ -94,12 +111,12 @@ def get(update, context, notename, show_none=True, no_format=False):
                         message_id=note.value,
                     )
                 except BadRequest as excp:
-                    if excp.message == "Message to forward not found":
+                    if excp.message == "Pesan untuk diteruskan tidak ditemukan":
                         message.reply_text(
-                            "Looks like the original sender of this note has deleted "
-                            "their message - sorry! Get your bot admin to start using a "
-                            "message dump to avoid this. I'll remove this note from "
-                            "your saved notes.",
+                            "Sepertinya pengirim asli dari catatan ini telah dihapus "
+                            "pesan mereka - maaf! Dapatkan admin bot Anda untuk mulai menggunakan "
+                            "pesan dump untuk menghindari ini. Saya akan menghapus catatan ini dari "
+                            "catatan tersimpan Anda.",
                         )
                         sql.rm_note(note_chat_id, notename)
                     else:
@@ -196,31 +213,31 @@ def get(update, context, notename, show_none=True, no_format=False):
             except BadRequest as excp:
                 if excp.message == "Entity_mention_user_invalid":
                     message.reply_text(
-                        "Looks like you tried to mention someone I've never seen before. If you really "
-                        "want to mention them, forward one of their messages to me, and I'll be able "
-                        "to tag them!",
+                        "Sepertinya Anda mencoba menyebutkan seseorang yang belum pernah saya lihat sebelumnya. Jika Anda benar-benar "
+                        "ingin menyebutkan mereka, meneruskan salah satu pesan mereka kepada saya, dan saya akan dapat "
+                        "untuk menandai mereka!",
                     )
                 elif FILE_MATCHER.match(note.value):
                     message.reply_text(
-                        "This note was an incorrectly imported file from another bot - I can't use "
-                        "it. If you really need it, you'll have to save it again. In "
-                        "the meantime, I'll remove it from your notes list.",
+                        "Catatan ini adalah file yang diimpor secara salah dari bot lain - saya tidak dapat menggunakan "
+                        "dia. Jika Anda benar-benar membutuhkannya, Anda harus menyimpannya lagi. Di "
+                        "sementara itu, saya akan menghapusnya dari daftar catatan Anda.",
                     )
                     sql.rm_note(note_chat_id, notename)
                 else:
                     message.reply_text(
-                        "This note could not be sent, as it is incorrectly formatted. Ask in "
-                        f"@{SUPPORT_CHAT} if you can't figure out why!",
+                        "Catatan ini tidak dapat dikirim, karena formatnya salah. Tanyakan "
+                        f"@{SUPPORT_CHAT} jika Anda tidak tahu mengapa!",
                     )
                     LOGGER.exception(
-                        "Could not parse message #%s in chat %s",
+                        "Tidak dapat mengurai pesan #%s dalam obrolan %s",
                         notename,
                         str(note_chat_id),
                     )
-                    LOGGER.warning("Message was: %s", str(note.value))
+                    LOGGER.warning("Pesan adalah: %s", str(note.value))
         return
     if show_none:
-        message.reply_text("This note doesn't exist")
+        message.reply_text("Catatan ini tidak ada")
 
 
 @connection_status
@@ -231,7 +248,7 @@ def cmd_get(update: Update, context: CallbackContext):
     elif len(args) >= 1:
         get(update, context, args[0].lower(), show_none=True)
     else:
-        update.effective_message.reply_text("Get rekt")
+        update.effective_message.reply_text("Get apa?")
 
 
 @connection_status
@@ -253,7 +270,7 @@ def slash_get(update: Update, context: CallbackContext):
         note_name = str(noteid).strip(">").split()[1]
         get(update, context, note_name, show_none=False)
     except IndexError:
-        update.effective_message.reply_text("Wrong Note ID")
+        update.effective_message.reply_text("ID Catatan Salah")
 
 
 @user_admin
@@ -265,7 +282,7 @@ def save(update: Update, context: CallbackContext):
     note_name, text, data_type, content, buttons = get_note_type(msg)
     note_name = note_name.lower()
     if data_type is None:
-        msg.reply_text("Dude, there's no note")
+        msg.reply_text("tidak ada catatan")
         return
 
     sql.add_note_to_db(
@@ -278,24 +295,24 @@ def save(update: Update, context: CallbackContext):
     )
 
     msg.reply_text(
-        f"Saved Note `{note_name}`",
+        f"Ok, catatan `{note_name}` disimpan!",
         parse_mode=ParseMode.MARKDOWN,
     )
 
     if msg.reply_to_message and msg.reply_to_message.from_user.is_bot:
         if text:
             msg.reply_text(
-                "Seems like you're trying to save a message from a bot. Unfortunately, "
-                "bots can't forward bot messages, so I can't save the exact message. "
-                "\nI'll save all the text I can, but if you want more, you'll have to "
-                "forward the message yourself, and then save it.",
+                "Sepertinya Anda mencoba menyimpan pesan dari bot. Sayangnya, "
+                "bot tidak dapat meneruskan pesan bot, jadi saya tidak dapat menyimpan pesan yang tepat. "
+                "\nSaya akan menyimpan semua teks yang saya bisa, tetapi jika Anda ingin lebih, Anda harus "
+                "teruskan pesan itu sendiri, lalu simpan.",
             )
         else:
             msg.reply_text(
-                "Bots are kinda handicapped by telegram, making it hard for bots to "
-                "interact with other bots, so I can't save this message "
-                "like I usually would - do you mind forwarding it and "
-                "then saving that new message? Thanks!",
+                "Bot agak cacat oleh telegram, sehingga sulit bagi bot untuk "
+                "berinteraksi dengan bot lain, jadi saya tidak dapat menyimpan pesan ini "
+                "seperti yang biasanya saya lakukan - apakah Anda keberatan meneruskannya dan "
+                "lalu simpan pesan baru itu? Terima kasih!",
             )
         return
 
@@ -309,9 +326,9 @@ def clear(update: Update, context: CallbackContext):
         notename = args[0].lower()
 
         if sql.rm_note(chat_id, notename):
-            update.effective_message.reply_text("Successfully removed note.")
+            update.effective_message.reply_text("Berhasil menghapus catatan.")
         else:
-            update.effective_message.reply_text("That's not a note in my database!")
+            update.effective_message.reply_text("Itu bukan catatan di database saya!")
 
 
 def clearall(update: Update, context: CallbackContext):
@@ -320,22 +337,22 @@ def clearall(update: Update, context: CallbackContext):
     member = chat.get_member(user.id)
     if member.status != "creator" and user.id not in DRAGONS:
         update.effective_message.reply_text(
-            "Only the chat owner can clear all notes at once.",
+            "Hanya pemilik obrolan yang dapat menghapus semua catatan sekaligus.",
         )
     else:
         buttons = InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        text="Delete all notes",
+                        text="Hapus semua catatan",
                         callback_data="notes_rmall",
                     ),
                 ],
-                [InlineKeyboardButton(text="Cancel", callback_data="notes_cancel")],
+                [InlineKeyboardButton(text="Membatalkan", callback_data="notes_cancel")],
             ],
         )
         update.effective_message.reply_text(
-            f"Are you sure you would like to clear ALL notes in {chat.title}? This action cannot be undone.",
+            f"Apakah Anda yakin ingin menghapus SEMUA catatan di {chat.title}? Tindakan ini tidak bisa dibatalkan.",
             reply_markup=buttons,
             parse_mode=ParseMode.MARKDOWN,
         )
@@ -353,23 +370,23 @@ def clearall_btn(update: Update, context: CallbackContext):
                 for notename in note_list:
                     note = notename.name.lower()
                     sql.rm_note(chat.id, note)
-                message.edit_text("Deleted all notes.")
+                message.edit_text("Menghapus semua catatan.")
             except BadRequest:
                 return
 
         if member.status == "administrator":
-            query.answer("Only owner of the chat can do this.")
+            query.answer("Hanya pemilik obrolan yang dapat melakukan ini.")
 
         if member.status == "member":
-            query.answer("You need to be admin to do this.")
+            query.answer("Anda harus menjadi admin untuk melakukan ini.")
     elif query.data == "notes_cancel":
         if member.status == "creator" or query.from_user.id in DRAGONS:
-            message.edit_text("Clearing of all notes has been cancelled.")
+            message.edit_text("Hapus semua catatan telah dibatalkan.")
             return
         if member.status == "administrator":
-            query.answer("Only owner of the chat can do this.")
+            query.answer("Hanya pemilik obrolan yang dapat melakukan ini.")
         if member.status == "member":
-            query.answer("You need to be admin to do this.")
+            query.answer("Anda harus menjadi admin untuk melakukan ini.")
 
 
 @connection_status
@@ -377,12 +394,12 @@ def list_notes(update: Update, context: CallbackContext):
     chat_id = update.effective_chat.id
     note_list = sql.get_all_chat_notes(chat_id)
     notes = len(note_list) + 1
-    msg = "Get note by `/notenumber` or `#notename` \n\n  *ID*    *Note* \n"
+    msg = "*ID* *Catatan* \n"
     for note_id, note in zip(range(1, notes), note_list):
         if note_id < 10:
             note_name = f"`{note_id:2}.`  `#{(note.name.lower())}`\n"
         else:
-            note_name = f"`{note_id}.`  `#{(note.name.lower())}`\n"
+            note_name = f"`{note_id:2}.`  `#{(note.name.lower())}`\n"
         if len(msg) + len(note_name) > MAX_MESSAGE_LENGTH:
             update.effective_message.reply_text(msg, parse_mode=ParseMode.MARKDOWN)
             msg = ""
@@ -390,9 +407,9 @@ def list_notes(update: Update, context: CallbackContext):
 
     if not note_list:
         try:
-            update.effective_message.reply_text("No notes in this chat!")
+            update.effective_message.reply_text("Tidak ada catatan dalam obrolan ini!")
         except BadRequest:
-            update.effective_message.reply_text("No notes in this chat!", quote=False)
+            update.effective_message.reply_text("Tidak ada catatan dalam obrolan ini!", quote=False)
 
     elif len(msg) != 0:
         update.effective_message.reply_text(msg, parse_mode=ParseMode.MARKDOWN)
@@ -527,14 +544,14 @@ def __import_data__(chat_id, data):
                 chat_id,
                 document=output,
                 filename="failed_imports.txt",
-                caption="These files/photos failed to import due to originating "
-                "from another bot. This is a telegram API restriction, and can't "
-                "be avoided. Sorry for the inconvenience!",
+                caption="File/foto ini gagal diimpor karena berasal "
+                "dari bot lain. Ini adalah pembatasan API telegram, dan tidak bisa "
+                "dihindari. Maaf untuk ketidaknyamanannya!",
             )
 
 
 def __stats__():
-    return f"× {sql.num_notes()} notes, across {sql.num_chats()} chats."
+    return f"{sql.num_notes()} catatan, pada {sql.num_chats()} obrolan."
 
 
 def __migrate__(old_chat_id, new_chat_id):
@@ -543,34 +560,34 @@ def __migrate__(old_chat_id, new_chat_id):
 
 def __chat_settings__(chat_id, user_id):
     notes = sql.get_all_chat_notes(chat_id)
-    return f"There are `{len(notes)}` notes in this chat."
+    return f"Ada catatan `{len(notes)}` dalam obrolan ini."
 
 
 __help__ = """
-Save data for future users with notes!
-Notes are great to save random tidbits of information; a phone number, a nice gif, a funny picture - anything!
+Simpan data untuk pengguna masa depan dengan catatan!
+Catatan bagus untuk menyimpan informasi acak; nomor telepon, gif yang bagus, gambar lucu - apa saja!
 
-✦ *Available commands are:*
-✧ /save <name> <content>: Save content to a note with the name "name". Replying to a message will save that message. Even works on media!
-✧ /get <name>: Get the note with the name "name".
-   #<name>: same as /get name
-✧ /clear <name>: delete the note called "name"
-✧ /notes: List all notes in the current chat
-✧ /saved: same as /notes
-✧ /removeallnotes: Clean all notes in your group, only use this if you know what you're doing
+✦ *Perintah yang tersedia adalah:*
+ ✧ /save <nama> <isi>: Simpan konten ke catatan dengan nama "nama". Membalas pesan akan menyimpan pesan itu. Bahkan bekerja di media!
+ ✧ /get <nama>: Dapatkan catatan dengan nama "nama".
+   #<nama>: sama dengan /get nama
+ ✧ /clear <nama>: hapus catatan yang disebut "nama"
+ ✧ /notes: Daftar semua catatan dalam obrolan saat ini
+ ✧ /saved: sama dengan /notes
+ ✧ /removeallnotes: Clean all notes in your group, only use this if you know what you're doing
 
-✦ *An example of how to save a note would be via:*
-/save data This is some data!
-Now, anyone using "/get data", or "#data" will be replied to with "This is some data!".
-If you want to save an image, gif, or sticker, or any other data, do the following:
-/save word while replying to a sticker or whatever data you'd like. Now, the note at "#word" contains a sticker which will be sent as a reply.
+✦ *Contoh cara menyimpan catatan adalah melalui:*
+ /save data Ini adalah beberapa data!
+ Sekarang, siapa pun yang menggunakan "/get data", atau "#data" akan dibalas dengan "Ini adalah beberapa data!".
+ Jika Anda ingin menyimpan gambar, gif, atau stiker, atau data lainnya, lakukan hal berikut:
+ /save kata sambil membalas stiker atau data apa pun yang Anda inginkan. Sekarang, catatan di "#word" berisi stiker yang akan dikirim sebagai balasan.
 
 ✦ *Tip:*
-to retrieve a note without the formatting, use /get <notename> noformat
-This will retrieve the note and send it without formatting it; getting you the raw markdown, allowing you to make easy edits
+untuk mengambil catatan tanpa format, gunakan /get <namacatatan> noformat
+Ini akan mengambil catatan dan mengirimkannya tanpa memformatnya; membuat Anda raw markdown, memungkinkan Anda melakukan pengeditan dengan mudah
 
-✦ *Note:*
-Note names are case-insensitive, and they are automatically converted to lowercase before getting saved.
+✦ *Catatan:*
+Nama catatan tidak peka huruf besar-kecil, dan secara otomatis diubah menjadi huruf kecil sebelum disimpan.
 """
 
 __mod_name__ = "Notes"
