@@ -1,3 +1,20 @@
+# Copyright (C) 2022 Zenitsu-Project.
+#
+# Emilia is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Emilia is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+# translate to Indonesian by @ZenitsuPrjkt
+
 import asyncio
 
 from telethon import events
@@ -15,7 +32,7 @@ spam_chats = []
 async def mentionall(event):
     chat_id = event.chat_id
     if event.is_private:
-        return await event.respond("__This command can be use in groups and channels!__")
+        return await event.respond("Perintah ini dapat digunakan dalam grup dan saluran!")
 
     is_admin = False
     try:
@@ -37,10 +54,10 @@ async def mentionall(event):
         ):
             is_admin = True
     if not is_admin:
-        return await event.reply("__Only admins can mention all!__")
+        return await event.reply("Hanya admin yang bisa mention semua!")
 
     if event.pattern_match.group(1) and event.is_reply:
-        return await event.reply("__Give me one argument!__")
+        return await event.reply("Beri aku satu argumen!")
     elif event.pattern_match.group(1):
         mode = "text_on_cmd"
         msg = event.pattern_match.group(1)
@@ -49,9 +66,9 @@ async def mentionall(event):
         msg = await event.get_reply_message()
         if msg == None:
             return await event.respond(
-                "__I can't mention members for older messages! (messages which are sent before I'm added to group)__")
+                "Saya tidak bisa menyebut anggota untuk pesan lama! (pesan yang dikirim sebelum saya ditambahkan ke grup)")
     else:
-        return await event.reply("__Reply to a message or give me some text to mention others!__")
+        return await event.reply("Membalas pesan atau memberi saya beberapa teks untuk menyebutkan orang lain!")
 
     spam_chats.append(chat_id)
     usrnum = 0
@@ -98,15 +115,15 @@ async def cancel_spam(event):
         ):
             is_admin = True
     if not is_admin:
-        return await event.reply("__Only admins can execute this command!__")
+        return await event.reply("Hanya admin yang dapat menjalankan perintah ini!")
     if not event.chat_id in spam_chats:
-        return await event.reply("__There is no proccess on going...__")
+        return await event.reply("Tidak ada proses berjalan...")
     else:
         try:
             spam_chats.remove(event.chat_id)
         except:
             pass
-        return await event.respond("__Stopped Mention.__")
+        return await event.respond("Berhenti Menyebut.")
 
 
 __mod_name__ = "Tag all"
