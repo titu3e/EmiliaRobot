@@ -1,3 +1,20 @@
+# Copyright (C) 2022 Zenitsu-Project.
+#
+# Emilia is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Emilia is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+# translate to Indonesian by @ZenitsuPrjkt
+
 import speedtest
 from emilia import DEV_USERS, dispatcher
 from emilia.modules.disable import DisableAbleCommandHandler
@@ -19,7 +36,7 @@ def speedtestxyz(update: Update, context: CallbackContext):
         ],
     ]
     update.effective_message.reply_text(
-        "Select SpeedTest Mode",
+        "Pilih SpeedTest Mode",
         reply_markup=InlineKeyboardMarkup(buttons),
     )
 
@@ -28,12 +45,12 @@ def speedtestxyz_callback(update: Update, context: CallbackContext):
     query = update.callback_query
 
     if query.from_user.id in DEV_USERS:
-        msg = update.effective_message.edit_text("Running a speedtest....")
+        msg = update.effective_message.edit_text("Harap tunggu....")
         speed = speedtest.Speedtest()
         speed.get_best_server()
         speed.download()
         speed.upload()
-        replymsg = "SpeedTest Results:"
+        replymsg = " Hasil Dari SpeedTest:"
 
         if query.data == "speedtest_image":
             speedtest_image = speed.results.share()
@@ -48,7 +65,7 @@ def speedtestxyz_callback(update: Update, context: CallbackContext):
             replymsg += f"\nDownload: `{convert(result['download'])}Mb/s`\nUpload: `{convert(result['upload'])}Mb/s`\nPing: `{result['ping']}`"
             update.effective_message.edit_text(replymsg, parse_mode=ParseMode.MARKDOWN)
     else:
-        query.answer("You are required to join Heroes Association to use this command.")
+        query.answer("Anda harus bergabung dengan Heroes Association untuk menggunakan perintah ini.")
 
 
 SPEED_TEST_HANDLER = DisableAbleCommandHandler(
