@@ -138,7 +138,7 @@ def ban(update: Update, context: CallbackContext) -> str:
         f"<b>{html.escape(chat.title)}:</b>\n"
         f"#{'S' if silent else ''}BANNED\n"
         f"<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))}\n"
-        f"<b>User:</b> {mention_html(member.user.id, html.escape(member.user.first_name))}"
+        f"<b>Pengguna:</b> {mention_html(member.user.id, html.escape(member.user.first_name))}"
     )
     if reason:
         log += "<b>Alasan:</b> {}".format(reason)
@@ -154,7 +154,7 @@ def ban(update: Update, context: CallbackContext) -> str:
 
         # bot.send_sticker(chat.id, BAN_STICKER)  # banhammer marie sticker
         reply = (
-            f"Terbanned! 😝 {mention_html(member.user.id, html.escape(member.user.first_name))} [<code>{member.user.id}</code>]"
+            f"{mention_html(member.user.id, html.escape(member.user.first_name))} Terbanned! 😝"
         )
         if reason:
             reply += f"\nAlasan: {html.escape(reason)}"
@@ -247,8 +247,8 @@ def temp_ban(update: Update, context: CallbackContext) -> str:
         f"<b>{html.escape(chat.title)}:</b>\n"
         "#TEMP BANNED\n"
         f"<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))}\n"
-        f"<b>User:</b> {mention_html(member.user.id, html.escape(member.user.first_name))}\n"
-        f"<b>Time:</b> {time_val}"
+        f"<b>Pengguna:</b> {mention_html(member.user.id, html.escape(member.user.first_name))}\n"
+        f"<b>Waktu:</b> {time_val}"
     )
     if reason:
         log += "\nAlasan: {}".format(reason)
@@ -340,7 +340,7 @@ def unbanb_btn(update: Update, context: CallbackContext) -> str:
                 f"<b>{html.escape(chat.title)}:</b>\n"
                 f"#UNBANNED\n"
                 f"<b>Admin:</b> {mention_html(user.id, user.first_name)}\n"
-                f"<b>User:</b> {mention_html(member.user.id, member.user.first_name)}"
+                f"<b>Pengguna:</b> {mention_html(member.user.id, member.user.first_name)}"
             )
 
     else:
@@ -395,14 +395,14 @@ def punch(update: Update, context: CallbackContext) -> str:
         # bot.send_sticker(chat.id, BAN_STICKER)  # banhammer marie sticker
         bot.sendMessage(
             chat.id,
-            f"Tertendang! 😝 {mention_html(member.user.id, html.escape(member.user.first_name))} [<code>{member.user.id}</code>]",
+            f"{mention_html(member.user.id, html.escape(member.user.first_name))} Tertendang! 😝",
             parse_mode=ParseMode.HTML
         )
         log = (
             f"<b>{html.escape(chat.title)}:</b>\n"
             f"#KICKED\n"
             f"<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))}\n"
-            f"<b>User:</b> {mention_html(member.user.id, html.escape(member.user.first_name))}"
+            f"<b>Pengguna:</b> {mention_html(member.user.id, html.escape(member.user.first_name))}"
         )
         if reason:
             log += f"\n<b>Alasan:</b> {reason}"
@@ -421,7 +421,7 @@ def punch(update: Update, context: CallbackContext) -> str:
 def punchme(update: Update, context: CallbackContext):
     user_id = update.effective_message.from_user.id
     if is_user_admin(update.effective_chat, user_id):
-        update.effective_message.reply_text("Saya berharap saya bisa ... tetapi Anda seorang admin.")
+        update.effective_message.reply_text("Saya berharap saya bisa... tetapi Anda seorang admin.")
         return
 
     res = update.effective_chat.unban_member(user_id)  # unban on current user = kick
@@ -480,14 +480,14 @@ def unban(update: Update, context: CallbackContext) -> Optional[str]:
 
     chat.unban_member(user_id)
     message.reply_text(
-        f"Ya, pengguna ini dapat bergabung! 😁 {member.user.first_name} [{member.user.id}]."
+        f"Ya, {member.user.first_name} dapat bergabung! 😁"
     )
 
     log = (
         f"<b>{html.escape(chat.title)}:</b>\n"
         f"#UNBANNED\n"
         f"<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))}\n"
-        f"<b>User:</b> {mention_html(member.user.id, html.escape(member.user.first_name))}"
+        f"<b>Pengguna:</b> {mention_html(member.user.id, html.escape(member.user.first_name))}"
     )
     if reason:
         log += f"\n<b>Alasan:</b> {reason}"
@@ -533,7 +533,7 @@ def selfunban(update: Update, context: CallbackContext) -> str:
     log = (
         f"<b>{html.escape(chat.title)}:</b>\n"
         f"#UNBANNED\n"
-        f"<b>User:</b> {mention_html(member.user.id, html.escape(member.user.first_name))}"
+        f"<b>Pengguna:</b> {mention_html(member.user.id, html.escape(member.user.first_name))}"
     )
 
     return log
@@ -556,7 +556,7 @@ def banme(update: Update, context: CallbackContext):
         return (
             "<b>{}:</b>"
             "\n#BANME"
-            "\n<b>User:</b> {}"
+            "\n<b>Pengguna:</b> {}"
             "\n<b>ID:</b> <code>{}</code>".format(
                 html.escape(chat.title),
                 mention_html(user.id, user.first_name),
