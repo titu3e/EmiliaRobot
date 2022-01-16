@@ -145,8 +145,8 @@ def get_readable_time(seconds: int) -> str:
     return ping_time
 
 PM_START_TEXT = """
-Hei there! {}, [✨](https://telegra.ph/file/8142e7aac030eebd40a4e.jpg)
-My name is Emilia.
+Halo {}! [✨](https://telegra.ph/file/8142e7aac030eebd40a4e.jpg)
+Nama Saya Adalah Emilia.
 Dikelola Oleh: [ZenitsuPrjkt](https://t.me/ZenitsuPrjkt)
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
 ✧ *Waktu aktif:* `{}`
@@ -643,8 +643,6 @@ def emilia_about_callback(update, context):
 
                  [
 
-                    InlineKeyboardButton(text="Support", callback_data="Emilia_support"),
-
                     InlineKeyboardButton(text="Credits", callback_data="Emilia_credit"),
 
                  ],
@@ -738,42 +736,6 @@ def emilia_about_callback(update, context):
             reply_markup=InlineKeyboardMarkup(
 
                 [[InlineKeyboardButton(text="Kembali", callback_data="Emilia_")]]
-
-            ),
-
-        )
-
-    elif query.data == "Emilia_support":
-
-        query.message.edit_text(
-
-            text="*✦ Obrolan dukungan Emilia*"
-
-            "\nBergabunglah dengan Grup/Saluran Dukungan Saya untuk melihat atau melaporkan masalah di Emilia.",
-
-            parse_mode=ParseMode.MARKDOWN,
-
-            reply_markup=InlineKeyboardMarkup(
-
-                [
-
-                 [
-
-                    InlineKeyboardButton(text="Grup", url="t.me/emiliasupport"),
-
-                    InlineKeyboardButton(text="Channel", url="https://t.me/EmiliaProject"),
-
-                 ],
-
-                 [
-
-                    InlineKeyboardButton(text="Kembali", callback_data="Emilia_"),
-
-                 
-
-                 ]
-
-                ]
 
             ),
 
