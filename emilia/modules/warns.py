@@ -106,28 +106,28 @@ def warn(user: User,
         log_reason = (f"<b>{html.escape(chat.title)}:</b>\n"
                       f"#WARN_BAN\n"
                       f"<b>Admin:</b> {warner_tag}\n"
-                      f"<b>User:</b> {mention_html(user.id, user.first_name)}\n"
-                      f"<b>Reason:</b> {reason}\n"
-                      f"<b>Counts:</b> <code>{num_warns}/{limit}</code>")
+                      f"<b>Pengguna:</b> {mention_html(user.id, user.first_name)}\n"
+                      f"<b>Alasan:</b> {reason}\n"
+                      f"<b>menghitung:</b> <code>{num_warns}/{limit}</code>")
 
     else:
         keyboard = InlineKeyboardMarkup([[
             InlineKeyboardButton(
-                "Remove", callback_data="rm_warn({})".format(user.id))
+                "Hapus peringatan", callback_data="rm_warn({})".format(user.id))
         ]])
 
         reply = (
             f"{mention_html(user.id, user.first_name)} [<code>{user.id}</code>]"
-            f" Warned ({num_warns} of {limit}).")
+            f" Diperingatkan ({num_warns} of {limit}).")
         if reason:
             reply += f"\nReason: {html.escape(reason)}"
 
         log_reason = (f"<b>{html.escape(chat.title)}:</b>\n"
                       f"#WARN\n"
                       f"<b>Admin:</b> {warner_tag}\n"
-                      f"<b>User:</b> {mention_html(user.id, user.first_name)}\n"
-                      f"<b>Reason:</b> {reason}\n"
-                      f"<b>Counts:</b> <code>{num_warns}/{limit}</code>")
+                      f"<b>Pengguna:</b> {mention_html(user.id, user.first_name)}\n"
+                      f"<b>Alasan:</b> {reason}\n"
+                      f"<b>Menghitung:</b> <code>{num_warns}/{limit}</code>")
 
     try:
         message.reply_text(
