@@ -173,7 +173,7 @@ def button(update: Update, context: CallbackContext) -> str:
             )
         else:
             update.effective_message.edit_text(
-                "User already has no warns.", parse_mode=ParseMode.HTML
+                "Pengguna sudah tidak memiliki peringatan.", parse_mode=ParseMode.HTML
             )
 
     return ""
@@ -234,7 +234,7 @@ def reset_warns(update: Update, context: CallbackContext) -> str:
             f"<b>Pengguna:</b> {mention_html(warned.id, warned.first_name)}"
         )
     else:
-        message.reply_text("Pengguna sudah tidak memiliki peringatan")
+        message.reply_text("Tidak ada pengguna yang ditunjuk")
     return ""
 
 
@@ -251,7 +251,7 @@ def warns(update: Update, context: CallbackContext):
 
         if reasons:
             text = (
-                f"This user has {num_warns}/{limit} warns, for the following reasons:"
+                f"Pengguna ini memiliki {num_warns}/{limit} peringatan, karena alasan berikut:"
             )
             for reason in reasons:
                 text += f"\n {reason}"
@@ -261,10 +261,10 @@ def warns(update: Update, context: CallbackContext):
                 update.effective_message.reply_text(msg)
         else:
             update.effective_message.reply_text(
-                f"User has {num_warns}/{limit} warns, but no reasons for any of them."
+                f"Pengguna ini memiliki {num_warns}/{limit} peringatan, tapi tidak ada alasan untuk salah satu dari mereka."
             )
     else:
-        update.effective_message.reply_text("This user doesn't have any warns!")
+        update.effective_message.reply_text("Pengguna ini belum mendapatkan peringatan apa pun!")
 
 
 # Dispatcher handler stop - do not async
