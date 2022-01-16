@@ -71,30 +71,30 @@ from telegram.utils.helpers import mention_html, mention_markdown
 # LOGGER.info("Original federation module by MrYacha, reworked by Mizukito Akito (@peaktogoo) on Telegram.")
 
 FBAN_ERRORS = {
-    "User is an administrator of the chat",
-    "Chat not found",
-    "Not enough rights to restrict/unrestrict chat member",
+    "Pengguna adalah administrator obrolan",
+    "Obrolan tidak ditemukan",
+    "Tidak cukup hak untuk membatasi/membatalkan pembatasan anggota obrolan",
     "User_not_participant",
     "Peer_id_invalid",
-    "Group chat was deactivated",
-    "Need to be inviter of a user to kick it from a basic group",
+    "Obrolan grup dinonaktifkan",
+    "Perlu mengundang pengguna untuk menendangnya dari grup dasar",
     "Chat_admin_required",
-    "Only the creator of a basic group can kick group administrators",
+    "Hanya pembuat grup dasar yang dapat menendang administrator grup",
     "Channel_private",
-    "Not in the chat",
-    "Have no rights to send a message",
+    "Tidak di obrolan",
+    "Tidak memiliki hak untuk mengirim pesan",
 }
 
 UNFBAN_ERRORS = {
-    "User is an administrator of the chat",
-    "Chat not found",
-    "Not enough rights to restrict/unrestrict chat member",
+    "Pengguna adalah administrator obrolan",
+    "Obrolan tidak ditemukan",
+    "Tidak cukup hak untuk membatasi/membatalkan pembatasan anggota obrolan",
     "User_not_participant",
-    "Method is available for supergroup and channel chats only",
-    "Not in the chat",
+    "Metode ini hanya tersedia untuk obrolan supergrup dan saluran",
+    "Tidak di obrolan",
     "Channel_private",
     "Chat_admin_required",
-    "Have no rights to send a message",
+    "Tidak memiliki hak untuk mengirim pesan",
 }
 
 
@@ -145,7 +145,7 @@ def new_fed(update: Update, context: CallbackContext):
                 parse_mode=ParseMode.HTML,
             )
         except:
-            LOGGER.warning("Cannot send a message to EVENT_LOGS")
+            LOGGER.warning("Tidak dapat mengirim pesan ke EVENT_LOGS")
     else:
         update.effective_message.reply_text(
             "Tolong tulis nama federasinya",
@@ -165,7 +165,7 @@ def del_fed(update: Update, context: CallbackContext):
         is_fed_id = args[0]
         getinfo = sql.get_fed_info(is_fed_id)
         if getinfo is False:
-            update.effective_message.reply_text("This federation does not exist.")
+            update.effective_message.reply_text("Federasi ini tidak ada.")
             return
         if int(getinfo["owner"]) == int(user.id) or int(user.id) == OWNER_ID:
             fed_id = is_fed_id
@@ -777,7 +777,7 @@ def fed_ban(update: Update, context: CallbackContext):
                     except Unauthorized:
                         sql.chat_leave_fed(fedschat)
                         LOGGER.info(
-                            "Chat {} has leave fed {} because I was kicked".format(
+                            "Obrolan {} telah meninggalkan fed {} karena aku ditendang".format(
                                 fedschat,
                                 info["fname"],
                             ),
@@ -819,7 +819,7 @@ def fed_ban(update: Update, context: CallbackContext):
                                 targetfed_id = sql.get_fed_id(fedschat)
                                 sql.unsubs_fed(fed_id, targetfed_id)
                                 LOGGER.info(
-                                    "Chat {} has unsub fed {} because I was kicked".format(
+                                    "Obrolan {} telah meninggalkan fed {} karena aku ditendang".format(
                                         fedschat,
                                         info["fname"],
                                     ),
@@ -940,7 +940,7 @@ def fed_ban(update: Update, context: CallbackContext):
                 break
             else:
                 LOGGER.warning(
-                    "Could not fban on {} because: {}".format(chat, excp.message),
+                    "Tidak dapat mem-fban {} karena: {}".format(chat, excp.message),
                 )
         except TelegramError:
             pass
@@ -973,7 +973,7 @@ def fed_ban(update: Update, context: CallbackContext):
                                 targetfed_id = sql.get_fed_id(fedschat)
                                 sql.unsubs_fed(fed_id, targetfed_id)
                                 LOGGER.info(
-                                    "Chat {} has unsub fed {} because I was kicked".format(
+                                    "Obrolan {} telah meninggalkan fed {} karena aku ditendang".format(
                                         fedschat,
                                         info["fname"],
                                     ),
@@ -983,7 +983,7 @@ def fed_ban(update: Update, context: CallbackContext):
                             break
                         else:
                             LOGGER.warning(
-                                "Unable to fban on {} because: {}".format(
+                                "Tidak dapat mem-fban {} karena: {}".format(
                                     fedschat,
                                     excp.message,
                                 ),
@@ -1172,7 +1172,7 @@ def unfban(update: Update, context: CallbackContext):
                             targetfed_id = sql.get_fed_id(fedschat)
                             sql.unsubs_fed(fed_id, targetfed_id)
                             LOGGER.info(
-                                "Chat {} has unsub fed {} because I was kicked".format(
+                                "Obrolan {} telah meninggalkan fed {} karena aku ditendang".format(
                                     fedschat,
                                     info["fname"],
                                 ),
@@ -1345,14 +1345,14 @@ def fed_broadcast(update: Update, context: CallbackContext):
                     failed += 1
                     sql.chat_leave_fed(chat)
                     LOGGER.info(
-                        "Chat {} has left fed {} because I was punched".format(
+                        "Obrolan {} telah meninggalkan fed {} karena aku ditendang".format(
                             chat,
                             fedinfo["fname"],
                         ),
                     )
                     continue
                 failed += 1
-                LOGGER.warning("Couldn't send broadcast to {}".format(str(chat)))
+                LOGGER.warning("Tidak dapat mengirim siaran ke {}".format(str(chat)))
 
         send_text = "Siaran Federasi selesai"
         if failed >= 1:
@@ -1776,7 +1776,7 @@ def fed_import_bans(update: Update, context: CallbackContext):
                 success,
             )
             if failed >= 1:
-                text += " {} Failed to import.".format(failed)
+                text += " {} Gagal mengimpor.".format(failed)
             get_fedlog = sql.get_fed_log(fed_id)
             if get_fedlog:
                 if ast.literal_eval(get_fedlog):
@@ -2378,17 +2378,17 @@ def get_chat(chat_id, chat_data):
 def fed_owner_help(update: Update, context: CallbackContext):
     update.effective_message.reply_text(
         """👑 *Hanya Pemilik Federasi:*
-✧ /newfed <nama_fed>*:* Membuat Federasi, Satu diizinkan per pengguna.
-✧ /renamefed <id_fed> <nama_fed_baru>*:* Mengganti nama id Federasi menjadi nama baru.
-✧ /delfed <id_fed>`*:* Hapus Federasi, dan informasi apa pun yang terkait dengannya. Tidak akan membatalkan pengguna yang diblokir.
-✧ /fpromote <pengguna>*:* Menetapkan pengguna sebagai admin federasi. Mengaktifkan semua perintah untuk pengguna di bawah `Admin Federasi.`
-✧ /fdemote <pengguna>*:* Menurunkan jabatan Pengguna dari Federasi admin menjadi Pengguna biasa.
-✧ /subfed <id_fed>*:* Berlangganan ke ID Federasi tertentu, larangan dari fed yang berlangganan itu juga akan terjadi di Fed Anda.
-✧ /unsubfed <id_fed>*:* Berhenti berlangganan ID fed tertentu.
-✧ /setfedlog <id_fed>*:* Menetapkan grup sebagai basis laporan log Fed untuk federasi.
-✧ /unsetfedlog <id_fed>*:* Menghapus grup sebagai basis laporan log fed untuk federasi.
-✧ /fbroadcast <pesan>*:* Menyiarkan pesan ke semua grup yang telah bergabung dengan fed Anda
-✧ /fedsubs*:* Menunjukkan federasi yang menjadi langganan grup Anda.""",
+ ✧ /newfed <nama_fed>*:* Membuat Federasi, Satu diizinkan per pengguna.
+ ✧ /renamefed <id_fed> <nama_fed_baru>*:* Mengganti nama id Federasi menjadi nama baru.
+ ✧ /delfed <id_fed>`*:* Hapus Federasi, dan informasi apa pun yang terkait dengannya. Tidak akan membatalkan pengguna yang diblokir.
+ ✧ /fpromote <pengguna>*:* Menetapkan pengguna sebagai admin federasi. Mengaktifkan semua perintah untuk pengguna di bawah `Admin Federasi.`
+ ✧ /fdemote <pengguna>*:* Menurunkan jabatan Pengguna dari Federasi admin menjadi Pengguna biasa.
+ ✧ /subfed <id_fed>*:* Berlangganan ke ID Federasi tertentu, larangan dari fed yang berlangganan itu juga akan terjadi di Fed Anda.
+ ✧ /unsubfed <id_fed>*:* Berhenti berlangganan ID fed tertentu.
+ ✧ /setfedlog <id_fed>*:* Menetapkan grup sebagai basis laporan log Fed untuk federasi.
+ ✧ /unsetfedlog <id_fed>*:* Menghapus grup sebagai basis laporan log fed untuk federasi.
+ ✧ /fbroadcast <pesan>*:* Menyiarkan pesan ke semua grup yang telah bergabung dengan fed Anda
+ ✧ /fedsubs*:* Menunjukkan federasi yang menjadi langganan grup Anda.""",
         parse_mode=ParseMode.MARKDOWN,
     )
 
@@ -2396,8 +2396,8 @@ def fed_owner_help(update: Update, context: CallbackContext):
 def fed_admin_help(update: Update, context: CallbackContext):
     update.effective_message.reply_text(
         """🔱 *Admin Federasi:*
- ✧ /fban <pengguna> <reason>*:* Federasi melarang pengguna
- ✧ /unfban <pengguna> <reason>`*:* Menghapus pengguna dari larangan Fed
+ ✧ /fban <pengguna> <reason>*:* Federasi melarang pengguna.
+ ✧ /unfban <pengguna> <reason>`*:* Menghapus pengguna dari larangan Fed.
  ✧ /fedinfo <fed_id>*:* Informasi tentang Federasi yang ditentukan.
  ✧ /joinfed <id_fed>*:* Bergabunglah dengan obrolan saat ini ke Federasi. Hanya pemilik obrolan yang dapat melakukan ini. Setiap obrolan hanya bisa dalam satu Federasi.
  ✧ /leavefed <id_fed>*:* Tinggalkan Federasi yang diberikan. Hanya pemilik obrolan yang dapat melakukan ini.
@@ -2427,11 +2427,11 @@ Tapi kemudian Anda memiliki banyak grup, dan Anda tidak ingin spammer ini berada
 Anda bahkan dapat menunjuk admin federasi, sehingga admin tepercaya Anda dapat melarang semua spammer dari obrolan yang ingin Anda lindungi.
 
 ✦ *Perintah:*
-Federasi sekarang dibagi menjadi 3 bagian untuk kemudahan Anda.
- ✧ /fedownerhelp*:* Memberikan bantuan untuk pembuatan Fed dan perintah pemilik saja.
- ✧ /fedadminhelp*:* Memberikan bantuan untuk perintah administrasi Fed.
- ✧ /feduserhelp*:* Memberikan bantuan untuk perintah yang dapat digunakan siapa saja.
+✧ /fedownerhelp*:* Memberikan bantuan untuk pembuatan Fed dan perintah pemilik saja.
+✧ /fedadminhelp*:* Memberikan bantuan untuk perintah administrasi Fed.
+✧ /feduserhelp*:* Memberikan bantuan untuk perintah yang dapat digunakan siapa saja.
 
+Federasi sekarang dibagi menjadi 3 bagian untuk kemudahan Anda.
 """
 
 __mod_name__ = "Federations"
