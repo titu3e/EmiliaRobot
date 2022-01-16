@@ -145,9 +145,14 @@ def get_readable_time(seconds: int) -> str:
     return ping_time
 
 PM_START_TEXT = """
-Hei! {}. Nama saya adalah Emilia
-Saya di kelola oleh @ZenitsuPrjkt
-Dan saya dapat mengelola grup Anda dengan fitur yang bermanfaat, jangan ragu untuk menambahkan saya ke grup Anda! [✨](https://telegra.ph/file/8142e7aac030eebd40a4e.jpg)
+Halo! [✨](https://telegra.ph/file/8142e7aac030eebd40a4e.jpg) {}.
+Saya adalah Emilia.
+Di kelola oleh [ZenitsuPrjkt](https://t.me/ZenitsuPrjkt)
+➖➖➖➖➖➖➖➖➖➖➖➖➖
+• *Uptime:* `{}`
+• `{}` *Pengguna, pada* `{}` *chats.*
+➖➖➖➖➖➖➖➖➖➖➖➖➖
+Dan saya dapat mengelola grup Anda dengan fitur yang bermanfaat, jangan ragu untuk menambahkan saya ke grup Anda!
 """
 
 buttons = [
@@ -182,10 +187,10 @@ buttons = [
 
 HELP_STRINGS = """
 ✦*Perintah Utama:*
-✧ /start: Mulai saya! Anda mungkin sudah menggunakan ini.
-✧ /help: Klik ini, saya akan memberi tahu Anda tentang diri saya!
-✧ /donate: Anda dapat mendukung pembuat saya menggunakan perintah ini.
-✧ /settings:
+ ✧ /start: Mulai saya! Anda mungkin sudah menggunakan ini.
+ ✧ /help: Klik ini, saya akan memberi tahu Anda tentang diri saya!
+ ✧ /donate: Anda dapat mendukung pembuat saya menggunakan perintah ini.
+ ✧ /settings:
    ✧ di PM: akan mengirimkan pengaturan Anda untuk semua modul yang didukung.
    ✧ di Grup: akan mengarahkan Anda ke pm, dengan semua pengaturan obrolan itu."""
 
