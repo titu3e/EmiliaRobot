@@ -60,31 +60,31 @@ from emilia.modules.helper_funcs.misc import send_to_list
 GBAN_ENFORCE_GROUP = 6
 
 GBAN_ERRORS = {
-    "User is an administrator of the chat",
-    "Chat not found",
-    "Not enough rights to restrict/unrestrict chat member",
+    "Pengguna adalah administrator obrolan",
+    "Obrolan tidak ditemukan",
+    "Tidak cukup hak untuk membatasi/membatalkan pembatasan anggota obrolan",
     "User_not_participant",
     "Peer_id_invalid",
-    "Group chat was deactivated",
-    "Need to be inviter of a user to kick it from a basic group",
+    "Obrolan grup dinonaktifkan",
+    "Perlu mengundang pengguna untuk menendangnya dari grup dasar",
     "Chat_admin_required",
-    "Only the creator of a basic group can kick group administrators",
+    "Hanya pembuat grup dasar yang dapat menendang administrator grup",
     "Channel_private",
-    "Not in the chat",
-    "Can't remove chat owner",
+    "Tidak di obrolan",
+    "Tidak dapat menghapus pemilik obrolan",
 }
 
 UNGBAN_ERRORS = {
-    "User is an administrator of the chat",
+    "Pengguna adalah administrator obrolan",
     "Chat not found",
-    "Not enough rights to restrict/unrestrict chat member",
+    "Tidak cukup hak untuk membatasi/membatalkan pembatasan anggota obrolan",
     "User_not_participant",
-    "Method is available for supergroup and channel chats only",
-    "Not in the chat",
+    "Metode hanya tersedia untuk obrolan supergrup dan saluran",
+    "Tidak di obrolan",
     "Channel_private",
     "Chat_admin_required",
     "Peer_id_invalid",
-    "User not found",
+    "Pengguna tidak ditemukan",
 }
 
 
@@ -202,9 +202,9 @@ def gban(update: Update, context: CallbackContext):
 
     if reason:
         if chat.type == chat.SUPERGROUP and chat.username:
-            log_message += f'\n<b>Reason:</b> <a href="https://telegram.me/{chat.username}/{message.message_id}">{reason}</a>'
+            log_message += f'\n<b>Alasan:</b> <a href="https://telegram.me/{chat.username}/{message.message_id}">{reason}</a>'
         else:
-            log_message += f"\n<b>Reason:</b> <code>{reason}</code>"
+            log_message += f"\n<b>Alasan:</b> <code>{reason}</code>"
 
     if EVENT_LOGS:
         try:
@@ -310,7 +310,7 @@ def ungban(update: Update, context: CallbackContext):
 
     user_chat = bot.get_chat(user_id)
     if user_chat.type != "private":
-        message.reply_text("Itu bukan pengguna!")
+        message.reply_text("Itu bukan pengguna!")=
         return
 
     if not sql.is_user_gbanned(user_id):
@@ -389,7 +389,7 @@ def ungban(update: Update, context: CallbackContext):
 
     if EVENT_LOGS:
         log.edit_text(
-            log_message + f"\n<b>Chats affected:</b> {ungbanned_chats}",
+            log_message + f"\n<b>Obrolan terpengaruh:</b> {ungbanned_chats}",
             parse_mode=ParseMode.HTML,
         )
     else:
@@ -464,7 +464,7 @@ def check_and_ban(update, user_id, should_message=True):
             )
             user = sql.get_gbanned_user(user_id)
             if user.reason:
-                text += f"\n<b>Ban Reason:</b> <code>{html.escape(user.reason)}</code>"
+                text += f"\n<b>Alasan Ban:</b> <code>{html.escape(user.reason)}</code>"
             update.effective_message.reply_text(text, parse_mode=ParseMode.HTML)
 
 
@@ -540,8 +540,8 @@ def __user_info__(user_id):
         text = text.format("Yes")
         user = sql.get_gbanned_user(user_id)
         if user.reason:
-            text += f"\n<b>Reason:</b> <code>{html.escape(user.reason)}</code>"
-        text += f"\n<b>Appeal Chat:</b> @{SUPPORT_CHAT}"
+            text += f"\n<b>Alasan:</b> <code>{html.escape(user.reason)}</code>"
+        text += f"\n<b>Obrolan Banding:</b> @{SUPPORT_CHAT}"
     else:
         text = text.format("???")
     return text
@@ -556,10 +556,12 @@ def __chat_settings__(chat_id, user_id):
 
 
 __help__ = """
-Antispam is used by the bot owners to ban spammers across all groups. This helps protect you and your groups by removing spam flooders as quickly as possible. This is enabled by default, but you can change this by using the command.
+Antispam digunakan oleh pemilik bot untuk melarang spammer di semua grup.
+Ini membantu melindungi Anda dan grup Anda dengan menghapus pembanjir spam secepat mungkin.
+Ini diaktifkan secara default, tetapi Anda dapat mengubahnya dengan menggunakan perintah.
 
-✦ *Admin only:*
- ✧ /antispam <on/off/yes/no>*:* Change antispam security settings in the group, or return your current settings(when no arguments).
+✦ * Hanya Admin:*
+ ✧ /antispam <on/off/yes/no>*:* Ubah pengaturan keamanan antispam dalam grup, atau kembalikan pengaturan Anda saat ini (bila tidak ada argumen).
 """
 
 GBAN_HANDLER = CommandHandler("gban", gban, run_async=True)
