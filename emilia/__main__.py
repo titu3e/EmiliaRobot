@@ -145,7 +145,13 @@ def get_readable_time(seconds: int) -> str:
     return ping_time
 
 PM_START_TEXT = """
-Hey there! My name is {}.
+Hei there! {}, [✨](https://telegra.ph/file/8142e7aac030eebd40a4e.jpg)
+My name is Emilia.
+Managed by [ZenitsuPrjkt](https://t.me/ZenitsuPrjkt)
+➖➖➖➖➖➖➖➖➖➖➖➖➖
+• *Uptime:* `{}`
+• `{}` *Users, Across* `{}` *chats.*
+➖➖➖➖➖➖➖➖➖➖➖➖➖
 I can managing your group with useful features, feel free to add me to your groups! [✨](https://telegra.ph/file/8142e7aac030eebd40a4e.jpg)
 """
 
@@ -191,7 +197,7 @@ HELP_STRINGS = """
 EMILIA_IMG = "https://telegra.ph/file/8142e7aac030eebd40a4e.jpg"
 
 DONATE_STRING = """Heya, glad to hear you want to donate!
-You can support the project by contacting @ZenitsuID \n
+You can support the project by contacting @ZenitsuPrjkt \n
 Supporting isnt always financial! \n
 Those who cannot provide monetary support are welcome to help us develop the bot at."""
 
