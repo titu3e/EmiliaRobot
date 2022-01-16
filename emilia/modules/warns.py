@@ -1,3 +1,20 @@
+# Copyright (C) 2022 Zenitsu-Project.
+#
+# Emilia is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Emilia is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+# translate to Indonesian by @ZenitsuPrjkt
+
 import html
 import re
 from typing import Optional
@@ -63,19 +80,19 @@ def warn(user: User,
 
     if user.id in TIGERS:
         if warner:
-            message.reply_text("Tigers tidak bisa diperingatkan.")
+            message.reply_text("Tigers cant be warned.")
         else:
             message.reply_text(
-                "Tiger memicu filter peringatan otomatis!\n Saya tidak bisa memperingatkan tigers tetapi mereka harus menghindari menyalahgunakan ini."
+                "Tiger memicu filter peringatan otomatis!\n Saya tidak dapat memperingatkan tigers tetapi mereka harus menghindari penyalahgunaan ini."
             )
         return
 
     if user.id in WOLVES:
         if warner:
-            message.reply_text("Wolf tidak bisa diperingatkan.")
+            message.reply_text("Wolf disasters are warn immune.")
         else:
             message.reply_text(
-                "Wolf memicu filter peringatan otomatis!\n Saya tidak bisa memperingatkan wolves tetapi mereka harus menghindari menyalahgunakan ini."
+                "Wolf Disaster triggered an auto warn filter!\nI can't warn wolves but they should avoid abusing this."
             )
         return
 
@@ -91,12 +108,12 @@ def warn(user: User,
         if soft_warn:  # punch
             chat.unban_member(user.id)
             reply = (
-                f"{mention_html(user.id, user.first_name)} [<code>{user.id}</code>] telah ditendang!")
+                f"peringatan, {mention_html(user.id, user.first_name)} [<code>{user.id}</code>] telah ditendang!")
 
         else:  # ban
             chat.kick_member(user.id)
             reply = (
-                f"{mention_html(user.id, user.first_name)} [<code>{user.id}</code>] telah diblokir!")
+                f"peringatan, {mention_html(user.id, user.first_name)} [<code>{user.id}</code>] telah diblokir!")
 
         for warn_reason in reasons:
             reply += f"\n - {html.escape(warn_reason)}"
@@ -118,7 +135,7 @@ def warn(user: User,
 
         reply = (
             f"{mention_html(user.id, user.first_name)} [<code>{user.id}</code>]"
-            f" Diperingatkan ({num_warns} of {limit}).")
+            f" Warned ({num_warns} of {limit}).")
         if reason:
             reply += f"\nReason: {html.escape(reason)}"
 
@@ -133,7 +150,7 @@ def warn(user: User,
         message.reply_text(
             reply, reply_markup=keyboard, parse_mode=ParseMode.HTML)
     except BadRequest as excp:
-        if excp.message == "Pesan balasan tidak ditemukan":
+        if excp.message == "Reply message not found":
             # Do not reply
             message.reply_text(
                 reply,
@@ -161,7 +178,7 @@ def button(update: Update, context: CallbackContext) -> str:
         if res:
             user_member = chat.get_member(user_id)
             update.effective_message.edit_text(
-                f"{mention_html(user_member.user.id, user_member.user.first_name)} [<code>{user_member.user.id}</code>] Peringatan dihapus!.",
+                f"{mention_html(user_member.user.id, user_member.user.first_name)} [<code>{user_member.user.id}</code>] Peringatan dihapus.",
                 parse_mode=ParseMode.HTML,
             )
             user_member = chat.get_member(user_id)
@@ -251,7 +268,7 @@ def warns(update: Update, context: CallbackContext):
 
         if reasons:
             text = (
-                f"Pengguna ini memiliki {num_warns}/{limit} peringatan, karena alasan berikut:"
+                f"Pengguna ini memiliki {num_warns}/{limit} peringatan, karena alasan berikut::"
             )
             for reason in reasons:
                 text += f"\n {reason}"
@@ -298,7 +315,7 @@ def add_warn_filter(update: Update, context: CallbackContext):
 
     sql.add_warn_filter(chat.id, keyword, content)
 
-    update.effective_message.reply_text(f"Peringatan handler yang ditambahkan untuk '{keyword}'!")
+    update.effective_message.reply_text(f"Peringatkan handler yang ditambahkan untuk '{keyword}'!")
     raise DispatcherHandlerStop
 
 
@@ -433,13 +450,13 @@ def set_warn_strength(update: Update, context: CallbackContext):
             return (
                 f"<b>{html.escape(chat.title)}:</b>\n"
                 f"<b>Admin:</b> {mention_html(user.id, user.first_name)}\n"
-                f"Telah mengaktifkan peringatan kuat. Pengguna akan di (banned)"
+                f"Telah mengaktifkan peringatan kuat. Pengguna akan di blokir."
             )
 
         elif args[0].lower() in ("off", "no"):
             sql.set_warn_strength(chat.id, True)
             msg.reply_text(
-                "Terlalu banyak peringatan sekarang akan menghasilkan tendangan! Pengguna akan dapat bergabung lagi setelahnya."
+                "Terlalu banyak peringatan sekarang akan menghasilkan tendangan! Pengguna akan dapat bergabung lagi setelah."
             )
             return (
                 f"<b>{html.escape(chat.title)}:</b>\n"
@@ -466,8 +483,8 @@ def set_warn_strength(update: Update, context: CallbackContext):
 
 def __stats__():
     return (
-        f"× {sql.num_warns()} overall warns, across {sql.num_warn_chats()} chats.\n"
-        f"× {sql.num_warn_filters()} warn filters, across {sql.num_warn_filter_chats()} chats."
+        f"× {sql.num_warns()} seluruh peringatan, pada {sql.num_warn_chats()} obrolan.\n"
+        f"× {sql.num_warn_filters()} seluruh peringatan, pada, pada {sql.num_warn_filter_chats()} obrolan."
     )
 
 
@@ -486,7 +503,7 @@ def __chat_settings__(chat_id, user_id):
     limit, soft_warn = sql.get_warn_setting(chat_id)
     return (
         f"Obrolan ini mempunyai `{num_warn_filters}` saringan peringatkan. "
-        f"Dibutuhkan `{limit}` peringatan sebelum pengguna akan mendapatkan *{'kicked' jika soft_warn kalau tidak 'banned'}*."
+        f"Dibutuhkan `{limit}` peringatan sebelum pengguna akan mendapatkan *{'kicked' if soft_warn kalau tidak 'banned'}*."
     )
 
 __help__ = """
