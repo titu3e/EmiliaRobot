@@ -32,17 +32,17 @@ from emilia.modules.disable import DisableAbleCommandHandler
 
 
 __help__ = """ 
-✦ *Commands:*
-✧ /tl (or /tr): as a reply to a message, translates it to English.
-✧ /tl <lang>: translates to <lang>
-eg: /tl ja: translates to Japanese.
-✧ /tl <source>//<dest>: translates from <source> to <lang>.
-eg:  /tl ja//en: translates from Japanese to English.
-✧ /langs: get a list of supported languages for translation.
-✧ /tts <lang code>*:* Reply to any message to get text to speech output
-✧ /stt*:* Type in reply to a voice message(support english only) to extract text from it.
+✦ *Daftar Perintah:*
+ ✧ /tl (atau /tr): sebagai balasan pesan, menerjemahkannya ke bahasa Inggris.
+ ✧ /tl <lang>: diterjemahkan menjadi <lang>
+    misalnya: /tl id: diterjemahkan ke dalam bahasa Indonesia..
+ ✧ /tl <source>//<dest>: diterjemahkan dari <source> to <lang>.
+    misalnya:  /tl id//en: menerjemahkan dari bahasa Indonesia ke bahasa Inggris.
+ ✧ /langs: dapatkan daftar bahasa yang didukung untuk terjemahan.
+ ✧ /tts <lang code>*:* Balas pesan apa pun untuk mendapatkan output teks ke ucapan
+ ✧ /stt*:* Ketik membalas pesan suara (hanya mendukung bahasa Inggris) untuk mengekstrak teks darinya.
 
-✦ *Language Codes*
+✦ *Kode Bahasa*
 `af,am,ar,az,be,bg,bn,bs,ca,ceb,co,cs,cy,da,de,el,en,eo,es,
 et,eu,fa,fi,fr,fy,ga,gd,gl,gu,ha,haw,hi,hmn,hr,ht,hu,hy,
 id,ig,is,it,iw,ja,jw,ka,kk,km,kn,ko,ku,ky,la,lb,lo,lt,lv,mg,mi,mk,
@@ -94,7 +94,7 @@ def languages(update: Update, context: CallbackContext) -> None:
             [
                 [
                     InlineKeyboardButton(
-                        text="Language codes",
+                        text="Kode bahasa,,",
                         url="https://telegra.ph/Lang-codes-table-01-15",
                     ),
                 ],
