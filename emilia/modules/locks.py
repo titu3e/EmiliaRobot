@@ -573,6 +573,7 @@ bot akan menghentikan non-admin menambahkan bot ke obrolan.
 ✦ *Catatan:*
 Membuka izin *info* akan memungkinkan anggota (non-admin) untuk mengubah informasi grup, seperti deskripsi atau nama grup.
 Membuka izin *pin* akan memungkinkan anggota (non-admin) untuk menyematkan pesan dalam grup.
+
 """
 
 __mod_name__ = "Locks"
