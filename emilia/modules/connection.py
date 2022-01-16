@@ -196,7 +196,7 @@ def connect_chat(update, context):
             if gethistory:
                 text += "\n\n*Riwayat koneksi:*\n"
                 text += "╒═══「 *Info* 」\n"
-                text += "│  Sorted: `Newest`\n"
+                text += "│  Diurutkan: `Terbaru`\n"
                 text += "│\n"
                 buttons = [buttons]
                 for x in sorted(gethistory.keys(), reverse=True):
@@ -217,7 +217,7 @@ def connect_chat(update, context):
                             ),
                         ],
                     )
-                text += "╘══「 Total {} Chats 」".format(
+                text += "╘══「 Total {} Obrolan 」".format(
                     str(len(gethistory)) + " (max)"
                     if len(gethistory) == 5
                     else str(len(gethistory)),
@@ -335,16 +335,16 @@ def connected(bot: Bot, update: Update, chat, user_id, need_admin=True):
 
 
 CONN_HELP = """
- Actions are available with connected groups:
- • View and edit Notes.
- • View and edit Filters.
- • Get invite link of chat.
- • Set and control AntiFlood settings.
- • Set and control Blacklist settings.
- • Set Locks and Unlocks in chat.
- • Enable and Disable commands in chat.
- • Export and Imports of chat backup.
- • More in future!"""
+ Tindakan tersedia dengan grup yang terhubung:
+ • Lihat dan edit Catatan.
+ • Lihat dan edit Filter.
+ • Dapatkan tautan undangan obrolan.
+ • Mengatur dan mengontrol pengaturan AntiFlood.
+ • Mengatur dan mengontrol pengaturan Blacklist.
+ • Setel Kunci dan Buka Kunci dalam obrolan.
+ • Aktifkan dan Nonaktifkan perintah dalam obrolan.
+ • Ekspor dan Impor cadangan obrolan.
+ • Lebih banyak di masa depan!"""
 
 
 def help_connect_chat(update, context):
@@ -420,15 +420,15 @@ def connect_button(update, context):
 __mod_name__ = "Connection"
 
 __help__ = """
-Sometimes, you just want to add some notes and filters to a group chat, but you don't want everyone to see; This is where connections come in...
-This allows you to connect to a chat's database, and add things to it without the commands appearing in chat! For obvious reasons, you need to be an admin to add things; but any member in the group.can view your data.
+Terkadang, Anda hanya ingin menambahkan beberapa catatan dan filter ke obrolan grup, tetapi Anda tidak ingin semua orang melihatnya; Di sinilah koneksi masuk.
+Ini memungkinkan Anda untuk terhubung ke database obrolan, dan menambahkan sesuatu ke dalamnya tanpa perintah yang muncul di obrolan! Untuk alasan yang jelas, Anda harus menjadi admin untuk menambahkan sesuatu; tetapi setiap anggota dalam grup. dapat melihat data Anda.
 
-✦ *Admin only:*
- ✧ /connect: Connects to chat (Can be done in a group by /connect or /connect <chat id> in PM)
+✦ *Hanya Admin:*
+ ✧ /connect: Terhubung ke obrolan (Dapat dilakukan dalam grup dengan /connect atau /connect <id obrolan> di PM)
  ✧ /allowconnect <yes/no>: allow a user to connect to a chat.
- ✧ /connection: List connected chats.
- ✧ /disconnect: Disconnect from a chat.
- ✧ /helpconnect: List available commands that can be used remotely.
+ ✧ /connection: Daftar obrolan yang terhubung.
+ ✧ /disconnect: Putuskan sambungan dari obrolan.
+ ✧ /helpconnect: Daftar perintah yang tersedia yang dapat digunakan dari jarak jauh.
 """
 
 CONNECT_CHAT_HANDLER = CommandHandler(
