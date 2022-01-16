@@ -298,7 +298,7 @@ def add_warn_filter(update: Update, context: CallbackContext):
 
     sql.add_warn_filter(chat.id, keyword, content)
 
-    update.effective_message.reply_text(f"Warn handler added for '{keyword}'!")
+    update.effective_message.reply_text(f"Peringatan handler yang ditambahkan untuk '{keyword}'!")
     raise DispatcherHandlerStop
 
 
@@ -325,17 +325,17 @@ def remove_warn_filter(update: Update, context: CallbackContext):
     chat_filters = sql.get_chat_warn_triggers(chat.id)
 
     if not chat_filters:
-        msg.reply_text("No warning filters are active here!")
+        msg.reply_text("Tidak ada filter peringatan aktif di sini!")
         return
 
     for filt in chat_filters:
         if filt == to_remove:
             sql.remove_warn_filter(chat.id, to_remove)
-            msg.reply_text("Okay, I'll stop warning people for that.")
+            msg.reply_text("Ya, saya akan berhenti memperingatkan orang-orang untuk itu.")
             raise DispatcherHandlerStop
 
     msg.reply_text(
-        "That's not a current warning filter - run /warnlist for all active warning filters."
+        "Itu bukan filter peringatan saat ini - jalankan /warnlist untuk semua filter peringatan aktif."
     )
 
 
