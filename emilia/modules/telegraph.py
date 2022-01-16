@@ -1,3 +1,20 @@
+# Copyright (C) 2022 Zenitsu-Project.
+#
+# Emilia is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Emilia is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+# translate to Indonesian by @ZenitsuPrjkt
+
 # This file is part of YuiGBot (Telegram Bot)
 # I give credit for this module to YuiGBot.
 
@@ -33,7 +50,7 @@ async def _(event):
             )
             end = datetime.now()
             ms = (end - start).seconds
-            h = await event.reply("Downloaded to {} in {} seconds.".format(downloaded_file_name, ms))
+            h = await event.reply("Diunduh ke {} in {} menit.".format(downloaded_file_name, ms))
             if downloaded_file_name.endswith((".webp")):
                 resize_image(downloaded_file_name)
             try:
@@ -46,7 +63,7 @@ async def _(event):
                 end = datetime.now()
                 ms_two = (end - start).seconds
                 os.remove(downloaded_file_name)
-                await h.edit("Uploaded to https://telegra.ph{}".format(media_urls[0], (ms + ms_two)), link_preview=True)
+                await h.edit("Diunggah ke https://telegra.ph{}".format(media_urls[0], (ms + ms_two)), link_preview=True)
         elif input_str == "gt":
             user_object = await telethn.get_entity(r_message.sender_id)
             title_of_page = user_object.first_name # + " " + user_object.last_name
@@ -74,9 +91,9 @@ async def _(event):
             )
             end = datetime.now()
             ms = (end - start).seconds
-            await event.reply("Pasted to https://telegra.ph/{}".format(response["path"], ms), link_preview=True)
+            await event.reply("Ditempelkan ke https://telegra.ph/{}".format(response["path"], ms), link_preview=True)
     else:
-        await event.reply("Reply to a message to get a permanent telegra.ph link.")
+        await event.reply("Balas pesan untuk mendapatkan tautan telegra.ph permanen.")
 
 
 def resize_image(image):
