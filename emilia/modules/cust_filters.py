@@ -230,7 +230,7 @@ def filters(update, context):
     if add is True:
         send_message(
             update.effective_message,
-            "Filter'{}' ditambahkan di *{}*!".format(keyword, chat_name),
+            "Filter '{}' ditambahkan di *{}*!".format(keyword, chat_name),
             parse_mode=telegram.ParseMode.MARKDOWN,
         )
     raise DispatcherHandlerStop
@@ -298,7 +298,7 @@ def reply_filter(update, context):
             if MessageHandlerChecker.check_user(update.effective_user.id):
                 return
             filt = sql.get_filter(chat.id, keyword)
-            if filt.reply == "there is should be a new reply":
+            if filt.reply == "pasti ada balasan baru":
                 buttons = sql.get_buttons(chat.id, filt.keyword)
                 keyb = build_keyboard_parser(context.bot, chat.id, buttons)
                 keyboard = InlineKeyboardMarkup(keyb)
@@ -337,7 +337,7 @@ def reply_filter(update, context):
                             ):
                                 context.bot.send_message(
                                     chat.id,
-                                    "Pesan tidak dapat dikirim, Apakah id stiker valid??",
+                                    "Pesan tidak dapat dikirim, Apakah id stiker valid?",
                                 )
                                 return
                             else:
@@ -581,12 +581,12 @@ def rmall_callback(update, context):
 def get_exception(excp, filt, chat):
     if excp.message == "Unsupported url protocol":
         return "Anda tampaknya mencoba menggunakan protokol url yang tidak didukung. Telegram tidak mendukung tombol untuk beberapa protokol, seperti tg://. Silakan coba lagi!"
-    elif excp.message == "Reply message not found":
+    elif excp.message == "Pesan balasan tidak ditemukan":
         return "noreply"
     else:
-        LOGGER.warning("Message %s could not be parsed", str(filt.reply))
+        LOGGER.warning("Pesan %s tidak dapat diuraikan", str(filt.reply))
         LOGGER.exception(
-            "Could not parse filter %s in chat %s", str(filt.keyword), str(chat.id)
+            "Filter tidak dapat diuraikan %s pada obrolan %s", str(filt.keyword), str(chat.id)
         )
         return "Catatan ini tidak dapat dikirim karena formatnya salah."
 
