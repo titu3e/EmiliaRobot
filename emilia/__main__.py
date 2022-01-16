@@ -187,7 +187,7 @@ buttons = [
 
 HELP_STRINGS = """
 ✦*Perintah Utama:*
- ✧ /start: Mulai saya! Anda mungkin sudah menggunakan ini.
+ ✧ /start: Mulai menggunakan saya! Anda mungkin sudah menggunakan ini.
  ✧ /help: Klik ini, saya akan memberi tahu Anda tentang diri saya!
  ✧ /donate: Anda dapat mendukung pembuat saya menggunakan perintah ini.
  ✧ /settings:
