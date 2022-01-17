@@ -30,7 +30,7 @@ def send_rules(update, chat_id, from_pm=False):
     try:
         chat = bot.get_chat(chat_id)
     except BadRequest as excp:
-        if excp.message == "Chat not found and from_pm:
+        if excp.message == "Obrolan tidak ditemukan" and from_pm:
             bot.send_message(
                 user.id,
                 "Pintasan aturan untuk obrolan ini belum disetel dengan benar! Minta admin untuk "
