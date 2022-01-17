@@ -64,7 +64,7 @@ lel = 00000000
 async def photo(client: pbot, message: Message):
     try:
         if not message.reply_to_message.photo:
-            await client.send_message(message.chat.id, "Reply to an image man!ㅤㅤ")
+            await client.send_message(message.chat.id, "Balas ke gambar!ㅤㅤ")
             return
     except:
         return
@@ -76,52 +76,52 @@ async def photo(client: pbot, message: Message):
     try:
         await client.send_message(
             chat_id=message.chat.id,
-            text="Select your required mode from below!ㅤㅤ",
+            text="Pilih mode yang Anda butuhkan dari bawah!ㅤㅤ",
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton(text="💡 BRIGHT", callback_data="bright"),
-                        InlineKeyboardButton(text="🖼 MIXED", callback_data="mix"),
-                        InlineKeyboardButton(text="🔳 B&W", callback_data="b|w"),
+                        InlineKeyboardButton(text="CERAH", callback_data="bright"),
+                        InlineKeyboardButton(text="CAMPURAN", callback_data="mix"),
+                        InlineKeyboardButton(text="B&W", callback_data="b|w"),
                     ],
                     [
-                        InlineKeyboardButton(text="🟡 CIRCLE", callback_data="circle"),
-                        InlineKeyboardButton(text="🩸 BLUR", callback_data="blur"),
-                        InlineKeyboardButton(text="🌌 BORDER", callback_data="border"),
+                        InlineKeyboardButton(text="LINGKARAN", callback_data="circle"),
+                        InlineKeyboardButton(text="BLUR", callback_data="blur"),
+                        InlineKeyboardButton(text="BORDER", callback_data="border"),
                     ],
                     [
-                        InlineKeyboardButton(text="🎉 STICKER", callback_data="stick"),
-                        InlineKeyboardButton(text="↩️ ROTATE", callback_data="rotate"),
+                        InlineKeyboardButton(text="STIKER", callback_data="stick"),
+                        InlineKeyboardButton(text="ROTASI", callback_data="rotate"),
                         InlineKeyboardButton(
-                            text="🔦 CONTRAST", callback_data="contrast"
+                            text="KONTRAS", callback_data="contrast"
                         ),
                     ],
                     [
-                        InlineKeyboardButton(text="🌇 SEPIA", callback_data="sepia"),
-                        InlineKeyboardButton(text="✏️ PENCIL", callback_data="pencil"),
-                        InlineKeyboardButton(text="🐶 CARTOON", callback_data="cartoon"),
+                        InlineKeyboardButton(text="WARNA COKLAT TUA", callback_data="sepia"),
+                        InlineKeyboardButton(text="PENSIL", callback_data="pencil"),
+                        InlineKeyboardButton(text="KARTUN", callback_data="cartoon"),
                     ],
                     [
-                        InlineKeyboardButton(text="🔄 INVERT", callback_data="inverted"),
-                        InlineKeyboardButton(text="🔮 GLITCH", callback_data="glitch"),
+                        InlineKeyboardButton(text="MEMBALIKKAN", callback_data="inverted"),
+                        InlineKeyboardButton(text="GLITCH", callback_data="glitch"),
                         InlineKeyboardButton(
-                            text="✂️ REMOVE BG", callback_data="removebg"
+                            text="HAPUS BG", callback_data="removebg"
                         ),
                     ],
                     [
-                        InlineKeyboardButton(text="❌ CLOSE", callback_data="close_e"),
+                        InlineKeyboardButton(text="MENUTUP", callback_data="close_e"),
                     ],
                 ]
             ),
             reply_to_message_id=message.reply_to_message.message_id,
         )
     except Exception as e:
-        print("photomarkup error - " + str(e))
+        print("kesalahan markup foto - " + str(e))
         if "USER_IS_BLOCKED" in str(e):
             return
         else:
             try:
-                await message.reply_text("Something went wrong!", quote=True)
+                await message.reply_text("Ada yang salah!", quote=True)
             except Exception:
                 return
 
@@ -132,20 +132,20 @@ async def cb_handler(client: pbot, query: CallbackQuery):
     if lel == user_id:
         if query.data == "removebg":
             await query.message.edit_text(
-                "**Select required mode**ㅤㅤㅤㅤ",
+                "**Pilih mode yang diperlukan**ㅤㅤㅤㅤ",
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
                             InlineKeyboardButton(
-                                text="WITH WHITE BG", callback_data="rmbgwhite"
+                                text="DENGAN BG PUTIH", callback_data="rmbgwhite"
                             ),
                             InlineKeyboardButton(
-                                text="WITHOUT BG", callback_data="rmbgplain"
+                                text="TANPA BG", callback_data="rmbgplain"
                             ),
                         ],
                         [
                             InlineKeyboardButton(
-                                text="STICKER", callback_data="rmbgsticker"
+                                text="STIKER", callback_data="rmbgsticker"
                             )
                         ],
                     ]
@@ -153,18 +153,18 @@ async def cb_handler(client: pbot, query: CallbackQuery):
             )
         elif query.data == "stick":
             await query.message.edit(
-                "**Select a Type**",
+                "**Pilih Jenis**",
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
                             InlineKeyboardButton(text="Normal", callback_data="stkr"),
                             InlineKeyboardButton(
-                                text="Edge Curved", callback_data="cur_ved"
+                                text="Tepi melengkung", callback_data="cur_ved"
                             ),
                         ],
                         [
                             InlineKeyboardButton(
-                                text="Circle", callback_data="circle_sticker"
+                                text="Lingkaran", callback_data="circle_sticker"
                             )
                         ],
                     ]
@@ -172,7 +172,7 @@ async def cb_handler(client: pbot, query: CallbackQuery):
             )
         elif query.data == "rotate":
             await query.message.edit_text(
-                "**Select the Degree**",
+                "**Pilih Nilai**",
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
@@ -186,7 +186,7 @@ async def cb_handler(client: pbot, query: CallbackQuery):
 
         elif query.data == "glitch":
             await query.message.edit_text(
-                "**Select required mode**ㅤㅤㅤㅤ",
+                "**Pilih mode yang diperlukan**ㅤㅤㅤㅤ",
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
@@ -194,7 +194,7 @@ async def cb_handler(client: pbot, query: CallbackQuery):
                                 text="NORMAL", callback_data="normalglitch"
                             ),
                             InlineKeyboardButton(
-                                text="SCAN LINES", callback_data="scanlineglitch"
+                                text="PINDAI GARIS", callback_data="scanlineglitch"
                             ),
                         ]
                     ]
@@ -202,7 +202,7 @@ async def cb_handler(client: pbot, query: CallbackQuery):
             )
         elif query.data == "normalglitch":
             await query.message.edit_text(
-                "**Select Glitch power level**",
+                "**Pilih tingkat daya Glitch**",
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
@@ -229,7 +229,7 @@ async def cb_handler(client: pbot, query: CallbackQuery):
             )
         elif query.data == "scanlineglitch":
             await query.message.edit_text(
-                "**Select Glitch power level**",
+                "**Pilih tingkat daya Glitch**",
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
@@ -256,11 +256,11 @@ async def cb_handler(client: pbot, query: CallbackQuery):
             )
         elif query.data == "blur":
             await query.message.edit(
-                "**Select a Type**",
+                "**Pilih Jenis**",
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
-                            InlineKeyboardButton(text="box", callback_data="box"),
+                            InlineKeyboardButton(text="kotak", callback_data="box"),
                             InlineKeyboardButton(text="normal", callback_data="normal"),
                         ],
                         [InlineKeyboardButton(text="Gaussian", callback_data="gas")],
@@ -269,15 +269,15 @@ async def cb_handler(client: pbot, query: CallbackQuery):
             )
         elif query.data == "circle":
             await query.message.edit_text(
-                "**Select required mode**",
+                "**Pilih mode yang diperlukan**",
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
                             InlineKeyboardButton(
-                                text="WITH BG", callback_data="circlewithbg"
+                                text="DENGAN BG", callback_data="circlewithbg"
                             ),
                             InlineKeyboardButton(
-                                text="WITHOUT BG", callback_data="circlewithoutbg"
+                                text="TANPA BG", callback_data="circlewithoutbg"
                             ),
                         ]
                     ]
@@ -285,20 +285,20 @@ async def cb_handler(client: pbot, query: CallbackQuery):
             )
         elif query.data == "border":
             await query.message.edit(
-                "**Select Border**",
+                "**Pilih Border**",
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
-                            InlineKeyboardButton(text="🔴 RED 🔴", callback_data="red"),
+                            InlineKeyboardButton(text="Merah", callback_data="red"),
                             InlineKeyboardButton(
-                                text="🟢 Green 🟢", callback_data="green"
+                                text="Hijau", callback_data="green"
                             ),
                         ],
                         [
                             InlineKeyboardButton(
-                                text="⚫ Black ⚫", callback_data="black"
+                                text="Hitam", callback_data="black"
                             ),
-                            InlineKeyboardButton(text="🔵 Blue 🔵", callback_data="blue"),
+                            InlineKeyboardButton(text="Biru", callback_data="blue"),
                         ],
                     ]
                 ),
