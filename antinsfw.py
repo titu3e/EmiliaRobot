@@ -28,6 +28,7 @@ from emilia.utils.filter_groups import nsfw_detect_group
 
 __mod_name__ = "Anti-NSFW​"
 
+
 async def get_file_id_from_message(message):
     file_id = None
     if message.document:
@@ -161,9 +162,7 @@ async def nsfw_scan_command(_, message):
 @adminsOnly("can_change_info")
 async def nsfw_enable_disable(_, message):
     if len(message.command) != 2:
-        await message.reply_text(
-            "Usage: /antinsfw [on | off]"
-        )
+        await message.reply_text("Usage: /antinsfw [on | off]")
         return
     status = message.text.split(None, 1)[1].strip()
     status = status.lower()
