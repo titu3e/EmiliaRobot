@@ -9,7 +9,7 @@ from emilia.modules.disable import DisableAbleCommandHandler
 from emilia.modules.helper_funcs.handlers import MessageHandlerChecker
 from emilia.modules.helper_funcs.chat_status import user_admin, connection_status
 from emilia.modules.helper_funcs.misc import build_keyboard, revert_buttons
-from emiliar.modules.helper_funcs.msg_types import get_note_type
+from emilia.modules.helper_funcs.msg_types import get_note_type
 from emilia.modules.helper_funcs.string_handling import (
     escape_invalid_curly_brackets,
 )
