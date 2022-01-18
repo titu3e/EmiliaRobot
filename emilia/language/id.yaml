@@ -9,9 +9,9 @@ set_chat_lang: "Bagus, menggunakan Bahasa {} mulai sekarang!"
 
 # PM Text
 pm_start_text: |
-  *Halo bro, {} ❤️*
-  ✪ Saya adalah robot manajemen tema anime [✨](https://telegra.ph/file/8142e7aac030eebd40a4e.jpg)
-
+  *Hei! {} ❤️*
+  ✪  Nama saya Emilia. [✨](https://telegra.ph/file/8142e7aac030eebd40a4e.jpg)
+  
   ┏━━━━━━━━•❃°•°❀°•°❃•━━━━━━━━┓
   × *Waktu Operasi Server :* `{}`
   × `{}` *pengguna, di seluruh* `{}` *obrolan.*
@@ -20,12 +20,12 @@ pm_start_text: |
   ✪ Dan saya dapat mengelola grup Anda dengan fitur yang bermanfaat, jangan ragu untuk menambahkan saya ke grup Anda!
    
 group_start_text: |
-  *👋🏻 Hai Bro, aku Robot Emilia!* 
+  *👋🏻 Hei! aku Robot Emilia!* 
   
   *Mulai aktif sejak :* `{}`
 
 pm_about_text: |
-  ✺ Hai Bro saya *Emilia Robot*, bot manajemen grup yang kuat yang dibuat untuk membantu Anda mengelola grup dengan mudah. ✺
+  ✺ Hei! saya *Emilia Robot*, bot manajemen grup yang kuat yang dibuat untuk membantu Anda mengelola grup dengan mudah. ✺
 
   ✪ Saya dapat membatasi pengguna.
   ✪ Saya dapat menyapa pengguna dengan pesan selamat datang yang dapat disesuaikan dan bahkan menetapkan aturan grup.
@@ -62,8 +62,17 @@ pm_about_credit_text: |
 
   Disini Developers Membuat Dan Memberi Inspirasi Untuk Membuat Robot Emilia
 pm_help_text: |
-  *✺ Klik tombol di bawah ini untuk mendapatkan deskripsi tentang perintah spesifik. ✺*
-pm_help_module_text: "Berikut adalah bantuan untuk modul *{}* :\n\n"
+  Hello {}! My name is Emilia!
+  Click on the button bellow to get description about specifics command.
+  
+  Perintah umum adalah::
+   - /start: Mulai bot
+   - /setlang: untuk mengubah bahasa(PM atau obrolan)
+   - /donate: Donasi untuk pemilik, untuk server yang lebih baik
+   - /settings: Ubah grup Anda yang terhubung di Pesan Pribadi
+
+  Semua perintah berfungsi dengan /, !
+pm_help_module_text: "Berikut adalah bantuan untuk modul *{}*:\n\n"
 
 # Group Help Text
 group_help_text: "Hubungi saya di PM untuk mendapatkan daftar kemungkinan perintah."
