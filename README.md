@@ -18,6 +18,25 @@
 </p>
 
 
-<img src="https://img.shields.io/badge/animekaizoku%20-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/> <img src="https://img.shields.io/badge/PaulSonOfLars%20-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/>
-<img src="https://img.shields.io/badge/HuntingsBots%20-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/> <img src="https://img.shields.io/badge/inukaasith%20-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/>
-<img src="https://img.shields.io/badge/noobkittu%20-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/> <img src="https://img.shields.io/badge/QueenArzoo%20-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/>
+<h2 align="center">
+      [CREDIT]
+</h2>
+
+<p align="center">
+<a href="https://github.com/shiinobu"> <img src="https://img.shields.io/badge/Vain-Github-magenta?style=for-the-badge&logo=github" alt="Vain Github" /> </a>
+<a href="https://github.com/kennedy-ex"> <img src="https://img.shields.io/badge/Sena-Github-magenta?style=for-the-badge&logo=github" alt="Sena Github" /> </a>
+<a href="https://github.com/Aryazakaria01"> <img src="https://img.shields.io/badge/Arya-Github-magenta?style=for-the-badge&logo=github" alt="Arya Github" /> </a>
+<a href="https://github.com/zxcskyy"> <img src="https://img.shields.io/badge/Kyy-Github-magenta?style=for-the-badge&logo=github" alt="Kyy Github" /> </a>
+</p>
+
+```
+This Bot is Created by ZenitsuProject, If your kanging this without fork at least give a credit to get a smile of my hard work. 
+- EmiliaRobot
+- SiestaRobot
+- EmikoRobot
+- YoneRobot
+- SaitamaRobot 
+- TheRealPhoenixBot
+- DaisyX 
+- WilliamButcherBot
+```
