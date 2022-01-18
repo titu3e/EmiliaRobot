@@ -10,7 +10,7 @@ set_chat_lang: "Great, using {} Language it is from now on!"
 # PM Text
 pm_start_text: |
   *Hey There, {} ❤️*
-  ✪ I'm an anime-theme management robot [✨](https://telegra.ph/file/8142e7aac030eebd40a4e.jpg)
+  ✪ I'm an anime-theme management robot [✨](https://telegra.ph/file/6d3e3ef24f64fb6e35df0.jpg)
 
   ┏━━━━━━━━•❃°•°❀°•°❃•━━━━━━━━┓
   × *Server Uptime :* `{}`
@@ -62,7 +62,16 @@ pm_about_credit_text: |
 
   Here Developers Making And Give Inspiration For Made The Emilia Robot
 pm_help_text: |
-  *✺ Click on the button bellow to get description about specifics command. ✺*
+  Hello {}! My name is Emilia!
+  Click on the button bellow to get description about specifics command.
+  
+  General command are:
+   - /start: Start the bot
+   - /setlang: to change language(PM or chat)
+   - /donate: Donate the owner for better server
+   - /settings: Change your connected group in Private Msg
+
+  All commands are work with /, !
 pm_help_module_text: "Here is the help for the *{}* module :\n\n"
 
 # Group Help Text
