@@ -83,7 +83,7 @@ def get_readable_time(seconds: int) -> str:
     return ping_time
 
 
-EMILIA_IMG = "https://telegra.ph/file/8142e7aac030eebd40a4e.jpg"
+EMILIA_IMG = "https://telegra.ph/file/a6ca8057b34bbe2dab0ed.jpg"
 
 DONATE_STRING = """Heya, glad to hear you want to donate!
  You can support the project by contacting @ZenitsuPrjkt \
