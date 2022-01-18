@@ -82,15 +82,16 @@ async def detect_nsfw(_, message):
         return
     await message.reply_text(
         f"""
-**NSFW Image Detected & Deleted Successfully!
-————————————————————————**
-**User:** {message.from_user.mention}
-**Safe:** `{results.neutral} %`
-**Porn:** `{results.porn} %`
-**Adult:** `{results.sexy} %`
-**Hentai:** `{results.hentai} %`
-**Drawings:** `{results.drawings} %`
-**————————————————————————**
+┏━━━━━━━━•❃°•°❀°•°❃•━━━━━━━━┓
+  ×     **NSFW Image Detected**
+  × User: {message.from_user.mention}
+  × Safe: `{results.neutral} %`
+  × Porn: `{results.porn} %`
+  × Adult: `{results.sexy} %`
+  × Hentai: `{results.hentai} %`
+  × Drawings: `{results.drawings} %`
+  ×     **Deleted Successfully!**
+┗━━━━━━━━•❃°•°❀°•°❃•━━━━━━━━┛
 """
     )
 
@@ -130,12 +131,12 @@ async def nsfw_scan_command(_, message):
     results = results.result
     await m.edit(
         f"""
-**Neutral:** `{results.neutral} %`
-**Porn:** `{results.porn} %`
-**Hentai:** `{results.hentai} %`
-**Sexy:** `{results.sexy} %`
-**Drawings:** `{results.drawings} %`
-**NSFW:** `{results.is_nsfw}`
+  × Neutral: `{results.neutral} %`
+  × Porn: `{results.porn} %`
+  × Hentai: `{results.hentai} %`
+  × Sexy: `{results.sexy} %`
+  × Drawings: `{results.drawings} %`
+  × NSFW: `{results.is_nsfw}`
 """
     )
 
