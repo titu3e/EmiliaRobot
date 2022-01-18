@@ -9,7 +9,7 @@ from emilia.modules.disable import DisableAbleCommandHandler
 from emilia.modules.helper_funcs.handlers import MessageHandlerChecker
 from emilia.modules.helper_funcs.chat_status import user_admin, connection_status
 from emilia.modules.helper_funcs.misc import build_keyboard, revert_buttons
-from emilia.modules.helper_funcs.msg_types import get_note_type
+from emiliar.modules.helper_funcs.msg_types import get_note_type
 from emilia.modules.helper_funcs.string_handling import (
     escape_invalid_curly_brackets,
 )
@@ -191,7 +191,6 @@ def get(update, context, notename, show_none=True, no_format=False):
                         caption=text,
                         reply_to_message_id=reply_id,
                         parse_mode=parseMode,
-                        disable_web_page_preview=True,
                         reply_markup=keyboard,
                     )
 
