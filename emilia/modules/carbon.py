@@ -37,4 +37,4 @@ async def repo(_, message):
 **Library Version :** `{o}`
 **Telethon Version :** `{s}`
 **Pyrogram Version :** `{z}`
-"""
+""",
