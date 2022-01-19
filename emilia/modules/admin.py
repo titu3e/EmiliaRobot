@@ -23,7 +23,7 @@ from emilia.modules.helper_funcs.extraction import (
 )
 from emilia.modules.log_channel import loggable
 from emilia.modules.helper_funcs.alternate import send_message
-from emilia.modules.langs import gs
+from emilia.modules.languages import gs
 
 @bot_admin
 @user_admin
