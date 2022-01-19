@@ -1,32 +1,26 @@
-from pykeyboard import InlineKeyboard
-from pyrogram.types import InlineKeyboardButton as Ikb
-
-from emilia.utils.functions import get_urls_from_text as is_url
+n = "\n"
+w = " "
 
 
-def keyboard(buttons_list, row_width: int = 2):
-    """
-    Buttons builder, pass buttons in a list and it will
-    return pyrogram.types.IKB object
-    Ex: keyboard([["click here", "https://google.com"]])
-    if theres, a url, it will make url button, else callback button
-    """
-    buttons = InlineKeyboard(row_width=row_width)
-    data = [
-        (
-            Ikb(text=str(i[0]), callback_data=str(i[1]))
-            if not is_url(i[1])
-            else Ikb(text=str(i[0]), url=str(i[1]))
+bold = lambda x: f"**{x}:** "
+bold_ul = lambda x: f"**--{x}:**-- "
+
+mono = lambda x: f"`{x}`{n}"
+
+
+def section(
+    title: str,
+    body: dict,
+    indent: int = 2,
+    underline: bool = False,
+) -> str:
+
+    text = (bold_ul(title) + n) if underline else bold(title) + n
+
+    for key, value in body.items():
+        text += (
+            indent * w
+            + bold(key)
+            + ((value[0] + n) if isinstance(value, list) else mono(value))
         )
-        for i in buttons_list
-    ]
-    buttons.add(*data)
-    return buttons
-
-
-def ikb(data: dict, row_width: int = 2):
-    """
-    Converts a dict to pyrogram buttons
-    Ex: dict_to_keyboard({"click here": "this is callback data"})
-    """
-    return keyboard(data.items(), row_width=row_width)
+    return text
