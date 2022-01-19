@@ -7,7 +7,7 @@ import jikanpy
 import requests
 from emilia import DEV_USERS, OWNER_ID, DRAGONS, dispatcher
 from emilia.modules.disable import DisableAbleCommandHandler
-from emilia.modules.language import gs
+from emilia.modules.languages import gs
 from telegram import (InlineKeyboardButton, InlineKeyboardMarkup, ParseMode,
                       Update)
 from telegram.ext import CallbackContext, CallbackQueryHandler
